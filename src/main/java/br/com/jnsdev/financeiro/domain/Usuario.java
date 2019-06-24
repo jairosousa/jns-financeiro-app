@@ -98,4 +98,14 @@ public class Usuario extends AbstractEntity {
     public void setCodigoVerificador(String codigoVerificador) {
         this.codigoVerificador = codigoVerificador;
     }
+
+	@Override
+	public String toString() {
+		return "Usuario [id= " + super.getId() + ", nome=" + nome + ", email=" + email + ", senha=" + senha + ", ativo=" + ativo
+				+ ", codigoVerificador=" + codigoVerificador + "]";
+	}
+
+	
+    
+    
 }

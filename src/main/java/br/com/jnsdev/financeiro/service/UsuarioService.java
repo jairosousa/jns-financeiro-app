@@ -72,6 +72,19 @@ public class UsuarioService implements UserDetailsService {
 		usuario.setSenha(crypt);
 		repository.save(usuario);
 	}
+	
+	/**
+	 * Atualiza o usuario pelo administrador, Perfis e ativo
+	 * @param usuario
+	 */
+	@Transactional(readOnly = false)
+	public void salvarUsuarioAdm(Usuario usuario) {
+		System.out.println("USUARIO: " + usuario.toString());
+		Usuario user = repository.findById(usuario.getId()).get();
+		user.setAtivo(usuario.isAtivo());
+		user.setPerfis(usuario.getPerfis());
+//		repository.save(usuario);
+	}
 
 	@Transactional(readOnly = true)
 	public Usuario buscarPorId(Long id) {
