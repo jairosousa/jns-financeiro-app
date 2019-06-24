@@ -33,63 +33,60 @@ public class UsuarioService implements UserDetailsService {
     }
 
     @Transactional(readOnly = true)
-    public Usuario buscarPorEmail(String email) {
-        return repository.findByEmail(email);
-    }
+	public Usuario buscarPorEmail(String email) {
+		return repository.findByEmail(email);
+	}
 
-    @Override
-    @Transactional(readOnly = true)
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	@Override
+	@Transactional(readOnly = true)
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        Usuario usuario = buscarPorEmail(username);
+		Usuario usuario = buscarPorEmail(username);
 
-        return new User(
-                usuario.getNome(),
-                usuario.getSenha(),
-                AuthorityUtils.createAuthorityList(getAuthorities(usuario.getPerfis()))
-        );
-    }
+		return new User(usuario.getNome(), usuario.getSenha(),
+				AuthorityUtils.createAuthorityList(getAuthorities(usuario.getPerfis())));
+	}
 
-    private String[] getAuthorities(List<Perfil> perfis) {
-        String[] authorities = new String[perfis.size()];
-        for (int i = 0; i < perfis.size(); i++) {
-            authorities[i] = perfis.get(i).getDesc();
-        }
-        return authorities;
-    }
+	private String[] getAuthorities(List<Perfil> perfis) {
+		String[] authorities = new String[perfis.size()];
+		for (int i = 0; i < perfis.size(); i++) {
+			authorities[i] = perfis.get(i).getDesc();
+		}
+		return authorities;
+	}
 
-    @Transactional(readOnly = true)
-    public Map<String, Object> buscarTodos(HttpServletRequest request) {
-        datatables.setRequest(request);
-        datatables.setColunas(DatatablesColunas.USUARIOS);
-        Page<Usuario> pages = datatables.getSearch().isEmpty()
-                ? repository.findAll(datatables.getPageable())
-                : repository.findByEmailOrPerfil(datatables.getSearch(), datatables.getPageable());
+	@Transactional(readOnly = true)
+	public Map<String, Object> buscarTodos(HttpServletRequest request) {
+		datatables.setRequest(request);
+		datatables.setColunas(DatatablesColunas.USUARIOS);
+		Page<Usuario> pages = datatables.getSearch().isEmpty() 
+				? repository.findAll(datatables.getPageable())
+				: repository.findByEmailOrPerfil(datatables.getSearch(), datatables.getPageable());
 
-        return datatables.getResponse(pages);
-    }
+		return datatables.getResponse(pages);
+	}
 
-    @Transactional(readOnly = false)
-    public void salvarUsuario(Usuario usuario) {
-        String crypt = new BCryptPasswordEncoder().encode(usuario.getSenha());
-        usuario.setSenha(crypt);
-        repository.save(usuario);
-    }
+	@Transactional(readOnly = false)
+	public void salvarUsuario(Usuario usuario) {
+		String crypt = new BCryptPasswordEncoder().encode(usuario.getSenha());
+		usuario.setSenha(crypt);
+		repository.save(usuario);
+	}
 
-    @Transactional(readOnly = true)
-    public Usuario buscarPorId(Long id) {
-        return repository.findById(id).get();
-    }
+	@Transactional(readOnly = true)
+	public Usuario buscarPorId(Long id) {
+		return repository.findById(id).get();
+	}
 
-    @Transactional(readOnly = true)
-    public Usuario buscarPorIdEPerfis(Long usuarioId, Long[] perfisId) {
-        return repository.findByIdAndPerfis(usuarioId, perfisId)
-                .orElseThrow(() -> new UsernameNotFoundException("Usuario inexistente!"));
-    }
+	@Transactional(readOnly = true)
+	public Usuario buscarPorIdEPerfis(Long usuarioId, Long[] perfisId) {
+		return repository.findByIdAndPerfis(usuarioId, perfisId)
+				.orElseThrow(() -> new UsernameNotFoundException("Usuario inexistente!"));
+	}
 
-    @Transactional(readOnly = false)
-    public void alterarSenha(Usuario usuario, String senha) {
-        usuario.setSenha(new BCryptPasswordEncoder().encode(senha));
-        repository.save(usuario);
-    }
+	@Transactional(readOnly = false)
+	public void alterarSenha(Usuario usuario, String senha) {
+		usuario.setSenha(new BCryptPasswordEncoder().encode(senha));
+		repository.save(usuario);
+	}
 }
