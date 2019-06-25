@@ -19,7 +19,7 @@ public class FornecedorService {
 
 	@Autowired
 	private FornecedoresRepository repository;
-	
+
 	@Autowired
 	private Datatables datatables;
 
@@ -32,9 +32,8 @@ public class FornecedorService {
 	public Map<String, Object> buscarFornecedor(HttpServletRequest request) {
 		datatables.setRequest(request);
 		datatables.setColunas(DatatablesColunas.FORNECEDORES);
-		
-		Page<?> pages = datatables.getSearch().isEmpty() 
-				? repository.findAll(datatables.getPageable())
+
+		Page<?> pages = datatables.getSearch().isEmpty() ? repository.findAll(datatables.getPageable())
 				: repository.findAllBySearchNome(datatables.getSearch(), datatables.getPageable());
 
 		return datatables.getResponse(pages);
@@ -45,6 +44,9 @@ public class FornecedorService {
 		return repository.findById(id).get();
 	}
 
-
+	@Transactional(readOnly = false)
+	public void deletar(Long id) {
+		repository.deleteById(id);
+	}
 
 }

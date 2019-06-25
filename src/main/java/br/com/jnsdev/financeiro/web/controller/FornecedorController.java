@@ -53,5 +53,14 @@ public class FornecedorController {
 		model.addAttribute("fornecedor", service.buscaPorId(id));
         return "fornecedor/cadastro";
 	}
+	
+	@GetMapping("excluir/{id}")
+	public String excluir(@PathVariable("id") Long id) {
+		
+		service.deletar(id);
+		
+        return "redirect:/fornecedores/lista";
+	}
+	
 
 }
