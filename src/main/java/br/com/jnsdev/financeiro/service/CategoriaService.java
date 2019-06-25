@@ -19,9 +19,9 @@ public class CategoriaService {
 
 	@Autowired
 	private CategoriaRepository repository;
-	
+
 	@Autowired
-    private Datatables datatables;
+	private Datatables datatables;
 
 	@Transactional(readOnly = false)
 	public void salvar(Categoria categoria) {
@@ -30,14 +30,19 @@ public class CategoriaService {
 	}
 
 	@Transactional(readOnly = true)
-	public  Map<String, Object> buscarCategoria(HttpServletRequest request) {
+	public Map<String, Object> buscarCategoria(HttpServletRequest request) {
 		datatables.setRequest(request);
-        datatables.setColunas(DatatablesColunas.CATEGORIAS);
-        Page<?> pages = datatables.getSearch().isEmpty()
-                ? repository.findAll(datatables.getPageable())
-                : repository.findAllByNome(datatables.getSearch(), datatables.getPageable());
+		datatables.setColunas(DatatablesColunas.CATEGORIAS);
+		Page<?> pages = datatables.getSearch().isEmpty() 
+				? repository.findAll(datatables.getPageable())
+				: repository.findAllByNome(datatables.getSearch(), datatables.getPageable());
 
-        return datatables.getResponse(pages);
+		return datatables.getResponse(pages);
+	}
+
+	@Transactional(readOnly = true)
+	public Categoria buscaPorId(Long id) {
+		return repository.findById(id).get();
 	}
 
 }
