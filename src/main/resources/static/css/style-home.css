@@ -1,3 +1,12 @@
+<style>
+@import url('https://fonts.googleapis.com/css?family=Montserrat|PT+Sans&display=swap');
+</style>
+
+body {
+	font-family: 'Montserrat', sans-serif;
+}
+
+
 .jumbotron {
   padding-top: 3rem;
   padding-bottom: 3rem;
@@ -31,6 +40,14 @@ li .nav-item .dropdown .show {
 
 .jumbotron .container {
   max-width: 80rem;
+}
+
+.icons{
+	color: #007BFF;
+}
+
+.table .thead-dark th {
+	background-color: #007BFF;
 }
 
 footer {
