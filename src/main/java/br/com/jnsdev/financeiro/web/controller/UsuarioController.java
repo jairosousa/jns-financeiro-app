@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.jnsdev.financeiro.domain.Perfil;
+import br.com.jnsdev.financeiro.domain.PerfilTipo;
 import br.com.jnsdev.financeiro.domain.Usuario;
 import br.com.jnsdev.financeiro.service.UsuarioService;
 
@@ -27,10 +28,24 @@ public class UsuarioController {
 	private UsuarioService service;
 
 //  Abrir cadastro de usuários
-	@GetMapping("novo/cadastro/usuario")
+	@GetMapping("cadastro/usuario/novo")
 	public String cadastroPorAdministradorUsuario(Usuario usuario) {
 		return "usuario/cadastro";
 	}
+	
+	@PostMapping("cadastro/usuario/novo")
+    public String salvarUsuariosNovos(Usuario usuario, RedirectAttributes attr) {
+        
+        try {
+            service.salvarUsuario(usuario);
+            attr.addFlashAttribute("sucesso", "Operação realizada com sucesso!, Realize login");
+
+        } catch (DataIntegrityViolationException e) {
+            attr.addFlashAttribute("falha", "Falha! Cadastro não realizado, email já existente!");
+
+        }
+        return "redirect:/cadastro/usuario/novo";
+    }
 
 	@GetMapping("lista")
 	public String listaUsuarios() {
@@ -73,5 +88,9 @@ public class UsuarioController {
         }
         return "redirect:/u/novo/cadastro/usuario";
     }
+    
+    
+    
+
 
 }

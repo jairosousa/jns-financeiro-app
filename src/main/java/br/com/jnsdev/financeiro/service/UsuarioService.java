@@ -1,10 +1,11 @@
 package br.com.jnsdev.financeiro.service;
 
-import br.com.jnsdev.financeiro.datatables.Datatables;
-import br.com.jnsdev.financeiro.datatables.DatatablesColunas;
-import br.com.jnsdev.financeiro.domain.Perfil;
-import br.com.jnsdev.financeiro.domain.Usuario;
-import br.com.jnsdev.financeiro.repository.UsuarioRepository;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -16,14 +17,22 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
-import java.util.Map;
+import br.com.jnsdev.financeiro.datatables.Datatables;
+import br.com.jnsdev.financeiro.datatables.DatatablesColunas;
+import br.com.jnsdev.financeiro.domain.Perfil;
+import br.com.jnsdev.financeiro.domain.PerfilTipo;
+import br.com.jnsdev.financeiro.domain.Usuario;
+import br.com.jnsdev.financeiro.repository.PerfilRepository;
+import br.com.jnsdev.financeiro.repository.UsuarioRepository;
 
 @Service
 public class UsuarioService implements UserDetailsService {
+	
     @Autowired
     private UsuarioRepository repository;
+    
+    @Autowired
+    private PerfilRepository perfilRepository;
 
     @Autowired
     private Datatables datatables;
@@ -68,8 +77,16 @@ public class UsuarioService implements UserDetailsService {
 
 	@Transactional(readOnly = false)
 	public void salvarUsuario(Usuario usuario) {
+		Optional<Perfil> pUsuario = perfilRepository.findById(PerfilTipo.USUARIO.getCod());
 		String crypt = new BCryptPasswordEncoder().encode(usuario.getSenha());
 		usuario.setSenha(crypt);
+		if (pUsuario.isPresent()) {
+			usuario.getPerfis().add(pUsuario.get());
+			System.out.println(pUsuario.toString());
+			
+		}
+        usuario.setAtivo(true);
+		System.out.println("USUARIO: " + usuario.toString());
 		repository.save(usuario);
 	}
 	
@@ -79,11 +96,9 @@ public class UsuarioService implements UserDetailsService {
 	 */
 	@Transactional(readOnly = false)
 	public void salvarUsuarioAdm(Usuario usuario) {
-		System.out.println("USUARIO: " + usuario.toString());
 		Usuario user = repository.findById(usuario.getId()).get();
 		user.setAtivo(usuario.isAtivo());
 		user.setPerfis(usuario.getPerfis());
-//		repository.save(usuario);
 	}
 
 	@Transactional(readOnly = true)

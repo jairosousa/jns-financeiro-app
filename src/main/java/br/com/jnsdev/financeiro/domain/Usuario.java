@@ -25,7 +25,7 @@ public class Usuario extends AbstractEntity {
 	@JoinTable(name = "usuarios_tem_perfis", joinColumns = {
 			@JoinColumn(name = "usuario_id", referencedColumnName = "id") }, inverseJoinColumns = {
 					@JoinColumn(name = "perfil_id", referencedColumnName = "id") })
-	private List<Perfil> perfis;
+	private List<Perfil> perfis = new ArrayList<>();
 
 	@Column(name = "ativo", nullable = false, columnDefinition = "TINYINT(1)")
 	private boolean ativo;

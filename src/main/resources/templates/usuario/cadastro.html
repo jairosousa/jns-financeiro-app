@@ -20,15 +20,15 @@
 
 						<div th:replace="fragments/alert :: alerta-sucesso"></div>
 
-						<form th:action="@{/u/cadastro/salvar/adm}" th:object="${usuario}"
+						<form th:action="@{/u/cadastro/usuario/novo}" th:object="${usuario}"
 							method="POST" class="was-validated">
 
 							<div class="mb-3">
-								<label for="email">Nome</label> <input type="email"
-									class="form-control" id="email" th:field="*{nome}"
-									placeholder="Email"
+								<label for="nome">Nome</label> <input type="text"
+									class="form-control" id="nome" th:field="*{nome}"
+									placeholder="Nome"
 									aria-describedby="validationTooltipUsernamePrepend" required />
-								<div class="invalid-feedback">Email é requerido.</div>
+								<div class="invalid-feedback">Nome é requerido.</div>
 							</div>
 
 							<div class="mb-3">
@@ -45,35 +45,13 @@
 								</div>
 							</div>
 
-							<!-- <div class="mb-3">
+							<div class="mb-3">
 								<label for="senha">Senha</label> <input type="password"
 									class="form-control" id="senha" maxlength="6"
 									th:field="*{senha}" placeholder="Insira sua senha de acesso"
 									required />
 								<div class="invalid-feedback">Senha é requerida para
 									confirmar a operação.</div>
-							</div> -->
-
-							<div class="mb-3">
-								<label for="perfis">Perfil</label> <select id="perfis"
-									class="custom-select" size="4" th:field="*{perfis}" multiple
-									required>
-									<option value="1">Administrador</option>
-									<option value="2">Usuário</option>
-
-								</select> <input type="hidden" value="0" name="perfis">
-								<div class="invalid-feedback">Pelo menos um perfil é
-									requerido.</div>
-							</div>
-
-							<div class="mb-3">
-								<div class="custom-control custom-switch">
-									<input type="checkbox" class="custom-control-input"
-										th:field="*{ativo}" id="ativo"
-										th:if="${ativo == true ? 'checked=checked' : ''}" /> <label
-										class="custom-control-label" for="ativo">Cadastro
-										Ativo</label>
-								</div>
 							</div>
 
 							<input type="hidden" th:field="*{id}">

@@ -14,42 +14,49 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item dropdown"><a
-                        class="btn btn-primary dropdown-toggle" href="#" id="dropdown01"
+                <li class="nav-item dropdown" sec:authorize="hasAuthority('ADMIN')">
+                <a class="btn btn-primary dropdown-toggle" href="#" id="dropdown01"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-cog"></i> Administrador</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
                         <a class="dropdown-item" th:href="@{/categorias}"><i class="fas fa-check-double"></i> Categorias</a>
                         
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" th:href="@{/u/novo/cadastro/usuario}"><i class="fas fa-user-plus"></i> Cadastro de Usuários</a>
-                        <a class="dropdown-item" th:href="@{/u/lista}"><i class="fas fa-users"></i> Lista de Usuários</a>
+                        <h6 class="dropdown-header">USUÁRIO</h6>
+                        <!-- <a class="dropdown-item" th:href="@{/u/novo/cadastro/usuario}"><i class="fas fa-user-plus"></i> Cadastro</a> -->
+                        <a class="dropdown-item" th:href="@{/u/lista}"><i class="fas fa-users"></i> Lista</a>
+                        
+                        <div class="dropdown-divider"></div>
+                        <h6 class="dropdown-header">FORNECEDOR</h6>
+                        <a class="dropdown-item" th:href="@{/fornecedores}"><i class="fas fa-user-plus"></i> Cadastro</a>
+                        <a class="dropdown-item" th:href="@{/fornecedores/lista}"><i class="fas fa-users"></i> Lista</a>
+                        
                     </div>
                 </li>
-                <li class="nav-item dropdown"><a
-                        class="btn btn-primary dropdown-toggle" href="#" id="dropdown02"
+                <li class="nav-item dropdown" sec:authorize="hasAuthority('USUARIO')">
+                <a class="btn btn-primary dropdown-toggle" href="#" id="dropdown02"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Fornecedor</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown02">
                         <a class="dropdown-item" th:href="@{/fornecedores}">Novo</a>
                         <a class="dropdown-item" th:href="@{/fornecedores/lista}">Lista</a>
                     </div>
                 </li>
-                <li class="nav-item dropdown"><a
-                        class="btn btn-primary dropdown-toggle" href="#" id="dropdown03"
+                <li class="nav-item dropdown" sec:authorize="hasAnyAuthority('USUARIO', 'ADMIN')">
+                <a class="btn btn-primary dropdown-toggle" href="#" id="dropdown03"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Lançamentos</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown03">
-                        <a class="dropdown-item" th:href="@{/pacientes}">Cadastrar Dados</a>
-                        <a class="dropdown-item" th:href="@{/u/editar/senha}">Editar Senha</a>
+                        <a class="dropdown-item" th:href="@{/lancamentos}">Cadastrar</a>
+                        
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" th:href="@{/agendamentos/agendar}">Agendar Consulta</a>
-                        <a class="dropdown-item" th:href="@{/agendamentos/historico/paciente}">Histórico de
-                            Consultas</a>
+                        <h6 class="dropdown-header">PAGAMENTO</h6>
+                        <a class="dropdown-item" th:href="@{/agendamentos/agendar}">Lista</a>
+                        
                     </div>
                 </li>
-                <li class="nav-item dropdown"><a
-                        class="btn btn-primary dropdown-toggle" href="#" id="dropdown04"
+                <li class="nav-item dropdown" sec:authorize="hasAuthority('USUARIO')">
+                <a class="btn btn-primary dropdown-toggle" href="#" id="dropdown04"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dados</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown03">
-                        <a class="dropdown-item" th:href="@{/pacientes}">Cadastrar Dados</a>
+                        <a class="dropdown-item" th:href="@{/u}">Atualizar Dados</a>
                         <a class="dropdown-item" th:href="@{/u/editar/senha}">Editar Senha</a>
 
                 </li>
@@ -64,7 +71,7 @@
 
                 <div class="form-check mb-2 mr-sm-2">
                     <a class="btn btn-outline-light my-2 my-sm-0" role="button"
-                       th:href="@{/u/novo/cadastro}">Cadastrar-se</a>
+                       th:href="@{/u/cadastro/usuario/novo}">Cadastrar-se</a>
                 </div>
             </form>
 
