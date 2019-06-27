@@ -1,10 +1,10 @@
 package br.com.jnsdev.financeiro.domain;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -14,15 +14,11 @@ import javax.persistence.Table;
 @Table(name = "TELEFONES")
 public class Telefone extends AbstractEntity {
 
-	@Enumerated(EnumType.STRING)
-	@Column(name = "tipo")
-	private TipoTelefone tipo;
-
 	@Column(name = "numero", nullable = false)
 	private String numero;
-	
-	@ManyToOne
-	@JoinColumn(name="id_fornecedor")
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_fornecedor")
 	private Fornecedor fornecedor;
 
 	public Telefone() {
@@ -33,12 +29,8 @@ public class Telefone extends AbstractEntity {
 		super.setId(id);
 	}
 
-	public TipoTelefone getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(TipoTelefone tipo) {
-		this.tipo = tipo;
+	public Telefone(Fornecedor fornecedor) {
+		this.setFornecedor(fornecedor);
 	}
 
 	public String getNumero() {
@@ -49,9 +41,17 @@ public class Telefone extends AbstractEntity {
 		this.numero = numero;
 	}
 
+	public Fornecedor getFornecedor() {
+		return fornecedor;
+	}
+
+	public void setFornecedor(Fornecedor fornecedor) {
+		this.fornecedor = fornecedor;
+	}
+
 	@Override
 	public String toString() {
-		return "Telefone [tipo=" + tipo + ", numero=" + numero + ", getId()=" + getId() + "]";
+		return "Telefone ["+ "numero=" + numero + ", getId()=" + getId() + ", Fornecedor: "+ fornecedor.getNome() +" ]";
 	}
 
 }

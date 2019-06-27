@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.jnsdev.financeiro.domain.Categoria;
 import br.com.jnsdev.financeiro.domain.Fornecedor;
+import br.com.jnsdev.financeiro.domain.Telefone;
 import br.com.jnsdev.financeiro.service.FornecedorService;
 
 @Controller
@@ -26,6 +27,7 @@ public class FornecedorController {
 	
 	@GetMapping
 	public String abrir(Fornecedor fornecedor) {
+		fornecedor.getTelefones().add(new Telefone(fornecedor));
 		return "fornecedor/cadastro";
 	}
 	

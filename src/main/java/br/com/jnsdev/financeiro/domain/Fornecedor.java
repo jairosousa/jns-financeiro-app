@@ -37,7 +37,7 @@ public class Fornecedor extends AbstractEntity {
 	private Endereco endereco;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Telefone> telefones = new ArrayList<>();
 
 	public Fornecedor() {
@@ -77,6 +77,14 @@ public class Fornecedor extends AbstractEntity {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
+	}
+
+	public List<Telefone> getTelefones() {
+		return telefones;
+	}
+
+	public void setTelefones(List<Telefone> telefones) {
+		this.telefones = telefones;
 	}
 
 	@Override

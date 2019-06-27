@@ -108,6 +108,40 @@
 								</div>
 
 							</div>
+							
+							<!-- Telefones -->
+							<div class="form-row mb-3">
+								<div id="phones-wrapper">
+									<label>Telefone:</label>
+
+									<div th:each="phone, status : *{telefones}">
+										<div class="input-group phones mb-4">
+										
+											<div class="input-group-prepend">
+												<span class="input-group-text">+55</span>
+											</div>
+
+											<input th:field="*{telefones[__${status.index}__].numero}"
+												class="form-control" type="text" required="required" />
+											<!-- <p th:each="err: ${#fields.errors('contact.phones[__${status.index}__].number')}"
+                                           th:text="${err}"
+                                           class="invalid-feedback"
+                                        	></p> -->
+										</div>
+									</div>
+								</div>
+
+							</div>
+							
+							<div class="row">
+                                <div class="col">
+                                    <button class="btn btn-dark float-right"
+                                            type="button"
+                                            onclick="createPhone()">
+                                        <i class="fas fa-plus-square"></i>
+                                    </button>
+                                </div>
+                            </div>
 
 							<hr />
 							<input type="hidden" th:field="*{id}">

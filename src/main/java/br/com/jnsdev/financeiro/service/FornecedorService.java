@@ -25,6 +25,7 @@ public class FornecedorService {
 
 	@Transactional(readOnly = false)
 	public void salvar(Fornecedor fornecedor) {
+		fornecedor.getTelefones().forEach(phone -> phone.setFornecedor(fornecedor));
 		repository.save(fornecedor);
 	}
 
