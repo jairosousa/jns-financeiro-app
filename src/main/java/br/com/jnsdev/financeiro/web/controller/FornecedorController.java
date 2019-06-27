@@ -35,8 +35,12 @@ public class FornecedorController {
 	public String salvar(Fornecedor fornecedor, RedirectAttributes attr) {
 		service.salvar(fornecedor);
 		attr.addFlashAttribute("sucesso", "Operação realizada com sucesso");
+		
+		if (fornecedor.getId() != null) {
+			return "redirect:/fornecedores/editar/" + fornecedor.getId();
+		}
 
-		return "redirect:/fornecedores";
+		return  "redirect:/fornecedores";
 	}
 	
 	@GetMapping("lista")

@@ -5,7 +5,7 @@ $(document).ready(function () {
     		"url": "/datatables/translationBR"
         },
     	searching: true,
-    	order: [[ 1, "asc" ]],
+    	order: [[ 0, "asc" ]],
     	lengthMenu: [5, 10],
         processing: true,
         serverSide: true,
@@ -62,8 +62,8 @@ function createPhone() {
 
     var input = new_phone.getElementsByTagName('input')[0];
     input.value = '';
-    input.setAttribute('id', 'telefones' + phones.length + '.number');
-    input.setAttribute('name', 'telefones[' + phones.length + '].number');
+    input.setAttribute('id', 'telefones' + phones.length + '.numero');
+    input.setAttribute('name', 'telefones[' + phones.length + '].numero');
 
     var errorText = new_phone.getElementsByClassName('invalid-feedback')[0];
 
