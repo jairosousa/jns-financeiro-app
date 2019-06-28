@@ -11,9 +11,6 @@ import java.util.List;
 @Table(name = "usuarios", indexes = { @Index(name = "idx_usuario_email", columnList = "email") })
 public class Usuario extends AbstractEntity {
 
-	@Column(name = "nome", nullable = false)
-	private String nome;
-
 	@Column(name = "email", unique = true, nullable = false)
 	private String email;
 
@@ -39,14 +36,6 @@ public class Usuario extends AbstractEntity {
 
 	public Usuario(Long id) {
 		super.setId(id);
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
 	}
 
 	public String getEmail() {
@@ -99,7 +88,7 @@ public class Usuario extends AbstractEntity {
 
 	@Override
 	public String toString() {
-		return "Usuario [id= " + super.getId() + ", nome=" + nome + ", email=" + email + ", senha=" + senha + ", ativo="
+		return "Usuario [id= " + super.getId() + ", email=" + email + ", senha=" + senha + ", ativo="
 				+ ativo + ", codigoVerificador=" + codigoVerificador + "]";
 	}
 

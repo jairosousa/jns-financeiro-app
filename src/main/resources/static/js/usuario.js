@@ -16,7 +16,6 @@ $(document).ready(function() {
 		},
 		columns : [
 				{data : 'id'},
-				{data : 'nome'},
 				{data : 'email'},
 				{	data : 'ativo', 
 					render : function(ativo) {

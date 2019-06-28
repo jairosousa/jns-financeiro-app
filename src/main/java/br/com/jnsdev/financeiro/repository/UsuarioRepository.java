@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
-    @Query("select u from Usuario u where u.email like :email OR u.nome like :email")
+    @Query("select u from Usuario u where u.email like :email")
     Usuario findByEmail(@Param("email") String email);
 
     @Query("select distinct u from Usuario u " +
