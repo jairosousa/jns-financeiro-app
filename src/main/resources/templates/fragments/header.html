@@ -50,6 +50,10 @@
                         <h6 class="dropdown-header">PAGAMENTO</h6>
                         <a class="dropdown-item" th:href="@{/agendamentos/agendar}">Lista</a>
                         
+                        <div class="dropdown-divider"></div>
+                        <h6 class="dropdown-header">FORMA PAGAMENTO</h6>
+                        <a class="dropdown-item" th:href="@{/fp}">Cadastrar</a>
+                        
                     </div>
                 </li>
                 <li class="nav-item dropdown" sec:authorize="hasAuthority('USUARIO')">

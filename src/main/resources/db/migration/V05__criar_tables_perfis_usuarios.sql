@@ -9,7 +9,6 @@ INSERT INTO perfis VALUES (1,'ADMIN'),(2,'USUARIO');
 
 CREATE TABLE usuarios (
     id bigint(20) NOT NULL AUTO_INCREMENT,
-    nome varchar(255) NOT NULL,
     ativo tinyint(1) NOT NULL,
     email varchar(255) NOT NULL,
     senha varchar(255) NOT NULL,

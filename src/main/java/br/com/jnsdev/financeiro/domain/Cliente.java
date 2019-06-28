@@ -1,0 +1,86 @@
+package br.com.jnsdev.financeiro.domain;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@SuppressWarnings("serial")
+@Entity
+@Table(name = "clientes")
+public class Cliente extends AbstractEntity {
+
+	@Column(name = "nome", nullable = false)
+	private String nome;
+
+	@Column(name = "data_nascimento", nullable = false)
+	@DateTimeFormat(iso = ISO.DATE)
+	private LocalDate dtNascimento;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<FormaPagamento> formasPagamento = new ArrayList<>();
+
+	@OneToOne(cascade = CascadeType.REMOVE)
+	@JoinColumn(name = "id_usuario")
+	private Usuario usuario;
+
+	public Cliente() {
+		super();
+	}
+
+	public Cliente(Long id) {
+		super.setId(id);
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public LocalDate getDtNascimento() {
+		return dtNascimento;
+	}
+
+	public void setDtNascimento(LocalDate dtNascimento) {
+		this.dtNascimento = dtNascimento;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public List<FormaPagamento> getFormasPagamento() {
+		return formasPagamento;
+	}
+
+	public void setFormasPagamento(List<FormaPagamento> formasPagamento) {
+		this.formasPagamento = formasPagamento;
+	}
+
+	@Override
+	public String toString() {
+		return "Cliente [nome=" + nome + ", dtNascimento=" + dtNascimento + ", usuario=" + usuario + ", getId()="
+				+ getId() + "]";
+	}
+
+}
