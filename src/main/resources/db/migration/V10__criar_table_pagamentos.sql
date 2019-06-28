@@ -7,6 +7,6 @@ CREATE TABLE pagamentos (
     descricao VARCHAR(255),
     id_forma_pagamento BIGINT(20) ,
     id_lancamento BIGINT(20) NOT NULL,
-    FOREIGN KEY (id_forma_pagamento) REFERENCES formas_pagamento(id),
-    FOREIGN KEY (id_lancamento) REFERENCES lancamentos(id)
+    CONSTRAINT FK_PAGAMENTO_FORMA_PAGAMENTO_ID FOREIGN KEY (id_forma_pagamento) REFERENCES formas_pagamento(id),
+    CONSTRAINT FK_PAGAMENTO_LANCAMENTO_ID FOREIGN KEY (id_lancamento) REFERENCES lancamentos(id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;

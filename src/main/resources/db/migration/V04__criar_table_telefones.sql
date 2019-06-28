@@ -2,7 +2,7 @@ CREATE TABLE telefones(
     id BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
     numero VARCHAR(14) NOT NULL ,
     id_fornecedor BIGINT(20) ,
-    FOREIGN KEY (id_fornecedor) REFERENCES fornecedores(id)
+    CONSTRAINT FK_TELEFONE_FORNECEDOR_ID FOREIGN KEY (id_fornecedor) REFERENCES fornecedores(id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO telefones(numero, id_fornecedor) VALUES ('(91)3223-5252', 1);

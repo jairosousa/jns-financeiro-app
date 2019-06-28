@@ -1,5 +1,5 @@
 CREATE TABLE enderecos (
-    id BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
+    id BIGINT(20) PRIMARY KEY AUTO_INCREMENT NOT NULL,
     logradouro VARCHAR(80) NOT NULL ,
     numero VARCHAR(15),
     complemento VARCHAR(80),

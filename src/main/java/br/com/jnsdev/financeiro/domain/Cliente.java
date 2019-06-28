@@ -36,6 +36,10 @@ public class Cliente extends AbstractEntity {
 	@OneToOne(cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
+	
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "id_endereco")
+	private Endereco endereco;
 
 	public Cliente() {
 		super();
