@@ -2,21 +2,24 @@ package br.com.jnsdev.financeiro.web.controller;
 
 import java.util.List;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.jnsdev.financeiro.domain.Perfil;
-import br.com.jnsdev.financeiro.domain.PerfilTipo;
 import br.com.jnsdev.financeiro.domain.Usuario;
 import br.com.jnsdev.financeiro.service.UsuarioService;
 
@@ -30,28 +33,64 @@ public class UsuarioController {
 //  Abrir cadastro de usuários
 	@GetMapping("cadastro/usuario/novo")
 	public String cadastroPorAdministradorUsuario(Usuario usuario) {
-		return "usuario/cadastro";
+		return "usuario/cadastrar-se";
 	}
 	
+	// pagina de resposta do cadatro de paciente
+    @GetMapping("/cadastro/realizado")
+    public String cadastroRealizado() {
+
+        return "fragments/mensagem";
+    }
+	
+	/**
+	 * Salva novo Usuario
+	 * Recebe o form da página cadastra-se
+	 * @param usuario
+	 * @param attr
+	 * @return
+	 * @throws MessagingException 
+	 */
 	@PostMapping("cadastro/usuario/novo")
-    public String salvarUsuariosNovos(Usuario usuario, RedirectAttributes attr) {
+    public String salvarUsuariosNovos(Usuario usuario, BindingResult result) throws MessagingException {
         
         try {
-            service.salvarUsuario(usuario);
-            attr.addFlashAttribute("sucesso", "Operação realizada com sucesso!, Realize login");
+            service.salvarNovoUsuario(usuario);
 
         } catch (DataIntegrityViolationException e) {
-            attr.addFlashAttribute("falha", "Falha! Cadastro não realizado, email já existente!");
+        	result.reject("email", "Ops... Este e-mail já existe na base de dados.");
+    		return "cadastrar-se";
 
         }
-        return "redirect:/cadastro/usuario/novo";
+        return "redirect:/u/cadastro/realizado";
     }
+	
+	 // recebe a requisicao de confirmacao de cadastro
+    @GetMapping("/confirmacao/cadastro")
+    public String respostaConfirmacaoCadastroPaciente(@RequestParam("codigo") String codigo, 
+    												  RedirectAttributes attr) {    	
+        service.ativarCadastroUsuarioCliente(codigo);
+        attr.addFlashAttribute("alerta", "sucesso");
+        attr.addFlashAttribute("titulo", "Cadastro Ativado!");
+        attr.addFlashAttribute("texto", "Parabéns, seu cadastro está ativo.");
+        attr.addFlashAttribute("subtexto", "Singa com seu login/senha");
+    	return "redirect:/login";
+    } 
 
+	/**
+	 * Abre a tela de listagem
+	 * @return
+	 */
 	@GetMapping("lista")
 	public String listaUsuarios() {
 		return "usuario/lista";
 	}
 	
+	/**
+	 * Busca ao datatables de usuarios
+	 * @param request
+	 * @return
+	 */
 	@GetMapping("/datatables/server/usuarios")
     public ResponseEntity<?> listarUsuariosDatatables(HttpServletRequest request) {
         return ResponseEntity.ok(service.buscarTodos(request));
@@ -65,6 +104,7 @@ public class UsuarioController {
     
     /**
      * Salvar usuario por Administrador 
+     * (Atualiza o status e o perfil)
      *
      * @param usuario
      * @param attr
@@ -86,10 +126,42 @@ public class UsuarioController {
 
             }
         }
-        return "redirect:/u/novo/cadastro/usuario";
+//        return "redirect:/u/novo/cadastro/usuario";
+        return "redirect:/u/lista";
     }
     
+ // abre a pagina de pedido de redefinicao de senha
+    @GetMapping("/p/redefinir/senha")
+    public String pedidoRedefinirSenha() {
+    	 
+    	return "usuario/pedido-recuperar-senha";
+    }
     
+    // form de pedido de recuperar senha
+    @GetMapping("/p/recuperar/senha")
+    public String redefinirSenha(String email, ModelMap model) throws MessagingException {
+    	service.pedidoRedefinicaoDeSenha(email);
+    	model.addAttribute("sucesso", "Em instantes você reberá um e-mail para "
+    			+ "prosseguir com a redefinição de sua senha.");
+    	model.addAttribute("usuario", new Usuario(email));
+    	return "usuario/recuperar-senha";
+    }
+    
+    // salvar a nova senha via recuperacao de senha
+    @PostMapping("/p/nova/senha")
+    public String confirmacaoDeRedefinicaoDeSenha(Usuario usuario, ModelMap model) {
+    	Usuario u = service.buscarPorEmail(usuario.getEmail());
+    	if (!usuario.getCodigoVerificador().equals(u.getCodigoVerificador())) {
+    		model.addAttribute("falha", "Código verificador não confere.");
+    		return "usuario/recuperar-senha";
+    	}
+    	u.setCodigoVerificador(null);
+    	service.alterarSenha(u, usuario.getSenha());
+    	model.addAttribute("alerta", "sucesso");
+    	model.addAttribute("titulo", "Senha redefinida!");
+    	model.addAttribute("texto", "Você já pode logar no sistema.");
+    	return "login";
+    } 
     
 
 

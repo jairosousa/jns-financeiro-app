@@ -38,6 +38,10 @@ public class Usuario extends AbstractEntity {
 		super.setId(id);
 	}
 
+	public Usuario(String email) {
+		this.email = email;
+	}
+
 	public String getEmail() {
 		return email;
 	}
@@ -88,8 +92,8 @@ public class Usuario extends AbstractEntity {
 
 	@Override
 	public String toString() {
-		return "Usuario [id= " + super.getId() + ", email=" + email + ", senha=" + senha + ", ativo="
-				+ ativo + ", codigoVerificador=" + codigoVerificador + "]";
+		return "Usuario [id= " + super.getId() + ", email=" + email + ", senha=" + senha + ", ativo=" + ativo
+				+ ", codigoVerificador=" + codigoVerificador + "]";
 	}
 
 }

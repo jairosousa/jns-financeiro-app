@@ -21,6 +21,14 @@ public abstract class AbstractEntity implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+    
+    public boolean hasNotId() {
+		return id == null;
+	}
+
+	public boolean hasId() {
+		return id != null;
+	}
 
     @Override
     public int hashCode() {
