@@ -1,11 +1,10 @@
 package br.com.jnsdev.financeiro.web.exception;
 
+import br.com.jnsdev.financeiro.exception.AcessoNegadoException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
-
-import br.com.jnsdev.financeiro.exception.AcessoNegadoException;
 
 @ControllerAdvice
 public class ExceptionController {

@@ -1,11 +1,10 @@
 package br.com.jnsdev.financeiro.service;
 
+import br.com.jnsdev.financeiro.domain.Cliente;
+import br.com.jnsdev.financeiro.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import br.com.jnsdev.financeiro.domain.Cliente;
-import br.com.jnsdev.financeiro.repository.ClienteRepository;
 
 @Service
 public class ClienteService {

@@ -1,12 +1,11 @@
 package br.com.jnsdev.financeiro.repository;
 
-import java.util.Optional;
-
+import br.com.jnsdev.financeiro.domain.Cliente;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import br.com.jnsdev.financeiro.domain.Cliente;
+import java.util.Optional;
 
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Long>{

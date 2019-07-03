@@ -1,16 +1,14 @@
 package br.com.jnsdev.financeiro.service;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
+import br.com.jnsdev.financeiro.service.projection.EnderecoTO;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-
-import br.com.jnsdev.financeiro.service.projection.EnderecoTO;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class EnderecoService {

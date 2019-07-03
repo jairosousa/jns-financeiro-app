@@ -1,12 +1,12 @@
 package br.com.jnsdev.financeiro.service;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
-import javax.mail.MessagingException;
-import javax.servlet.http.HttpServletRequest;
-
+import br.com.jnsdev.financeiro.datatables.Datatables;
+import br.com.jnsdev.financeiro.datatables.DatatablesColunas;
+import br.com.jnsdev.financeiro.domain.Perfil;
+import br.com.jnsdev.financeiro.domain.PerfilTipo;
+import br.com.jnsdev.financeiro.domain.Usuario;
+import br.com.jnsdev.financeiro.exception.AcessoNegadoException;
+import br.com.jnsdev.financeiro.repository.UsuarioRepository;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,13 +20,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Base64Utils;
 
-import br.com.jnsdev.financeiro.datatables.Datatables;
-import br.com.jnsdev.financeiro.datatables.DatatablesColunas;
-import br.com.jnsdev.financeiro.domain.Perfil;
-import br.com.jnsdev.financeiro.domain.PerfilTipo;
-import br.com.jnsdev.financeiro.domain.Usuario;
-import br.com.jnsdev.financeiro.exception.AcessoNegadoException;
-import br.com.jnsdev.financeiro.repository.UsuarioRepository;
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class UsuarioService implements UserDetailsService {
@@ -53,7 +51,8 @@ public class UsuarioService implements UserDetailsService {
 	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-		Usuario usuario = buscarPorEmail(username);
+		Usuario usuario = buscarPorEmailEAtivo(username)
+				.orElseThrow(() -> new UsernameNotFoundException("Usuario: " + username + " não encontrado."));
 
 		return new User(usuario.getEmail(), usuario.getSenha(),
 				AuthorityUtils.createAuthorityList(getAuthorities(usuario.getPerfis())));

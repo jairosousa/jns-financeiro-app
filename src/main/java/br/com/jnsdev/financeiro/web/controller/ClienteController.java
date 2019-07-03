@@ -1,5 +1,10 @@
 package br.com.jnsdev.financeiro.web.controller;
 
+import br.com.jnsdev.financeiro.domain.Cliente;
+import br.com.jnsdev.financeiro.domain.Endereco;
+import br.com.jnsdev.financeiro.domain.Usuario;
+import br.com.jnsdev.financeiro.service.ClienteService;
+import br.com.jnsdev.financeiro.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
@@ -8,12 +13,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import br.com.jnsdev.financeiro.domain.Cliente;
-import br.com.jnsdev.financeiro.domain.Endereco;
-import br.com.jnsdev.financeiro.domain.Usuario;
-import br.com.jnsdev.financeiro.service.ClienteService;
-import br.com.jnsdev.financeiro.service.UsuarioService;
 
 @Controller
 @RequestMapping("clientes")
@@ -26,7 +25,7 @@ public class ClienteController {
 	private UsuarioService usuarioService;
 
 	// abrir pagina de dados pessoais do paciente
-	@GetMapping("/dados")
+	@GetMapping("dados")
 	public String cadastrar(Cliente cliente, ModelMap model, @AuthenticationPrincipal User user) {
 		cliente = service.buscarPorUsuarioEmail(user.getUsername());
 		if (cliente.hasNotId()) {

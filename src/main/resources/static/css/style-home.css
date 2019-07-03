@@ -1,11 +1,8 @@
-<style>
-@import url('https://fonts.googleapis.com/css?family=Montserrat|PT+Sans&display=swap');
-</style>
+@import url('https://fonts.googleapis.com/css?family=Montserrat|PT+Sans&display=swap')
 
 body {
 	font-family: 'Montserrat', sans-serif;
 }
-
 
 .jumbotron {
   padding-top: 3rem;
@@ -17,7 +14,6 @@ body {
 .bg-acai {
     background-color: #610631 !important;
 }
-
 
 li .nav-item .dropdown .show {
     background-color: #6c0631 !important;

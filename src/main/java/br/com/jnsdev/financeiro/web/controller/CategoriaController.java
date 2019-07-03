@@ -1,7 +1,7 @@
 package br.com.jnsdev.financeiro.web.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
+import br.com.jnsdev.financeiro.domain.Categoria;
+import br.com.jnsdev.financeiro.service.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.com.jnsdev.financeiro.domain.Categoria;
-import br.com.jnsdev.financeiro.service.CategoriaService;
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("categorias")

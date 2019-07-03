@@ -1,13 +1,12 @@
 package br.com.jnsdev.financeiro.web.controller;
 
+import br.com.jnsdev.financeiro.domain.FormaPagamento;
+import br.com.jnsdev.financeiro.service.FormaPagamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import br.com.jnsdev.financeiro.domain.FormaPagamento;
-import br.com.jnsdev.financeiro.service.FormaPagamentoService;
 
 @Controller
 @RequestMapping("fp")
