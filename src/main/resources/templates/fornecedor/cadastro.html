@@ -7,9 +7,7 @@
 <body>
 
 	<section class="layout-content" layout:fragment="corpo">
-		<main role="main"> 
-		
-		<header
+		<main role="main"> <header
 			th:replace="fragments/jumbotron :: jumbotron">
 			<div>jumbotron</div>
 		</header>
@@ -57,6 +55,19 @@
 							<hr />
 
 							<div class="form-row mb-3">
+								<div class="col-md-4">
+									<label for="cep">CEP</label> <span style="color: red;"
+										data-toggle="tooltip" data-placement="right"
+										title="Digite Cep válido"><i
+										class="fas fa-exclamation-triangle"></i></span> <input type="text"
+										class="form-control" id="cep" th:field="*{endereco.cep}"
+										placeholder="Cep: 66.000-000"
+										aria-describedby="validationTooltipUsernamePrepend" required />
+									<div class="invalid-feedback">Cep é requerido.</div>
+								</div>
+							</div>
+
+							<div class="form-row mb-3">
 
 								<div class="col-md-8">
 									<label for="logradouro">Logradouro</label> <input type="text"
@@ -73,7 +84,7 @@
 										aria-describedby="validationTooltipUsernamePrepend" required />
 									<div class="invalid-feedback">Número é requerido.</div>
 								</div>
-								
+
 								<div class="col-md-6">
 									<label for="bairro">Bairro</label> <input type="text"
 										class="form-control" id="bairro" th:field="*{endereco.bairro}"
@@ -88,16 +99,9 @@
 										th:field="*{endereco.complemento}" placeholder="Complemento" />
 								</div>
 
-								<div class="col-md-4">
-									<label for="cep">CEP</label> <input type="text"
-										class="form-control" id="cep" th:field="*{endereco.cep}"
-										placeholder="Cep: 66.000-000"
-										aria-describedby="validationTooltipUsernamePrepend" required />
-									<div class="invalid-feedback">Cep é requerido.</div>
-								</div>
 								<div class="col-md-6">
 									<label for="cidade">Cidade</label> <input type="text"
-										class="form-control" id="cep" th:field="*{endereco.cidade}"
+										class="form-control" id="cidade" th:field="*{endereco.cidade}"
 										placeholder="Cidade"
 										aria-describedby="validationTooltipUsernamePrepend" required />
 									<div class="invalid-feedback">Nome da cidade é requerido.</div>
@@ -105,12 +109,12 @@
 
 								<div class="col-md-2">
 									<label for="estado">UF</label> <input type="text"
-										class="form-control" id="estado"
-										th:field="*{endereco.estado}" placeholder="UF" />
+										class="form-control" id="estado" th:field="*{endereco.estado}"
+										placeholder="UF" />
 								</div>
 
 							</div>
-							
+
 							<!-- Telefones -->
 							<div class="form-row mb-3">
 								<div id="phones-wrapper">
@@ -118,7 +122,7 @@
 
 									<div th:each="phone, status : *{telefones}">
 										<div class="input-group phones mb-4">
-										
+
 											<div class="input-group-prepend">
 												<span class="input-group-text">+55</span>
 											</div>
@@ -134,16 +138,15 @@
 								</div>
 
 							</div>
-							
+
 							<div class="row">
-                                <div class="col">
-                                    <button class="btn btn-dark float-right"
-                                            type="button"
-                                            onclick="createPhone()">
-                                        <i class="fas fa-plus-square"></i>
-                                    </button>
-                                </div>
-                            </div>
+								<div class="col">
+									<button class="btn btn-dark float-right" type="button"
+										onclick="createPhone()">
+										<i class="fas fa-plus-square"></i>
+									</button>
+								</div>
+							</div>
 
 							<hr />
 							<input type="hidden" th:field="*{id}">
@@ -168,6 +171,7 @@
 
 	</section>
 	<script th:src="@{/js/fornecedor.js?(v=${version})}" th:fragment="js"></script>
+	<script th:src="@{/js/endereco.js?(v=${version})}" th:fragment="js"></script>
 	<script th:inline="javascript" th:fragment="inlinescript">
 		
 	</script>
