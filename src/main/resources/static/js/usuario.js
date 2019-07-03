@@ -1,5 +1,6 @@
 //datatables - lista de usuários
 $(document).ready(function() {
+	
 	moment.locale('pt-BR');
 	var table = $('#table-usuarios').DataTable({
 		"language": {
@@ -52,5 +53,24 @@ $(document).ready(function() {
 				}*/
 		]
 	});
+	
+	$('.pass').keyup(function(){
+		$('#senha1').val() === $('#senha2').val() & $('#senha1').val() != '' & $('#senha2').val() != ''
+		    ? $('#senha3').removeAttr('readonly')
+		    : $('#senha3').attr('readonly', 'readonly');
+	});
+	
+	$('#senha2').blur(function() {
+		$('#senha1').val() != $('#senha2').val()
+		? $('#alertsenha').show(1000)
+				: $('#alertsenha').hide(1000);
+	})
+	
+	$('#senha1').blur(function() {
+		$('#senha2').val() === ''
+		? $('#alertsenha').css("display", "none")
+				: $('#alertsenha').show(1000)
+	})
+	
 	
 });	

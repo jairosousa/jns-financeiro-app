@@ -26,7 +26,6 @@ import br.com.jnsdev.financeiro.domain.Perfil;
 import br.com.jnsdev.financeiro.domain.PerfilTipo;
 import br.com.jnsdev.financeiro.domain.Usuario;
 import br.com.jnsdev.financeiro.exception.AcessoNegadoException;
-import br.com.jnsdev.financeiro.repository.PerfilRepository;
 import br.com.jnsdev.financeiro.repository.UsuarioRepository;
 
 @Service
@@ -35,9 +34,6 @@ public class UsuarioService implements UserDetailsService {
     @Autowired
     private UsuarioRepository repository;
     
-    @Autowired
-    private PerfilRepository perfilRepository;
-
     @Autowired
     private Datatables datatables;
     
