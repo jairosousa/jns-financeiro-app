@@ -78,3 +78,13 @@ footer p {
 .ui-autocomplete-loading {
   background: white url("/image/ui-anim_basic_16x16.gif") right center no-repeat;
 }
+
+section {
+	animation-name: titulo-capa;
+    animation-duration: 5s;
+}
+
+@keyframes titulo-capa {
+    0% {opacity: 0;transform: translate(0,-20px)}
+    100% {opacity: 1;transform: translate(0,0)}
+}
