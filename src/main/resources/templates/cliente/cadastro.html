@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.w3.org/1999/xhtml" layout:decorate="~{layout}">
+<html xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml"
+	layout:decorate="~{layout}">
 <head>
 <meta charset="UTF-8" />
 </head>
 <body>
 
 	<section class="layout-content" layout:fragment="corpo">
-		<main role="main"> 
-		
+		<main role="main">
+
 		<header
 			th:replace="fragments/jumbotron :: jumbotron">
 			<div>jumbotron</div>
@@ -18,42 +18,47 @@
 			<div class="container">
 
 				<div class="d-flex justify-content-center">
-					<div class="col-md-8">
+					<div class="col-md-8 ">
 
 						<div th:replace="fragments/alert :: alerta-sucesso"></div>
 
-						<form th:action="@{/fornecedores/salvar}"
-							th:object="${fornecedor}" method="POST" class="was-validated">
-
-							<div class="form-row mb-3">
-
-								<div class="col-md-12">
-									<label for="nome">Nome</label> <input type="text"
-										class="form-control" id="nome" th:field="*{nome}"
-										placeholder="Nome"
-										aria-describedby="validationTooltipUsernamePrepend" required />
+						<form th:action="${cliente.id == null} ? @{/clientes/salvar} : @{/clientes/editar}" 
+								th:object="${cliente}" method="POST" class="was-validated">
+							
+							<div class="mb-3">
+								<label for="nome">Nome Completo</label>
+								<div class="input-group">
+									<input type="text" class="form-control" id="nome" placeholder="insira seu nome completo" 
+											aria-describedby="validationTooltipUsernamePrepend"
+										    th:field="*{nome}" required />
 									<div class="invalid-feedback">Nome é requerido.</div>
 								</div>
-
-								<div class="col-md-6">
-
-									<label for="nome">Data de Cadastro</label> <input
-										class="form-control" type="date" id="data"
-										th:field="*{dtCadastro}" required />
-									<div class="invalid-feedback">Data é obrigatória.</div>
-
-								</div>
-
-								<div class="col-md-6">
-									<label for="nome">Atividade</label> <input type="text"
-										class="form-control" id="atividade" th:field="*{atividade}"
-										placeholder="Exemplo: Supermercado" />
-
-								</div>
-
-
 							</div>
-
+							
+							<div class="mb-3">
+								<label for="nome">Data de Nascimento</label>
+								<div class="input-group">
+									<input type="date" class="form-control" id="dtNascimento"
+										   aria-describedby="validationTooltipUsernamePrepend"
+										   th:field="*{dtNascimento}" required />
+									<div class="invalid-feedback">Data de nascimento é requerida.</div>
+								</div>
+							</div>							
+															
+							<div class="mb-3">
+								<label for="email">Email</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text" 
+												id="validationTooltipUsernamePrepend">@</span>
+									</div>
+									<input type="email" class="form-control" id="email"
+										placeholder="Email" aria-describedby="validationTooltipUsernamePrepend"
+										   th:field="*{usuario.email}" required readonly/>
+									<div class="invalid-feedback">Email é requerido.</div>
+								</div>
+							</div>
+							
 							<hr />
 
 							<div class="form-row mb-3">
@@ -111,42 +116,16 @@
 
 							</div>
 							
-							<!-- Telefones -->
-							<div class="form-row mb-3">
-								<div id="phones-wrapper">
-									<label>Telefone:</label>
-
-									<div th:each="phone, status : *{telefones}">
-										<div class="input-group phones mb-4">
-										
-											<div class="input-group-prepend">
-												<span class="input-group-text">+55</span>
-											</div>
-
-											<input th:field="*{telefones[__${status.index}__].numero}"
-												class="form-control" type="text" required="required" />
-											<!-- <p th:each="err: ${#fields.errors('contact.phones[__${status.index}__].number')}"
-                                           th:text="${err}"
-                                           class="invalid-feedback"
-                                        	></p> -->
-										</div>
-									</div>
-								</div>
-
-							</div>
+							<hr/>
 							
-							<div class="row">
-                                <div class="col">
-                                    <button class="btn btn-dark float-right"
-                                            type="button"
-                                            onclick="createPhone()">
-                                        <i class="fas fa-plus-square"></i>
-                                    </button>
-                                </div>
-                            </div>
+							<div class="mb-3">
+								<label for="senha">Senha</label> 
+								<input type="password" class="form-control" id="senha" maxlength="6"
+									placeholder="Insira sua senha de acesso" th:field="*{usuario.senha}" required />
+								<div class="invalid-feedback">Senha é requerida para confirmar a operação.</div>
+							</div>							
 
-							<hr />
-							<input type="hidden" th:field="*{id}">
+							<input type="hidden" th:field="*{id}"> 
 							<div class="form-group row">
 								<div class="col-sm-10">
 									<button type="submit" class="btn btn-primary"
@@ -155,9 +134,7 @@
 									</button>
 								</div>
 							</div>
-							<div></div>
 						</form>
-
 
 					</div>
 				</div>
@@ -167,9 +144,7 @@
 		</main>
 
 	</section>
-	<script th:src="@{/js/fornecedor.js?(v=${version})}" th:fragment="js"></script>
-	<script th:inline="javascript" th:fragment="inlinescript">
-		
-	</script>
+	<script	th:src="~{}" th:fragment="js"></script>
+	<script th:inline="javascript" th:fragment="inlinescript"></script>
 </body>
 </html>

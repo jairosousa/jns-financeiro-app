@@ -36,7 +36,7 @@ public class Cliente extends AbstractEntity {
 	@OneToOne(cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
-	
+
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "id_endereco")
 	private Endereco endereco;
@@ -81,10 +81,18 @@ public class Cliente extends AbstractEntity {
 		this.formasPagamento = formasPagamento;
 	}
 
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+
 	@Override
 	public String toString() {
-		return "Cliente [nome=" + nome + ", dtNascimento=" + dtNascimento + ", usuario=" + usuario + ", getId()="
-				+ getId() + "]";
+		return "Cliente [nome=" + nome + ", dtNascimento=" + dtNascimento + ", formasPagamento=" + formasPagamento
+				+ ", usuario=" + usuario + ", endereco=" + endereco + ", getId()=" + getId() + "]";
 	}
 
 }
