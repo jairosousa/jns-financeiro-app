@@ -1,4 +1,5 @@
 $(document).ready(function () {
+	$("#nome").focus();
 	moment.locale('pt-BR');
     var table = $('#table-fornecedor').DataTable({
     	"language": {

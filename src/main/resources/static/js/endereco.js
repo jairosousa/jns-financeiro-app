@@ -12,6 +12,7 @@ $('#cep').blur(function() {
 			$("#complemento").val(data.complemento);
 			$("#cidade").val(data.localidade);
 			$("#estado").val(data.uf);
+			$('#numero').focus();
 		}
 	})
 })
