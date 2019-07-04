@@ -17,7 +17,7 @@ public class EnderecoService {
 
 	public EnderecoTO buscarEndereco(String cep) throws JsonParseException, JsonMappingException, IOException {
 
-		cep = cep.replace(".", "").replace("-", "");
+		cep = cep.replace(".", "").replace("-", "").replace("_","");
 
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("cep", cep);

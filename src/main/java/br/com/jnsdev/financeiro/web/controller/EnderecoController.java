@@ -23,7 +23,6 @@ public class EnderecoController {
 	
 	@GetMapping("cep/{cep}")
 	public ResponseEntity<EnderecoTO> getEnderecoByCep(@PathVariable String cep) throws JsonParseException, JsonMappingException, IOException {
-        System.out.println("CEP: " + cep);
         return  new ResponseEntity<EnderecoTO>(service.buscarEndereco(cep), HttpStatus.OK);
     }
 
