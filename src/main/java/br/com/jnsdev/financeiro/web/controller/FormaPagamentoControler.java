@@ -1,19 +1,21 @@
 package br.com.jnsdev.financeiro.web.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.jnsdev.financeiro.domain.Cliente;
-import br.com.jnsdev.financeiro.domain.Endereco;
 import br.com.jnsdev.financeiro.domain.FormaPagamento;
-import br.com.jnsdev.financeiro.domain.Usuario;
 import br.com.jnsdev.financeiro.service.ClienteService;
 import br.com.jnsdev.financeiro.service.FormaPagamentoService;
 
@@ -43,5 +45,26 @@ public class FormaPagamentoControler {
 		return "redirect:/fp";
 
 	}
+	
+	@PostMapping("editar")
+	public String editar(FormaPagamento fp, RedirectAttributes attr) {
+		service.editar(fp);
+		attr.addFlashAttribute("sucesso", "Operação realizada com sucesso");
+		
+		return "redirect:/fp";
+
+	}
+	
+	@GetMapping("datatables/server")
+	public ResponseEntity<?> getEspecialidade(HttpServletRequest request, @AuthenticationPrincipal User user) {
+		Cliente cliente = clienteService.buscarPorUsuarioEmail(user.getUsername());
+		return ResponseEntity.ok(service.buscarFormasPagamento(request, cliente.getId()));
+	}
+	
+	@GetMapping("editar/{id}")
+    public String preEditar(@PathVariable("id") Long id, ModelMap model) {
+        model.addAttribute("fp", service.buscaPorId(id));
+        return "fp/fpagamento";
+    }
 
 }

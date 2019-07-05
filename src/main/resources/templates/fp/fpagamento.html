@@ -18,7 +18,7 @@
                         <div class="col-md-8 ">
                             <div th:replace="fragments/alert :: alerta-sucesso"></div>
 
-                            <form th:action="@{/fp/salvar}" th:object="${fp}" method="POST" class="was-validated">
+                            <form th:action="${fp.id == null} ? @{/fp/salvar} : ${/fp/editar}" th:object="${fp}" method="POST" class="was-validated">
 
                                 <div class="mb-3">
                                     <label for="nome">Nome</label>
@@ -40,6 +40,23 @@
                                 </div>
                             </form>
 
+                            <hr/>
+
+                            <h2 class="text-primary"><i class="far fa-credit-card"></i></i> Formas de Pagamento</h2>
+
+                            <hr class="bg-primary" />
+
+                            <table id="table-fp" class="table table-sm table-striped table-bordered nowrap" style="width:100%">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Nome</th>
+                                        <th scope="col">Editar</th>
+                                        <th scope="col">Excluir</th>
+                                    </tr>
+                                </thead>
+                            </table>
+
 
                         </div>
                     </div>
@@ -53,4 +70,4 @@
     <script th:inline="javascript" th:fragment="inlinescript"></script>
 </body>
 
-</html>.
+</html>

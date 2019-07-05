@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
 
-	@Query("select c from Categoria c where c.nome like :search%")
+	@Query("select c from Categoria c where c.nome like '%' || :search || '%'")
 	Page<Categoria> findAllByNome(String search, Pageable pageable);
 
 }

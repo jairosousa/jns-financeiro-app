@@ -1,6 +1,4 @@
-$('.fa-exclamation-triangle').css("color", "red")
-
-$('#cep').blur(function () {
+$('#cep').blur(function() {
     $('.fa-exclamation-triangle').css("color", "red")
     var cep = replaceMasck($(this).val());
     console.log(cep)
@@ -9,7 +7,7 @@ $('#cep').blur(function () {
             $.ajax({
                 method: "GET",
                 url: "/enderecos/cep/" + cep,
-                success: function (data) {
+                success: function(data) {
 
                     $("#logradouro").val(data.logradouro);
                     $("#bairro").val(data.bairro);
@@ -29,4 +27,10 @@ $('#cep').blur(function () {
 function replaceMasck(cep) {
     // return cep.replace('_','').replace('.', '').replace('-', '');
     return cep.replace(/[^0-9]/g, '')
+};
+
+if ($('#cep').val() == null) {
+    $('.fa-exclamation-triangle').css("color", "red")
+} else {
+    $('.fa-exclamation-triangle').css("color", "green")
 }

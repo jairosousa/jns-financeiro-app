@@ -2,6 +2,8 @@ package br.com.jnsdev.financeiro.domain;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "FORMAS_PAGAMENTO")
@@ -10,6 +12,7 @@ public class FormaPagamento extends AbstractEntity {
 	@Column(name = "NOME", nullable = false)
 	private String nome;
 
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_cliente")
 	private Cliente cliente;
