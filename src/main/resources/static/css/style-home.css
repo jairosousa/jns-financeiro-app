@@ -1,9 +1,12 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat|PT+Sans&display=swap')
-
 body {
-	font-family: 'Montserrat', sans-serif;
+	/* font-family: 'Montserrat', sans-serif; */
+	font-family: 'Exo', sans-serif;
+	font-weight: 200;
 }
 
+.layout-main {
+	min-height: 39rem;
+}
 .jumbotron {
   padding-top: 3rem;
   padding-bottom: 3rem;
