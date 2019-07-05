@@ -81,10 +81,10 @@ public class Cliente extends AbstractEntity {
 		this.endereco = endereco;
 	}
 
-	@Override
-	public String toString() {
-		return "Cliente [nome=" + nome + ", dtNascimento=" + dtNascimento + ", formasPagamento=" + formasPagamento
-				+ ", usuario=" + usuario + ", endereco=" + endereco + ", getId()=" + getId() + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "Cliente [nome=" + nome + ", dtNascimento=" + dtNascimento + ", formasPagamento=" + formasPagamento
+//				+ ", usuario=" + usuario + ", endereco=" + endereco + ", getId()=" + getId() + "]";
+//	}
 
 }

@@ -24,7 +24,7 @@ public class ClienteController {
 	@Autowired
 	private UsuarioService usuarioService;
 
-	// abrir pagina de dados pessoais do paciente
+	// abrir pagina de dados pessoais do cliente
 	@GetMapping("dados")
 	public String cadastrar(Cliente cliente, ModelMap model, @AuthenticationPrincipal User user) {
 		cliente = service.buscarPorUsuarioEmail(user.getUsername());

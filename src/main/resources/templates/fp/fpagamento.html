@@ -1,10 +1,56 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml" layout:decorate="~{layout}">
+
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+    <meta charset="UTF-8" />
 </head>
+
 <body>
-<h1>Cadastro e lista de forma pagamento</h1>
+    <section class="layout-content" layout:fragment="corpo">
+        <main role="main">
+            <header th:replace="fragments/jumbotron :: jumbotron">
+                <div>jumbotron</div>
+            </header>
+
+            <div class="album py-5 bg-light">
+                <div class="container">
+                    <div class="d-flex justify-content-center">
+                        <div class="col-md-8 ">
+                            <div th:replace="fragments/alert :: alerta-sucesso"></div>
+
+                            <form th:action="@{/fp/salvar}" th:object="${fp}" method="POST" class="was-validated">
+
+                                <div class="mb-3">
+                                    <label for="nome">Nome</label>
+                                    <input type="text" class="form-control" id="nome" th:field="*{nome}" placeholder="Nome" aria-describedby="validationTooltipUsernamePrepend" required />
+                                    <div class="invalid-feedback">Nome é requerido.</div>
+                                </div>
+
+                                <input type="hidden" th:field="*{id}">
+                                <input type="hidden" th:field="*{cliente.id}">
+
+                                <hr/>
+
+                                <div class="form-group row">
+                                    <div class="col-sm-10">
+                                        <button type="submit" class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Salvar">
+                                                <i class="fas fa-save"></i>
+                                            </button>
+                                    </div>
+                                </div>
+                            </form>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </section>
+
+    <script th:src="@{/js/fp.js?(v=${version})}" th:fragment="js"></script>
+    <script th:inline="javascript" th:fragment="inlinescript"></script>
 </body>
-</html>
+
+</html>.
