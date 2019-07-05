@@ -1,10 +1,14 @@
 package br.com.jnsdev.financeiro.service;
 
-import br.com.jnsdev.financeiro.domain.Cliente;
-import br.com.jnsdev.financeiro.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import br.com.jnsdev.financeiro.domain.Cliente;
+import br.com.jnsdev.financeiro.domain.PerfilTipo;
+import br.com.jnsdev.financeiro.repository.ClienteRepository;
 
 @Service
 public class ClienteService {
@@ -34,6 +38,16 @@ public class ClienteService {
 		c2.getEndereco().setComplemento(cliente.getEndereco().getComplemento());
 		c2.getEndereco().setCidade(cliente.getEndereco().getCidade());
 		c2.getEndereco().setEstado(cliente.getEndereco().getEstado());
+	}
+
+	public boolean userHasAdmin(User user) {
+		return user.getAuthorities().contains(new GrantedAuthority() {
+
+			@Override
+			public String getAuthority() {
+				return PerfilTipo.ADMIN.getDesc();
+			}
+		});
 	}
 
 }

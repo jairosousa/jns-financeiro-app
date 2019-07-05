@@ -2,6 +2,7 @@ package br.com.jnsdev.financeiro.web.controller;
 
 import br.com.jnsdev.financeiro.domain.Cliente;
 import br.com.jnsdev.financeiro.domain.Endereco;
+import br.com.jnsdev.financeiro.domain.PerfilTipo;
 import br.com.jnsdev.financeiro.domain.Usuario;
 import br.com.jnsdev.financeiro.service.ClienteService;
 import br.com.jnsdev.financeiro.service.UsuarioService;
@@ -35,32 +36,32 @@ public class ClienteController {
 		model.addAttribute("cliente", cliente);
 		return "cliente/cadastro";
 	}
-	
+
 	// salvar o form de dados pessoais do paciente com verificacao de senha
-		@PostMapping("/salvar")
-		public String salvar(Cliente cliente, ModelMap model, @AuthenticationPrincipal User user) {
-			Usuario u = usuarioService.buscarPorEmail(user.getUsername());
-			if (UsuarioService.isSenhaCorreta(cliente.getUsuario().getSenha(), u.getSenha())) {
-				cliente.setUsuario(u);
-				service.salvar(cliente);
-				model.addAttribute("sucesso", "Seus dados foram inseridos com sucesso.");
-			} else {
-				model.addAttribute("falha", "Sua senha não confere, tente novamente.");
-			}
-			return "cliente/cadastro";
+	@PostMapping("/salvar")
+	public String salvar(Cliente cliente, ModelMap model, @AuthenticationPrincipal User user) {
+		Usuario u = usuarioService.buscarPorEmail(user.getUsername());
+		if (UsuarioService.isSenhaCorreta(cliente.getUsuario().getSenha(), u.getSenha())) {
+			cliente.setUsuario(u);
+			service.salvar(cliente);
+			model.addAttribute("sucesso", "Seus dados foram inseridos com sucesso.");
+		} else {
+			model.addAttribute("falha", "Sua senha não confere, tente novamente.");
 		}
-		
-		// editar o form de dados pessoais do paciente com verificacao de senha
-		@PostMapping("/editar")
-		public String editar(Cliente cliente, ModelMap model, @AuthenticationPrincipal User user) {
-			Usuario u = usuarioService.buscarPorEmail(user.getUsername());
-			if (UsuarioService.isSenhaCorreta(cliente.getUsuario().getSenha(), u.getSenha())) {
-				service.editar(cliente);
-				model.addAttribute("sucesso", "Seus dados foram editados com sucesso.");
-			} else {
-				model.addAttribute("falha", "Sua senha não confere, tente novamente.");
-			}
-			return "cliente/cadastro";
-		}	
+		return "cliente/cadastro";
+	}
+
+	// editar o form de dados pessoais do paciente com verificacao de senha
+	@PostMapping("/editar")
+	public String editar(Cliente cliente, ModelMap model, @AuthenticationPrincipal User user) {
+		Usuario u = usuarioService.buscarPorEmail(user.getUsername());
+		if (UsuarioService.isSenhaCorreta(cliente.getUsuario().getSenha(), u.getSenha())) {
+			service.editar(cliente);
+			model.addAttribute("sucesso", "Seus dados foram editados com sucesso.");
+		} else {
+			model.addAttribute("falha", "Sua senha não confere, tente novamente.");
+		}
+		return "cliente/cadastro";
+	}
 
 }
