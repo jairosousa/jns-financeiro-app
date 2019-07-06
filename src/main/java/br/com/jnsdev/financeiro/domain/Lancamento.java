@@ -1,5 +1,6 @@
 package br.com.jnsdev.financeiro.domain;
 
+import br.com.jnsdev.financeiro.domain.enuns.TipoLancamento;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 import org.springframework.format.annotation.NumberFormat.Style;
@@ -11,7 +12,7 @@ import java.time.LocalDate;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "clientes")
+@Table(name = "lancamentos")
 public class Lancamento extends AbstractEntity {
 
     @Column(name = "nome", nullable = false)

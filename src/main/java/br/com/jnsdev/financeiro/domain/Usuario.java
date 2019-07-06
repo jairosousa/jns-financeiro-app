@@ -1,5 +1,6 @@
 package br.com.jnsdev.financeiro.domain;
 
+import br.com.jnsdev.financeiro.domain.enuns.PerfilTipo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;

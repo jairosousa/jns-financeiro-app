@@ -1,13 +1,13 @@
-package br.com.jnsdev.financeiro.domain;
+package br.com.jnsdev.financeiro.domain.enuns;
 
-public enum TipoLancamento {
+public enum PerfilTipo {
 
-    RECEITA(1, "Receita"), DESPESA(2, "Despesa");
+    ADMIN(1, "ADMIN"), USUARIO(2, "USUARIO");
 
     private long cod;
     private String desc;
 
-    private TipoLancamento(long cod, String desc) {
+    private PerfilTipo(long cod, String desc) {
         this.cod = cod;
         this.desc = desc;
     }

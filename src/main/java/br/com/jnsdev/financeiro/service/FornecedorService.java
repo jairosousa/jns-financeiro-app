@@ -59,4 +59,8 @@ public class FornecedorService {
 		return repository.findAllOrdeByNome();
 	}
 
+	@Transactional(readOnly = true)
+    public Fornecedor buscarPorId(Long id) {
+		return repository.getOne(id);
+    }
 }

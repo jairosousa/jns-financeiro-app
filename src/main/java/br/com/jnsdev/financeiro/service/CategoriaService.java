@@ -49,4 +49,9 @@ public class CategoriaService {
     public List<Categoria> buscarTodosOrderByNome() {
 		return repository.findAllOrdeByNome();
     }
+
+	@Transactional(readOnly = true)
+    public Categoria buscarPorId(Long id) {
+		return repository.getOne(id);
+    }
 }

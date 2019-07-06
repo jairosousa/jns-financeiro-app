@@ -1,6 +1,6 @@
 package br.com.jnsdev.financeiro.config;
 
-import br.com.jnsdev.financeiro.domain.PerfilTipo;
+import br.com.jnsdev.financeiro.domain.enuns.PerfilTipo;
 import br.com.jnsdev.financeiro.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -31,7 +31,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/fornecedores/*").hasAnyAuthority(ADMIN, USUARIO)
                 .antMatchers("/fornecedores/editar/*").hasAuthority(ADMIN)
                 .antMatchers("/fornecedores/excluir/*").hasAuthority(ADMIN)
+                // acesso privados USUARIO
                 .antMatchers("/fp/**").hasAuthority(USUARIO)
+                .antMatchers("/lancamentos/**").hasAuthority(USUARIO)
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
