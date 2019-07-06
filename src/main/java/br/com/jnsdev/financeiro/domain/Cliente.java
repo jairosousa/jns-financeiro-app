@@ -21,10 +21,6 @@ public class Cliente extends AbstractEntity {
 	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate dtNascimento;
 
-	@JsonIgnore
-	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<FormaPagamento> formasPagamento = new ArrayList<>();
-
 	@OneToOne(cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
@@ -32,6 +28,14 @@ public class Cliente extends AbstractEntity {
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "id_endereco")
 	private Endereco endereco;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<FormaPagamento> formasPagamento = new ArrayList<>();
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Lancamento> lancamentos = new ArrayList<>();
 
 	public Cliente() {
 		super();
@@ -81,10 +85,10 @@ public class Cliente extends AbstractEntity {
 		this.endereco = endereco;
 	}
 
-//	@Override
-//	public String toString() {
-//		return "Cliente [nome=" + nome + ", dtNascimento=" + dtNascimento + ", formasPagamento=" + formasPagamento
-//				+ ", usuario=" + usuario + ", endereco=" + endereco + ", getId()=" + getId() + "]";
-//	}
+	@Override
+	public String toString() {
+		return "Cliente [nome=" + nome + ", dtNascimento=" + dtNascimento + ", formasPagamento=" + formasPagamento
+				+ ", usuario=" + usuario + ", endereco=" + endereco + ", getId()=" + getId() + "]";
+	}
 
 }
