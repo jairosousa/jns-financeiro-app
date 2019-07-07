@@ -10,6 +10,7 @@ import br.com.jnsdev.financeiro.service.ClienteService;
 import br.com.jnsdev.financeiro.service.FornecedorService;
 import br.com.jnsdev.financeiro.service.LancamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -53,6 +55,17 @@ public class LancamentoController {
         service.salvar(lancamento);
         attr.addFlashAttribute("sucesso", "Lançamento salvo com sucesso");
         return "redirect:/lancamentos/cadastrar";
+    }
+
+    @GetMapping("datatables/server")
+    public ResponseEntity<?> getLancamento(HttpServletRequest request, @AuthenticationPrincipal User user) {
+        Cliente cliente = clienteService.buscarPorUsuarioEmail(user.getUsername());
+        return ResponseEntity.ok(service.buscarLancamento(request, cliente.getId()));
+    }
+
+    @GetMapping("lista")
+    public String listaLancamentos() {
+        return "lancamento/lista";
     }
 
     @ModelAttribute("fornecedores")
