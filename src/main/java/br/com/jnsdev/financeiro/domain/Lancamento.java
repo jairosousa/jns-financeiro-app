@@ -12,8 +12,9 @@ import java.time.LocalDate;
 
 @SuppressWarnings("serial")
 @Entity
+@Inheritance(strategy=InheritanceType.JOINED)
 @Table(name = "lancamentos")
-public class Lancamento extends AbstractEntity {
+public abstract class Lancamento extends AbstractEntity {
 
     @Column(name = "nome", nullable = false)
     private String nome;
@@ -34,10 +35,6 @@ public class Lancamento extends AbstractEntity {
     @Column(name = "data_lancamento", nullable = false)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate dtLancamento;
-
-    @ManyToOne
-    @JoinColumn(name = "id_categoria")
-    private Categoria categoria;
 
     @ManyToOne
     @JoinColumn(name = "id_fornecedor")
@@ -94,14 +91,6 @@ public class Lancamento extends AbstractEntity {
         this.dtLancamento = dtLancamento;
     }
 
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
-    }
-
     public Fornecedor getFornecedor() {
         return fornecedor;
     }
@@ -126,7 +115,6 @@ public class Lancamento extends AbstractEntity {
                 ", tipo=" + tipo +
                 ", valor=" + valor +
                 ", dtLancamento=" + dtLancamento +
-                ", categoria=" + categoria +
                 ", fornecedor=" + fornecedor +
                 ", cliente=" + cliente +
                 '}';

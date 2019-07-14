@@ -1,0 +1,51 @@
+package br.com.jnsdev.financeiro.domain;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.*;
+import java.time.LocalDate;
+
+@Entity
+@Table(name = "lancamentos_receitas")
+public class LancamentoReceita extends Lancamento{
+
+    @Column(name = "data_lancamento", nullable = false)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDate dtRecebimento;
+
+    @OneToOne
+    @JoinColumn(name="lancamento_id")
+    @MapsId
+    private Lancamento lancamento;
+
+    public LancamentoReceita() {
+    }
+
+    public LancamentoReceita(Long id) {
+        super(id);
+    }
+
+    public LocalDate getDtRecebimento() {
+        return dtRecebimento;
+    }
+
+    public void setDtRecebimento(LocalDate dtRecebimento) {
+        this.dtRecebimento = dtRecebimento;
+    }
+
+    public Lancamento getLancamento() {
+        return lancamento;
+    }
+
+    public void setLancamento(Lancamento lancamento) {
+        this.lancamento = lancamento;
+    }
+
+    @Override
+    public String toString() {
+        return "LancamentoReceita{" +
+                "id= " + super.getId() +
+                ", dtRecebimento= " + dtRecebimento +
+                '}';
+    }
+}
