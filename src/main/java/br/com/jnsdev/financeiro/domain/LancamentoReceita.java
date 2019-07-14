@@ -9,12 +9,12 @@ import java.time.LocalDate;
 @Table(name = "lancamentos_receitas")
 public class LancamentoReceita extends Lancamento{
 
-    @Column(name = "data_lancamento", nullable = false)
+    @Column(name = "data_recebimento", nullable = false)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate dtRecebimento;
 
     @OneToOne
-    @JoinColumn(name="lancamento_id")
+    @JoinColumn(name="id")
     @MapsId
     private Lancamento lancamento;
 
@@ -45,6 +45,8 @@ public class LancamentoReceita extends Lancamento{
     public String toString() {
         return "LancamentoReceita{" +
                 "id= " + super.getId() +
+                ", Nome= " + super.getNome() +
+                ", cliente= " + super.getCliente().getNome() +
                 ", dtRecebimento= " + dtRecebimento +
                 '}';
     }

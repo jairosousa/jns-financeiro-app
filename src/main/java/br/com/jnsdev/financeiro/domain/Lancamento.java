@@ -22,11 +22,6 @@ public abstract class Lancamento extends AbstractEntity {
     @Column(name = "descricao", nullable = false)
     private String descricao;
 
-    @NotNull(message = "{NotNull.lancamento.tipo}")
-    @Column(nullable = false, length = 2)
-    @Enumerated(EnumType.STRING)
-    private TipoLancamento tipo;
-
     @NotNull
     @NumberFormat(style = Style.CURRENCY, pattern = "#,##0.00")
     @Column(nullable = false, columnDefinition = "DECIMAL(7,2) DEFAULT 0.00")
@@ -38,7 +33,7 @@ public abstract class Lancamento extends AbstractEntity {
 
     @ManyToOne
     @JoinColumn(name = "id_fornecedor")
-    private Fornecedor fornecedor = new Fornecedor();
+    private Fornecedor fornecedor;
 
     @ManyToOne
     @JoinColumn(name = "id_cliente")
@@ -65,14 +60,6 @@ public abstract class Lancamento extends AbstractEntity {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-    }
-
-    public TipoLancamento getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(TipoLancamento tipo) {
-        this.tipo = tipo;
     }
 
     public BigDecimal getValor() {
@@ -112,7 +99,6 @@ public abstract class Lancamento extends AbstractEntity {
         return "Lancamento{" +
                 "nome='" + nome + '\'' +
                 ", descricao='" + descricao + '\'' +
-                ", tipo=" + tipo +
                 ", valor=" + valor +
                 ", dtLancamento=" + dtLancamento +
                 ", fornecedor=" + fornecedor +

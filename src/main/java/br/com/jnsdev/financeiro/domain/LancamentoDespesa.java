@@ -40,7 +40,7 @@ public class LancamentoDespesa extends Lancamento{
     private FormaPagamento formaPagamento;
 
     @OneToOne
-    @JoinColumn(name="lancamento_id")
+    @JoinColumn(name="id")
     @MapsId
     private Lancamento lancamento;
 

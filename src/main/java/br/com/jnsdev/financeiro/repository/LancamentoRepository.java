@@ -16,9 +16,7 @@ public interface LancamentoRepository extends JpaRepository<Lancamento, Long> {
     Page<Lancamento> findAllByIdCliente(Long id, Pageable pageable);
 
     @Query("select l from Lancamento l where l.cliente.id = :id " +
-            "AND l.tipo like '%' || :search || '%' " +
-            "OR l.nome  like '%' || :search || '%' " +
-            "OR l.categoria.nome  like '%' || :search || '%' " +
+            "AND l.nome  like '%' || :search || '%' " +
             "OR l.fornecedor.nome  like '%' || :search || '%'"  )
     Page<Lancamento> findAllBySearchByIdCliente(Long id, String search, Pageable pageable);
 }

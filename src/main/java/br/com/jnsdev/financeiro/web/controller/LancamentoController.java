@@ -1,9 +1,6 @@
 package br.com.jnsdev.financeiro.web.controller;
 
-import br.com.jnsdev.financeiro.domain.Categoria;
-import br.com.jnsdev.financeiro.domain.Cliente;
-import br.com.jnsdev.financeiro.domain.Fornecedor;
-import br.com.jnsdev.financeiro.domain.Lancamento;
+import br.com.jnsdev.financeiro.domain.*;
 import br.com.jnsdev.financeiro.domain.enuns.TipoLancamento;
 import br.com.jnsdev.financeiro.service.CategoriaService;
 import br.com.jnsdev.financeiro.service.ClienteService;
@@ -22,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -40,14 +38,21 @@ public class LancamentoController {
     @Autowired
     private ClienteService clienteService;
 
-    @GetMapping("cadastrar")
-    public String abriCadastro(Lancamento lancamento, ModelMap model, @AuthenticationPrincipal User user) {
+    @GetMapping("cadastrar/receita")
+    public String abriCadastroReceita(LancamentoReceita lancamento, ModelMap model, @AuthenticationPrincipal User user) {
         Cliente cliente = clienteService.buscarPorUsuarioEmail(user.getUsername());
         lancamento.setCliente(cliente);
-        lancamento.setTipo(TipoLancamento.DESPESA);
         model.addAttribute("lancamento", lancamento);
 
-        return "lancamento/cadastro";
+        return "lancamento/cadastro-receita";
+    }
+
+    @PostMapping("salvar/receita")
+    public String salvarReceita(LancamentoReceita lancamento, RedirectAttributes attr) {
+        lancamento.setDtLancamento(LocalDate.now());
+        service.salvarReceita(lancamento);
+        attr.addFlashAttribute("sucesso", "Lançamento salvo com sucesso");
+        return "redirect:/lancamentos/cadastrar/receita";
     }
 
     @PostMapping("salvar")
