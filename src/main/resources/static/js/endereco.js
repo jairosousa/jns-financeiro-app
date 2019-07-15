@@ -1,5 +1,5 @@
 $('#cep').blur(function() {
-    $('.fa-exclamation-triangle').css("color", "red")
+    
     var cep = replaceMasck($(this).val());
     console.log(cep)
     if (cep) {
@@ -16,7 +16,7 @@ $('#cep').blur(function() {
                     $("#estado").val(data.uf);
                     $('#numero').focus();
 
-                    $('.fa-exclamation-triangle').css("color", "green")
+                    $('.fa-exclamation-triangle').removeClass("text-danger").addClass("text-success");
                 }
             })
         }
@@ -34,3 +34,4 @@ if ($('#cep').val() == null) {
 } else {
     $('.fa-exclamation-triangle').css("color", "green")
 }
+

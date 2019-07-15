@@ -1,19 +1,29 @@
 package br.com.jnsdev.financeiro.web.controller;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import javax.servlet.http.HttpServletResponse;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import br.com.jnsdev.financeiro.domain.Cliente;
+import br.com.jnsdev.financeiro.service.ClienteService;
 
 @Controller
 public class HomeController {
+	
+	@Autowired
+	private ClienteService service;
 
 	@GetMapping({ "/", "/home" })
-	public String home() {
+	public String home(ModelMap model) {
+		Cliente cliente = service.getUsuarioLogado();
+		model.addAttribute("cliente", cliente);
 		return "home";
 	}
 
