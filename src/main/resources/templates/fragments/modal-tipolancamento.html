@@ -11,23 +11,27 @@
 	    <div class="modal-content">
 				<div class="card">
 					<div class="modal-header bg-light text-primary">
-						<h5 class="modal-title" id="exampleModalLabel">
-							<span><i class="fas fa-exclamation-triangle"></i></span>
+						<div class="modal-title" id="exampleModalLabel">
+							<p class="font-weight-bolder">
+								<i class="fas fa-exclamation-triangle"></i>
+								Qual tipo Lançamento?
+							</div>
+							
 						</h5>
 						<button type="button" class="close" data-dismiss="modal"
 							aria-label="Close">
 							<span aria-hidden="true" class="text-white">&times;</span>
 						</button>
 					</div>
-					<div class="modal-body">
-						<p class="font-weight-bolder">Qual tipo Lançamento?</p>
+					<div class="modal-body text-center">
+						<a class="btn btn-info mr-5" th:href="@{/lancamentos/cadastrar/receita}">RECEITA</a>
+						<button id="btndespésa" type="button" class="btn btn-danger">Despesa</button>
 					</div>
 					<div class="modal-footer">
 						<button id="btnCancel" type="button" class="btn  btn-link"
 							data-dismiss="modal">Cancelar</button>
 <!--						<button id="btnReceita" type="button" class="btn btn-info" th:href="@{/lancamentos/cadastrar/receita}">Receita</button>-->
-						<a class="btn btn-info" th:href="@{/lancamentos/cadastrar/receita}">RECEITA</a>
-						<button id="btndespésa" type="button" class="btn btn-danger">Despesa</button>
+						
 					</div>
 				</div>
 			</div>
