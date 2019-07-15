@@ -3,7 +3,9 @@ package br.com.jnsdev.financeiro.service;
 import br.com.jnsdev.financeiro.datatables.Datatables;
 import br.com.jnsdev.financeiro.datatables.DatatablesColunas;
 import br.com.jnsdev.financeiro.domain.Lancamento;
+import br.com.jnsdev.financeiro.domain.LancamentoDespesa;
 import br.com.jnsdev.financeiro.domain.LancamentoReceita;
+import br.com.jnsdev.financeiro.repository.LancamentoDespesaRepository;
 import br.com.jnsdev.financeiro.repository.LancamentoReceitaRepository;
 import br.com.jnsdev.financeiro.repository.LancamentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,33 +19,43 @@ import java.util.Map;
 @Service
 public class LancamentoService {
 
-    @Autowired
-    private LancamentoRepository repository;
+	@Autowired
+	private LancamentoRepository repository;
 
-    @Autowired
-    private LancamentoReceitaRepository receitaRepository;
+	@Autowired
+	private LancamentoReceitaRepository receitaRepository;
 
-    @Autowired
-    private Datatables datatables;
+	@Autowired
+	private LancamentoDespesaRepository despesaRepository;
 
-    @Transactional(readOnly = false)
-    public void salvar(Lancamento lancamento) {
-        repository.save(lancamento);
-    }
+	@Autowired
+	private Datatables datatables;
 
-    @Transactional(readOnly = true)
-    public Map<String, Object> buscarLancamento(HttpServletRequest request, Long id) {
-        datatables.setRequest(request);
-        datatables.setColunas(DatatablesColunas.LANCAMENTOS);
+	@Transactional(readOnly = false)
+	public void salvar(Lancamento lancamento) {
+		repository.save(lancamento);
+	}
 
-        Page<Lancamento> pages = datatables.getSearch().isEmpty() ? repository.findAllByIdCliente(id, datatables.getPageable())
-                : repository.findAllBySearchByIdCliente(id, datatables.getSearch(), datatables.getPageable());
+	@Transactional(readOnly = true)
+	public Map<String, Object> buscarLancamento(HttpServletRequest request, Long id) {
+		datatables.setRequest(request);
+		datatables.setColunas(DatatablesColunas.LANCAMENTOS);
 
-        return datatables.getResponse(pages);
-    }
+		Page<Lancamento> pages = datatables.getSearch().isEmpty()
+				? repository.findAllByIdCliente(id, datatables.getPageable())
+				: repository.findAllBySearchByIdCliente(id, datatables.getSearch(), datatables.getPageable());
 
-    @Transactional(readOnly = false)
-    public void salvarReceita(LancamentoReceita lancamento) {
-        receitaRepository.save(lancamento);
-    }
+		return datatables.getResponse(pages);
+	}
+
+	@Transactional(readOnly = false)
+	public void salvarReceita(LancamentoReceita lancamento) {
+		receitaRepository.save(lancamento);
+	}
+
+	@Transactional(readOnly = false)
+	public void salvarDespesa(LancamentoDespesa lancamento) {
+		despesaRepository.save(lancamento);
+	}
+
 }

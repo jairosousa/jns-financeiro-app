@@ -8,7 +8,7 @@ $(document).ready(function() {
         },
         searching: true,
         order: [
-            [1, "asc"]
+            [2, "asc"]
         ],
         lengthMenu: [5, 10],
         processing: true,

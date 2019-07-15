@@ -2,11 +2,14 @@ package br.com.jnsdev.financeiro.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.jnsdev.financeiro.domain.Cliente;
+import br.com.jnsdev.financeiro.domain.Usuario;
 import br.com.jnsdev.financeiro.domain.enuns.PerfilTipo;
 import br.com.jnsdev.financeiro.repository.ClienteRepository;
 
@@ -15,6 +18,18 @@ public class ClienteService {
 
 	@Autowired
 	private ClienteRepository repository;
+
+	public Cliente getUsuarioLogado() {
+		String username = "";
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails) principal).getUsername();
+		} else {
+			username = principal.toString();
+		}
+
+		return buscarPorUsuarioEmail(username);
+	}
 
 	@Transactional(readOnly = true)
 	public Cliente buscarPorUsuarioEmail(String email) {
