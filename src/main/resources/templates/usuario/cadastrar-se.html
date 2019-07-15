@@ -26,6 +26,23 @@
 	.bd-placeholder-img-lg {
 		font-size: 3.5rem;
 	}
+
+	.form-signin {
+		animation-name: conteudo;
+		animation-duration: 5s;
+	}
+
+	@keyframes conteudo {
+		0% {
+			opacity: 0;
+			transform: translate(-20px, 0)
+		}
+		100% {
+			opacity: 1;
+			transform: translate(0, 0)
+		}
+	}
+
 }
 </style>
 
@@ -34,6 +51,8 @@
 <script th:src="@{/webjars/jquery/jquery.min.js(v=${version}) }"></script>
 <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js(v=${version}) }"></script>
 <link th:href="@{/css/style-loader.css(v=${version}) }" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/css?family=Exo:100i,200,400,800&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Rancho&effect=shadow-multiple" rel="stylesheet">
 </head>
 <body>	
 	
@@ -42,7 +61,7 @@
 		<div class="text-center mb-4">
 			<img class="mb-4" th:src="@{/image/logo2.png}" alt=""
 				width="72" height="72">
-			<h1 class="h3 mb-3 font-weight-normal">Financys</h1>
+			<h1 class="jumbotron-heading text-primary font-effect-shadow-multiple display-4">Finacys</h1>
 
 			<p class="font-weight-lighter">Seja bem-vindo.</p>
 			<p class="text-muted">Crie seu cadastro aqui!</p>

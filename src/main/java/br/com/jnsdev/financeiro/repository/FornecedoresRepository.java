@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface FornecedoresRepository extends JpaRepository<Fornecedor, Long>{
 
@@ -18,5 +20,8 @@ public interface FornecedoresRepository extends JpaRepository<Fornecedor, Long>{
 			+ "OR f.endereco.cidade like '%' || :search || '%' "
 			+ "OR f.endereco.estado like '%' || :search || '%'")
 	Page<Fornecedor> findAllBySearchNome(String search, Pageable pageable);
+
+	@Query("select f from Fornecedor f order by f.nome")
+	List<Fornecedor> findAllOrdeByNome();
 
 }

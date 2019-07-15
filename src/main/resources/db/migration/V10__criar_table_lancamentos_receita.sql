@@ -1,0 +1,6 @@
+CREATE TABLE lancamentos_receitas (
+    data_recebimento DATE DEFAULT NULL,
+    id BIGINT(20) NOT NULL,
+    PRIMARY KEY (id),
+    CONSTRAINT FK_LANCAMENTOS_RECEITAS_ID_LANCAMENTO FOREIGN KEY (id) REFERENCES lancamentos (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

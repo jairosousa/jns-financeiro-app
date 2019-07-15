@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -48,4 +49,18 @@ public class FornecedorService {
 		repository.deleteById(id);
 	}
 
+	@Transactional(readOnly = true)
+    public List<Fornecedor> buscarTodos() {
+		return repository.findAll();
+    }
+
+	@Transactional(readOnly = true)
+	public List<Fornecedor> buscarTodosOrderByNome() {
+		return repository.findAllOrdeByNome();
+	}
+
+	@Transactional(readOnly = true)
+    public Fornecedor buscarPorId(Long id) {
+		return repository.getOne(id);
+    }
 }

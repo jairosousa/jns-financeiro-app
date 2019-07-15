@@ -8,7 +8,9 @@
 <body>
     <header th:fragment="cabecalho">
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
-            <a class="navbar-brand" th:href="@{/}"><i class="fas fa-coins"></i>  iFinancys</a>
+
+                <a class="h2 navbar-brand" th:href="@{/}"><h2><i class="fas fa-coins"></i>  Financys </h2></a>
+
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -41,7 +43,9 @@
                     <li class="nav-item dropdown" sec:authorize="hasAnyAuthority('USUARIO')">
                         <a class="btn btn-primary dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Lançamentos</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown03">
-                            <a class="dropdown-item text-primary" th:href="@{/lancamentos}">Novo</a>
+<!--                            <a class="dropdown-item text-primary" th:href="@{/lancamentos/cadastrar}">Novo</a>-->
+                            <button class="dropdown-item text-primary" role="button" data-toggle="modal" data-target="#tipolanc-modal">Novo</button>
+                            <a class="dropdown-item text-primary" th:href="@{/lancamentos/lista}">Lista</a>
 
                             <div class="dropdown-divider"></div>
                             <h6 class="dropdown-header text-muted">PAGAMENTO</h6>
@@ -82,8 +86,8 @@
                     </button>
                         <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     </button>
-                        <div class="dropdown-menu">
-                            <button type="submit" class="dropdown-item"><i class="far fa-hand-point-left"></i> Sair</button>
+                        <div class="dropdown-menu ">
+                            <button type="submit" class="dropdown-item"><i class="far fa-hand-point-left text-primary"></i> Sair</button>
                         </div>
                     </div>
                 </form>

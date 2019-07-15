@@ -3,7 +3,7 @@ package br.com.jnsdev.financeiro.service;
 import br.com.jnsdev.financeiro.datatables.Datatables;
 import br.com.jnsdev.financeiro.datatables.DatatablesColunas;
 import br.com.jnsdev.financeiro.domain.Perfil;
-import br.com.jnsdev.financeiro.domain.PerfilTipo;
+import br.com.jnsdev.financeiro.domain.enuns.PerfilTipo;
 import br.com.jnsdev.financeiro.domain.Usuario;
 import br.com.jnsdev.financeiro.exception.AcessoNegadoException;
 import br.com.jnsdev.financeiro.repository.UsuarioRepository;

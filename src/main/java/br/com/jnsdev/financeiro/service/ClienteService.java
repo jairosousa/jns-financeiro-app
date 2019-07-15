@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.jnsdev.financeiro.domain.Cliente;
-import br.com.jnsdev.financeiro.domain.PerfilTipo;
+import br.com.jnsdev.financeiro.domain.enuns.PerfilTipo;
 import br.com.jnsdev.financeiro.repository.ClienteRepository;
 
 @Service

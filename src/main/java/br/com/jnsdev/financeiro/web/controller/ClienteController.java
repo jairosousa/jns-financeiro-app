@@ -2,7 +2,6 @@ package br.com.jnsdev.financeiro.web.controller;
 
 import br.com.jnsdev.financeiro.domain.Cliente;
 import br.com.jnsdev.financeiro.domain.Endereco;
-import br.com.jnsdev.financeiro.domain.PerfilTipo;
 import br.com.jnsdev.financeiro.domain.Usuario;
 import br.com.jnsdev.financeiro.service.ClienteService;
 import br.com.jnsdev.financeiro.service.UsuarioService;

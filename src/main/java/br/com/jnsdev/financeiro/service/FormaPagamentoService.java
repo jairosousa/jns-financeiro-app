@@ -31,7 +31,7 @@ public class FormaPagamentoService {
 	@Transactional(readOnly = true)
 	public Map<String, Object> buscarFormasPagamento(HttpServletRequest request, Long id) {
 		datatables.setRequest(request);
-		datatables.setColunas(DatatablesColunas.FP);
+		datatables.setColunas(DatatablesColunas.LANCAMENTOS);
 		Page<?> pages = datatables.getSearch().isEmpty() ? repository.findAllById(id, datatables.getPageable())
 				: repository.findAllByNomeById(id, datatables.getSearch(), datatables.getPageable());
 

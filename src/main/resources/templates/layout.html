@@ -4,7 +4,7 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	th:with="version=${#strings.randomAlphanumeric(3)}">
 <head>
-<title>iFinancys</title>
+<title>Financys</title>
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport"
@@ -29,7 +29,7 @@
 <link href="https://fonts.googleapis.com/css?family=Exo:100i,200,400,800&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Rancho&effect=shadow-multiple" rel="stylesheet">
 
-<!-- jQueryUI (autocomplete) -->
+	<!-- jQueryUI (autocomplete) -->
 <link href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
 	rel="stylesheet" />
 <!-- Icons fontawesome -->
@@ -56,6 +56,7 @@
 	</footer>
 
 	<span th:replace="fragments/modal-confirm :: modal-confirm"></span>
+	<span th:replace="fragments/modal-tipolancamento :: modal-tipolanc"></span>
 
 	<!-- Bootstrap core JavaScript
 ================================================== -->
@@ -67,6 +68,7 @@
 		th:src="@{/webjars/bootstrap/js/bootstrap.min.js(v=${version}) }"></script>
 	<!-- jQueryUI (autocomplete) -->
 	<script src='https://code.jquery.com/ui/1.12.1/jquery-ui.min.js'></script>
+	<script th:src="@{/webjars/jquery-mask-plugin/dist/jquery.mask.min.js}"></script>
 	<!-- Maskinput -->
 	<script th:src="@{/js/libs/jquery.maskedinput.js}"></script>
 	<script th:src="@{/js/mask.js}"></script>

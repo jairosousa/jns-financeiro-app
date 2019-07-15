@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.w3.org/1999/xhtml" layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+<section class="layout-content" layout:fragment="corpo">
+    <main role="main">
+        <header
+                th:replace="fragments/jumbotron :: jumbotron">
+            <div>jumbotron</div>
+        </header>
+
+        <div class="album py-5 bg-light">
+            <div class="container">
+                <div class="d-flex justify-content-center">
+                    <div class="col-md-8 ">
+                        <div th:replace="fragments/alert :: alerta-sucesso"></div>
+
+                        <form th:action="${lancamento.id == null} ? @{/lancamentos/salvar} : @{/lancamentos/editar}"
+                              th:object="${lancamento}" method="POST" class="was-validated">
+
+                                <div class="btn-group btn-group-toggle mb-3" data-toggle="buttons">
+                                    <div th:each="t : ${tiposlancamentos}">
+                                        <label class="btn btn-primary mr-1 radiobox">
+                                            <input class="m-1" type="radio" name="tipo" th:value="${t}" th:field="*{tipo}"
+                                                   th:text="${t.desc}" autocomplete="off" checked>
+                                        </label>
+                                    </div>
+
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-12 col-md-6 mb-3">
+                                    <label for="nome">Nome</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="nome"
+                                               placeholder="Nome Lançamento"
+                                               aria-describedby="validationTooltipUsernamePrepend"
+                                               th:field="*{nome}" required/>
+                                        <div class="invalid-feedback">Nome é requerido.</div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 mb-3">
+                                    <label for="descricao">Descrição</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="descricao"
+                                               placeholder="Nome Lançamento"
+                                               aria-describedby="validationTooltipUsernamePrepend"
+                                               th:field="*{descricao}" required/>
+                                        <div class="invalid-feedback">Descricão é requerida.</div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 mb-3">
+                                    <label for="nome">Data</label>
+                                    <div class="input-group">
+                                        <input type="date" class="form-control" id="dtNascimento"
+                                               aria-describedby="validationTooltipUsernamePrepend"
+                                               th:field="*{dtLancamento}" required/>
+                                        <div class="invalid-feedback">Data de nascimento é
+                                            requerida.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 form-group">
+                                    <label for="valor">Valor</label>
+                                    <input type="text" class="form-control" id="valor" data-mask="#.##0,00"
+                                           data-mask-reverse="true" th:field="*{valor}"
+                                           required/>
+                                    <div class="invalid-feedback">Valor é requerida.</div>
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label for="categoria">Categoria</label>
+                                    <select id="categoria" class="form-control" th:field="*{categoria}"
+                                            required>
+                                        <option value="">Selecione...</option>
+                                        <option th:each="c : ${categorias}" th:value="${c.id}"
+                                                th:text="${c.nome}"></option>
+                                    </select>
+                                    <div class="invalid-feedback">Categoria é requerido.</div>
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label for="fornecedor">Fornecedor</label>
+                                    <select id="fornecedor" class="form-control" th:field="*{fornecedor}"
+                                            required>
+                                        <option value="">Selecione...</option>
+                                        <option th:each="f : ${fornecedores}" th:value="${f.id}"
+                                                th:text="${f.nome}"></option>
+                                    </select>
+                                    <div class="invalid-feedback">Fornecedor é requerido.</div>
+                                </div>
+
+                                <hr/>
+
+                            </div>
+
+                            <input type="hidden" th:field="*{id}">
+                            <input type="hidden" th:field="*{cliente.id}">
+
+                            <div class="form-group row">
+                                <div class="col-sm-10">
+                                    <button type="submit" class="btn btn-primary"
+                                            data-toggle="tooltip" data-placement="right" title="Salvar">
+                                        <i class="fas fa-save"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</section>
+
+<script th:src="~{}" th:fragment="js"></script>
+<script th:src="@{/js/lancamento.js?(v=${version})}" th:fragment="js"></script>
+<script th:inline="javascript" th:fragment="inlinescript"></script>
+</body>
+</html>

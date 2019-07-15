@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <body>
 	<!-- Modal -->
-	<div th:fragment="modal-confirm"
-			class="modal fade" id="confirm-modal" tabindex="-1" role="dialog" 
+	<div th:fragment="modal-tipolanc"
+			class="modal fade" id="tipolanc-modal" tabindex="-1" role="dialog"
 			aria-labelledby="exampleModalLabel" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-centered" role="document">
 	    <div class="modal-content">
 				<div class="card">
-					<div class="modal-header bg-light text-danger">
+					<div class="modal-header bg-light text-primary">
 						<h5 class="modal-title" id="exampleModalLabel">
 							<span><i class="fas fa-exclamation-triangle"></i></span>
 						</h5>
@@ -20,13 +20,14 @@
 						</button>
 					</div>
 					<div class="modal-body">
-						<p class="font-weight-bolder">Você tem certeza que deseja
-							excluir esse ítem?</p>
+						<p class="font-weight-bolder">Qual tipo Lançamento?</p>
 					</div>
 					<div class="modal-footer">
-						<button id="btnCancel" type="button" class="btn btn-danger"
+						<button id="btnCancel" type="button" class="btn  btn-link"
 							data-dismiss="modal">Cancelar</button>
-						<button id="btnOk" type="button" class="btn btn-success">Confirmar</button>
+<!--						<button id="btnReceita" type="button" class="btn btn-info" th:href="@{/lancamentos/cadastrar/receita}">Receita</button>-->
+						<a class="btn btn-info" th:href="@{/lancamentos/cadastrar/receita}">RECEITA</a>
+						<button id="btndespésa" type="button" class="btn btn-danger">Despesa</button>
 					</div>
 				</div>
 			</div>
