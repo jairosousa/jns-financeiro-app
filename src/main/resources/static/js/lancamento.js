@@ -53,3 +53,27 @@ $(document).ready(function () {
     });
 
 })
+
+$("#parcelado").change(function() {
+  if ($(this).prop("checked") == true) {
+    $('#gasto').append(
+    		
+    	`
+    	<div class="form-check">
+	          <div class="input-group">
+	             <input type="checkbox" value="1" class="form-check-input" id="fixo" th:field="*{gasto}">
+	    		<label class="form-check-label text-dark" for="fixo">Fixo</label>  
+	          </div>
+        </div>
+        <div class="form-check">
+	        <div class="input-group">
+	           <input type="checkbox" value="2" class="form-check-input" id="parcelado" th:field="*{gasto}">
+	           <label class="form-check-label text-dark" for="parcelado">Parcelada</label>  
+	        </div>
+        </div>
+        `
+    )
+  }
+});
+
+$("#parcelado").trigger("change");
