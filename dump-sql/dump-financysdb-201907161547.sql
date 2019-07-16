@@ -88,7 +88,7 @@ CREATE TABLE `enderecos` (
   `uf` char(2) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_TELEFONE_ID` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -97,7 +97,7 @@ CREATE TABLE `enderecos` (
 
 LOCK TABLES `enderecos` WRITE;
 /*!40000 ALTER TABLE `enderecos` DISABLE KEYS */;
-INSERT INTO `enderecos` VALUES (1,'Rua Maracacuera','100',NULL,'Icoaraci','66.000-000','Belém','PA'),(2,'Quarta rua','200',NULL,'Icoaraci','66.000-000','Belém','PA'),(3,'Travessa L-6','223','(Cj COHAB)','Campina de Icoaraci (Icoaraci)','66.813-700','Belém','PA'),(4,'Avenida Senador Lemos','435','SL 605 607 EDIF Village Boulevard','Umarizal','66.050-000','Belém','PA'),(5,'Avenida Presidente Vargas','325','até 379/380','Campina','66.010-000','Belém','PA');
+INSERT INTO `enderecos` VALUES (1,'Rua Maracacuera','100',NULL,'Icoaraci','66.000-000','Belém','PA'),(2,'Quarta rua','200',NULL,'Icoaraci','66.000-000','Belém','PA'),(3,'Travessa L-6','223','(Cj COHAB)','Campina de Icoaraci (Icoaraci)','66.813-700','Belém','PA'),(4,'Avenida Senador Lemos','435','SL 605 607 EDIF Village Boulevard','Umarizal','66.050-000','Belém','PA'),(5,'Avenida Presidente Vargas','325','até 379/380','Campina','66.010-000','Belém','PA'),(6,'Avenida Nazaré','140','Manoel Pinto','Nazaré','66.035-115','Belém','PA');
 /*!40000 ALTER TABLE `enderecos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -178,7 +178,7 @@ CREATE TABLE `fornecedores` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_endereco` (`id_endereco`),
   CONSTRAINT `FK_FORNECEDOR_ENDERECO_ID` FOREIGN KEY (`id_endereco`) REFERENCES `enderecos` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -187,7 +187,7 @@ CREATE TABLE `fornecedores` (
 
 LOCK TABLES `fornecedores` WRITE;
 /*!40000 ALTER TABLE `fornecedores` DISABLE KEYS */;
-INSERT INTO `fornecedores` VALUES (1,'Sup. Armazem','2019-06-23','Supermercado',1),(2,'Sup. Lider','2019-06-23','Supermercado',2),(3,'Stefanini Consul Assess Inform','2019-07-15','Serviços',4),(4,'Delicidade','2019-07-15','Mercado e Panificadora',5);
+INSERT INTO `fornecedores` VALUES (1,'Sup. Armazem','2019-06-23','Supermercado',1),(2,'Sup. Lider','2019-06-23','Supermercado',2),(3,'Stefanini Consul Assess Inform','2019-07-15','Serviços',4),(4,'Delicidade','2019-07-15','Mercado e Panificadora',5),(5,'Yamada Espress','2019-07-16','Supermercado',6);
 /*!40000 ALTER TABLE `fornecedores` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -324,7 +324,7 @@ CREATE TABLE `telefones` (
   PRIMARY KEY (`id`),
   KEY `FK_TELEFONE_FORNECEDOR_ID` (`id_fornecedor`),
   CONSTRAINT `FK_TELEFONE_FORNECEDOR_ID` FOREIGN KEY (`id_fornecedor`) REFERENCES `fornecedores` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -333,7 +333,7 @@ CREATE TABLE `telefones` (
 
 LOCK TABLES `telefones` WRITE;
 /*!40000 ALTER TABLE `telefones` DISABLE KEYS */;
-INSERT INTO `telefones` VALUES (1,'(91) 3223-5252',1),(2,'(91) 98263-5244',1),(3,'(91) 4005-6385',2),(4,'(91) 99152-7400',2),(5,'(91) 3222-2222',3),(6,'(91) 3242-7414',4);
+INSERT INTO `telefones` VALUES (1,'(91) 3223-5252',1),(2,'(91) 98263-5244',1),(3,'(91) 4005-6385',2),(4,'(91) 99152-7400',2),(5,'(91) 3222-2222',3),(6,'(91) 3242-7414',4),(7,'(91) 3242-8844',5);
 /*!40000 ALTER TABLE `telefones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -406,4 +406,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-07-15 17:01:56
+-- Dump completed on 2019-07-16 15:47:34
