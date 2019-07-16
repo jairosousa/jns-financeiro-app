@@ -5,25 +5,16 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import br.com.jnsdev.financeiro.domain.Cliente;
-import br.com.jnsdev.financeiro.service.ClienteService;
-
 @Controller
 public class HomeController {
-	
-	@Autowired
-	private ClienteService service;
 
 	@GetMapping({ "/", "/home" })
-	public String home(ModelMap model) {
-		Cliente cliente = service.getUsuarioLogado();
-		model.addAttribute("cliente", cliente);
+	public String home() {
 		return "home";
 	}
 
@@ -53,28 +44,28 @@ public class HomeController {
 	}
 
 	@GetMapping("datatables/translationBR")
-    public ResponseEntity<?> getDatatablesTranslatio() {
+	public ResponseEntity<?> getDatatablesTranslatio() {
 		Map<String, Object> oPaginate = new LinkedHashMap<>();
 		oPaginate.put("sNext", "Próximo");
 		oPaginate.put("sPrevious", "Anterior");
 		oPaginate.put("sFirst", "Primeiro");
 		oPaginate.put("sLast", "Último");
-		
+
 		Map<String, Object> oAria = new LinkedHashMap<>();
-			oAria.put("sSortAscending", "Ordenar colunas de forma ascendente");
-			oAria.put("sSortDescending", "Ordenar colunas de forma descendente");
-		
-    	Map<String, Object> json = new LinkedHashMap<>();
-    	json.put("sEmptyTable", "Nenhum registro encontrado");
-    	json.put("sInfo", "Mostrando de _START_ até _END_ de _TOTAL_ registros");
-    	json.put("sInfoEmpty", "Mostrando 0 até 0 de 0 registros");
-    	json.put("sInfoFiltered", "(Filtrados de _MAX_ registros)");
-    	json.put("sInfoPostFix", "");
-    	json.put("sInfoThousands", ".");
-    	json.put("sLengthMenu", "_MENU_ resultados por página");
-    	json.put("sLoadingRecords", "Carregando...");
-    	json.put("sProcessing", "Processando...");
-    	json.put("sZeroRecords", "Nenhum registro encontrado");
+		oAria.put("sSortAscending", "Ordenar colunas de forma ascendente");
+		oAria.put("sSortDescending", "Ordenar colunas de forma descendente");
+
+		Map<String, Object> json = new LinkedHashMap<>();
+		json.put("sEmptyTable", "Nenhum registro encontrado");
+		json.put("sInfo", "Mostrando de _START_ até _END_ de _TOTAL_ registros");
+		json.put("sInfoEmpty", "Mostrando 0 até 0 de 0 registros");
+		json.put("sInfoFiltered", "(Filtrados de _MAX_ registros)");
+		json.put("sInfoPostFix", "");
+		json.put("sInfoThousands", ".");
+		json.put("sLengthMenu", "_MENU_ resultados por página");
+		json.put("sLoadingRecords", "Carregando...");
+		json.put("sProcessing", "Processando...");
+		json.put("sZeroRecords", "Nenhum registro encontrado");
 		json.put("sSearch", "Pesquisar");
 		json.put("oPaginate", oPaginate);
 		json.put("oAria", oAria);

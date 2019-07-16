@@ -50,8 +50,12 @@ public class LancamentoController {
 
 	@GetMapping("cadastrar/receita")
 	public String abriCadastroReceita(LancamentoReceita lancamento, ModelMap model,
-			@AuthenticationPrincipal User user) {
+			RedirectAttributes attr, @AuthenticationPrincipal User user) {
 		Cliente cliente = clienteService.buscarPorUsuarioEmail(user.getUsername());
+		if (cliente.hasNotId()) {
+			attr.addFlashAttribute("falha", "Cliente: " + user.getUsername() + ", Você deve concluir seu cadastro antes realizar uma operação.");
+			return "redirect:/clientes/dados";
+		}
 		lancamento.setCliente(cliente);
 		model.addAttribute("lancamento", lancamento);
 
@@ -70,6 +74,11 @@ public class LancamentoController {
 	public String abriCadastroDespesa(LancamentoDespesa lancamento, ModelMap model,
 			RedirectAttributes attr, @AuthenticationPrincipal User user) {
 		Cliente cliente = clienteService.buscarPorUsuarioEmail(user.getUsername());
+		
+		if (cliente.hasNotId()) {
+			attr.addFlashAttribute("falha", "Cliente: " + user.getUsername() + ", Você deve concluir seu cadastro antes realizar uma operação.");
+			return "redirect:/clientes/dados";
+		}
 		
 		if(formasPagamentoService.temFormaDePagamentos(cliente.getId())) {
 			attr.addFlashAttribute("falha", "Usuario não tem forma de Pagamento Cadastrada!");

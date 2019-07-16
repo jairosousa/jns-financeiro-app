@@ -1,10 +1,11 @@
 package br.com.jnsdev.financeiro.web.controller;
 
-import br.com.jnsdev.financeiro.domain.Fornecedor;
-import br.com.jnsdev.financeiro.domain.Telefone;
-import br.com.jnsdev.financeiro.service.FornecedorService;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
+import br.com.jnsdev.financeiro.domain.Cliente;
+import br.com.jnsdev.financeiro.domain.Fornecedor;
+import br.com.jnsdev.financeiro.domain.Telefone;
+import br.com.jnsdev.financeiro.service.ClienteService;
+import br.com.jnsdev.financeiro.service.FornecedorService;
 
 @Controller
 @RequestMapping("fornecedores")
@@ -22,10 +27,22 @@ public class FornecedorController {
 	@Autowired
 	private FornecedorService service;
 	
+	@Autowired
+	private ClienteService clienteService;
+	
 	@GetMapping
-	public String abrir(Fornecedor fornecedor) {
+	public String abrir(Fornecedor fornecedor, RedirectAttributes attr, @AuthenticationPrincipal User user) {
 		fornecedor.getTelefones().add(new Telefone(fornecedor));
-		return "fornecedor/cadastro";
+		if (clienteService.userHasAdmin(user)) {
+			return "fornecedor/cadastro";
+		} else {
+			Cliente cliente = clienteService.buscarPorUsuarioEmail(user.getUsername());
+			if (cliente.hasNotId()) {
+				attr.addFlashAttribute("falha", "Cliente: " + user.getUsername() + ", Você deve concluir seu cadastro antes realizar uma operação.");
+				return "redirect:/clientes/dados";
+			}
+			return "fornecedor/cadastro";
+		}
 	}
 	
 	@PostMapping("salvar")

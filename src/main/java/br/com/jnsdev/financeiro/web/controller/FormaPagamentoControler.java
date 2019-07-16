@@ -30,10 +30,17 @@ public class FormaPagamentoControler {
 	private ClienteService clienteService;
 	
 	@GetMapping
-	public String abrir(FormaPagamento fp, ModelMap model, @AuthenticationPrincipal User user) {
+	public String abrir(FormaPagamento fp, ModelMap model, 
+			RedirectAttributes attr, @AuthenticationPrincipal User user) {
 		Cliente cliente = clienteService.buscarPorUsuarioEmail(user.getUsername());
 		fp.setCliente(cliente);
 		model.addAttribute("fp", fp);
+		
+		if (cliente.hasNotId()) {
+			attr.addFlashAttribute("falha", "Cliente: " + user.getUsername() + ", Você deve concluir seu cadastro antes realizar uma operação.");
+			return "redirect:/clientes/dados";
+		}
+		
 		return "fp/fpagamento";
 	}
 	
