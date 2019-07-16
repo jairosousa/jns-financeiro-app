@@ -88,6 +88,7 @@ public class LancamentoController {
 				
 		lancamento.setDtLancamento(LocalDate.now());
 		lancamento.setParcelado(Boolean.FALSE);
+		lancamento.setQtdParcelas(1);
 		lancamento.setCliente(cliente);
 		model.addAttribute("lancamento", lancamento);
 
