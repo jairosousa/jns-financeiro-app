@@ -130,7 +130,7 @@ CREATE TABLE `flyway_schema_history` (
 
 LOCK TABLES `flyway_schema_history` WRITE;
 /*!40000 ALTER TABLE `flyway_schema_history` DISABLE KEYS */;
-INSERT INTO `flyway_schema_history` VALUES (1,'01','criar e registrar categorias','SQL','V01__criar_e_registrar_categorias.sql',-1865310929,'root','2019-07-15 10:42:43',248,1),(2,'02','criar tabela endereco','SQL','V02__criar_tabela_endereco.sql',1732803904,'root','2019-07-15 10:42:44',274,1),(3,'03','criar table fornecedores','SQL','V03__criar_table_fornecedores.sql',20741923,'root','2019-07-15 10:42:44',422,1),(4,'04','criar table telefones','SQL','V04__criar_table_telefones.sql',-87850562,'root','2019-07-15 10:42:44',297,1),(5,'05','criar tables perfis usuarios','SQL','V05__criar_tables_perfis_usuarios.sql',1307828406,'root','2019-07-15 10:42:45',836,1),(6,'06','criar table cliente','SQL','V06__criar_table_cliente.sql',-1350369053,'root','2019-07-15 10:42:46',272,1),(7,'07','criar usuario admin','SQL','V07__criar_usuario_admin.sql',-1382352805,'root','2019-07-15 10:42:46',10,1),(8,'08','criar tables forma pagamento','SQL','V08__criar_tables_forma_pagamento.sql',1001515877,'root','2019-07-15 10:42:46',242,1),(9,'09','criar table lancamentos','SQL','V09__criar_table_lancamentos.sql',1091494928,'root','2019-07-15 10:42:46',270,1),(10,'10','criar table lancamentos receita','SQL','V10__criar_table_lancamentos_receita.sql',-1187589722,'root','2019-07-15 10:42:46',190,1),(11,'11','criar table lancamentos despesas','SQL','V11__criar_table_lancamentos_despesas.sql',1705319196,'root','2019-07-15 10:42:47',254,1);
+INSERT INTO `flyway_schema_history` VALUES (1,'01','criar e registrar categorias','SQL','V01__criar_e_registrar_categorias.sql',-1865310929,'root','2019-07-16 23:07:45',35,1),(2,'02','criar tabela endereco','SQL','V02__criar_tabela_endereco.sql',1732803904,'root','2019-07-16 23:07:45',31,1),(3,'03','criar table fornecedores','SQL','V03__criar_table_fornecedores.sql',20741923,'root','2019-07-16 23:07:45',36,1),(4,'04','criar table telefones','SQL','V04__criar_table_telefones.sql',-87850562,'root','2019-07-16 23:07:45',35,1),(5,'05','criar tables perfis usuarios','SQL','V05__criar_tables_perfis_usuarios.sql',1307828406,'root','2019-07-16 23:07:46',85,1),(6,'06','criar table cliente','SQL','V06__criar_table_cliente.sql',-1350369053,'root','2019-07-16 23:07:46',29,1),(7,'07','criar usuario admin','SQL','V07__criar_usuario_admin.sql',-1382352805,'root','2019-07-16 23:07:46',8,1),(8,'08','criar tables forma pagamento','SQL','V08__criar_tables_forma_pagamento.sql',1001515877,'root','2019-07-16 23:07:46',26,1),(9,'09','criar table lancamentos','SQL','V09__criar_table_lancamentos.sql',1091494928,'root','2019-07-16 23:07:46',39,1),(10,'10','criar table lancamentos receita','SQL','V10__criar_table_lancamentos_receita.sql',-1187589722,'root','2019-07-16 23:07:46',26,1),(11,'11','criar table lancamentos despesas','SQL','V11__criar_table_lancamentos_despesas.sql',-2017094569,'root','2019-07-16 23:07:46',37,1);
 /*!40000 ALTER TABLE `flyway_schema_history` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -211,7 +211,7 @@ CREATE TABLE `lancamentos` (
   KEY `FK_LANCAMENTO_ID_ID_CLIENTE` (`id_cliente`),
   CONSTRAINT `FK_LANCAMENTO_ID_CLIENTE` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`),
   CONSTRAINT `FK_LANCAMENTO_ID_FORNECEDOR` FOREIGN KEY (`id_fornecedor`) REFERENCES `fornecedores` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -220,7 +220,6 @@ CREATE TABLE `lancamentos` (
 
 LOCK TABLES `lancamentos` WRITE;
 /*!40000 ALTER TABLE `lancamentos` DISABLE KEYS */;
-INSERT INTO `lancamentos` VALUES (1,'Salario mês','Maio/2019',1470.00,'2019-07-15',3,1),(4,'Compra Pão','3 pães careca',2.14,'2019-07-15',4,1);
 /*!40000 ALTER TABLE `lancamentos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -256,7 +255,6 @@ CREATE TABLE `lancamentos_despesas` (
 
 LOCK TABLES `lancamentos_despesas` WRITE;
 /*!40000 ALTER TABLE `lancamentos_despesas` DISABLE KEYS */;
-INSERT INTO `lancamentos_despesas` VALUES ('2019-07-15','2018-07-15',0,NULL,NULL,NULL,2,1,4);
 /*!40000 ALTER TABLE `lancamentos_despesas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -281,7 +279,6 @@ CREATE TABLE `lancamentos_receitas` (
 
 LOCK TABLES `lancamentos_receitas` WRITE;
 /*!40000 ALTER TABLE `lancamentos_receitas` DISABLE KEYS */;
-INSERT INTO `lancamentos_receitas` VALUES ('2019-05-05',1);
 /*!40000 ALTER TABLE `lancamentos_receitas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -324,7 +321,7 @@ CREATE TABLE `telefones` (
   PRIMARY KEY (`id`),
   KEY `FK_TELEFONE_FORNECEDOR_ID` (`id_fornecedor`),
   CONSTRAINT `FK_TELEFONE_FORNECEDOR_ID` FOREIGN KEY (`id_fornecedor`) REFERENCES `fornecedores` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -333,7 +330,7 @@ CREATE TABLE `telefones` (
 
 LOCK TABLES `telefones` WRITE;
 /*!40000 ALTER TABLE `telefones` DISABLE KEYS */;
-INSERT INTO `telefones` VALUES (1,'(91) 3223-5252',1),(2,'(91) 98263-5244',1),(3,'(91) 4005-6385',2),(4,'(91) 99152-7400',2),(5,'(91) 3222-2222',3),(6,'(91) 3242-7414',4),(7,'(91) 3242-8844',5);
+INSERT INTO `telefones` VALUES (1,'(91) 3223-5252',1),(2,'(91) 98263-5244',1),(3,'(91) 4005-6385',2),(4,'(91) 99152-7400',2);
 /*!40000 ALTER TABLE `telefones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -406,4 +403,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-07-16 15:47:34
+-- Dump completed on 2019-07-16 21:43:15
