@@ -1,13 +1,13 @@
 package br.com.jnsdev.financeiro.domain.enuns;
 
-public enum Gasto {
+public enum Pagamento {
 
-    FIXO(1, "Fixo"), PARCELADO(2, "Parcelado");
+    AVISTA(1, "À vista"), APRAZO(2, "A prazo");
 
     private long cod;
     private String desc;
 
-    Gasto(long cod, String desc) {
+    Pagamento(long cod, String desc) {
         this.cod = cod;
         this.desc = desc;
     }

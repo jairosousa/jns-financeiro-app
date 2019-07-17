@@ -1,10 +1,8 @@
 package br.com.jnsdev.financeiro.web.controller;
 
-import java.time.LocalDate;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
+import br.com.jnsdev.financeiro.domain.*;
+import br.com.jnsdev.financeiro.domain.enuns.Pagamento;
+import br.com.jnsdev.financeiro.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -17,17 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.com.jnsdev.financeiro.domain.Categoria;
-import br.com.jnsdev.financeiro.domain.Cliente;
-import br.com.jnsdev.financeiro.domain.FormaPagamento;
-import br.com.jnsdev.financeiro.domain.Fornecedor;
-import br.com.jnsdev.financeiro.domain.LancamentoDespesa;
-import br.com.jnsdev.financeiro.domain.LancamentoReceita;
-import br.com.jnsdev.financeiro.service.CategoriaService;
-import br.com.jnsdev.financeiro.service.ClienteService;
-import br.com.jnsdev.financeiro.service.FormasPagamentoService;
-import br.com.jnsdev.financeiro.service.FornecedorService;
-import br.com.jnsdev.financeiro.service.LancamentoService;
+import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
+import java.util.List;
 
 @Controller
 @RequestMapping("lancamentos")
@@ -87,8 +77,9 @@ public class LancamentoController {
 		}
 				
 		lancamento.setDtLancamento(LocalDate.now());
-		lancamento.setParcelado(Boolean.FALSE);
-		lancamento.setQtdParcelas(1);
+		lancamento.setGastoFixo(Boolean.FALSE);
+		lancamento.setQtdParcelas(0);
+		lancamento.setPagamento(Pagamento.AVISTA);
 		lancamento.setCliente(cliente);
 		model.addAttribute("lancamento", lancamento);
 
@@ -136,8 +127,8 @@ public class LancamentoController {
 		return formasPagamentoService.buscarTodosPorUsuario(cliente.getId());
 	}
 
-//    @ModelAttribute("tiposlancamentos")
-//    public TipoLancamento[] getTiposLancamentos() {
-//        return TipoLancamento.values();
-//    }
+    @ModelAttribute("pagamentos")
+    public Pagamento[] getTiposGastos() {
+        return Pagamento.values();
+    }
 }

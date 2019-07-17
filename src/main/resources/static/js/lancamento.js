@@ -71,29 +71,30 @@ $(document).ready(function() {
 
 				})
 
-$('#gasto').hide();
 $('#qtdsParcelas').hide();
 
-$("#aprazo").change(function() {
+$("#gastoFixo").change(function() {
 	if ($(this).prop("checked") == true) {
-		$('#gasto').show(1000);
+		$('#paglabel').text('Sim')
+	} else {
+		$('#paglabel').text('Não')
 	}
 });
 
-$("#aprazo").trigger("change");
+$("#gastoFixo").trigger("change");
 
-$("#parcelado").change(function() {
+$("#1").change(function() {
 	if ($(this).prop("checked") == true) {
 		$('#qtdsParcelas').show(1000);
-	}
+	} 
 });
 
-$("#parcelado").trigger("change");
+$("#1").trigger("change");
 
-$("#fixo").change(function() {
+$("#0").change(function() {
 	if ($(this).prop("checked") == true) {
 		$('#qtdsParcelas').hide(1000);
 	}
 });
 
-$("#fixo").trigger("change");
+$("#0").trigger("change");

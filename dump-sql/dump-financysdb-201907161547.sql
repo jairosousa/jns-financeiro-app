@@ -234,8 +234,8 @@ DROP TABLE IF EXISTS `lancamentos_despesas`;
 CREATE TABLE `lancamentos_despesas` (
   `data_pagamento` date DEFAULT NULL,
   `data_vencimento` date DEFAULT NULL,
-  `parcelado` tinyint(1) DEFAULT '0',
-  `gasto` varchar(20) DEFAULT NULL,
+  `gasto_fixo` tinyint(1) DEFAULT '0',
+  `pagamento` varchar(20) DEFAULT NULL,
   `qtd_parcelas` int(11) DEFAULT NULL,
   `numero_parcela` int(11) DEFAULT NULL,
   `id_categoria` bigint(20) NOT NULL,

@@ -6,7 +6,7 @@ $(document).ready(function () {
     		"url": "/datatables/translationBR"
         },
     	searching: true,
-    	order: [[ 0, "asc" ]],
+    	order: [[ 0, "desc" ]],
     	lengthMenu: [5, 10],
         processing: true,
         serverSide: true,

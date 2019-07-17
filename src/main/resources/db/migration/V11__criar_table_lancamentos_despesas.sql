@@ -1,8 +1,8 @@
 CREATE TABLE lancamentos_despesas (
     data_pagamento DATE DEFAULT NULL,
     data_vencimento DATE DEFAULT NULL,
-    parcelado boolean DEFAULT FALSE,
-    gasto varchar(20) DEFAULT NULL,
+    gasto_fixo boolean DEFAULT FALSE,
+    pagamento varchar(20) DEFAULT NULL,
     qtd_parcelas INT DEFAULT NULL,
     numero_parcela INT DEFAULT NULL,
     id_categoria BIGINT(20) NOT NULL ,

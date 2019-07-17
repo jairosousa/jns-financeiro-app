@@ -108,7 +108,7 @@
 									</div>
 								</div>
 
-								<div class="form-group col-md-6">
+								<div class="form-group col-md-6 mb-3">
 									<label for="formaPagamento">Forma Pagamento</label> <select
 										id="formaPagamento" class="form-control"
 										th:field="*{formaPagamento}" required>
@@ -120,44 +120,38 @@
 										requerido.</div>
 								</div>
 
-								<div class="col-12 col-md-6 mb-3">
-									<label>Pagamento</label>
-									<div class="input-group">
+								<div class="col-12 col-md-6">
+									<label for="gastoFixo">Gasto Fixo ?</label>
+									<div class="input-group mt-3">
 										<div class="form-check">
-											<div class="input-group">
-												<input type="checkbox" class="form-check-input" id="aprazo"
-													th:field="*{parcelado}"> <label
-													class="form-check-label text-dark" for="aprazo">Parcelado</label>
-											</div>
+											<input type="checkbox" class="form-check-input" id="gastoFixo"
+														   th:field="*{gastoFixo}">
+											<label id="paglabel" class="form-check-label font-weight-bold text-dark " for="gastoFixo">Não</label>
 										</div>
 									</div>
 								</div>
 
 							</div>
 
-							<div class=form-row>
+							<div class="form-row mt-3" >
 
-								<div id="gasto" class="col-12 col-md-6 mb-3">
-									<label>Gasto</label>
+								<div class="col-12 col-md-6 mb-3">
+									<label for="pagamento">Pagamento</label>
 									<div class="input-group">
-										<div class="form-check form-check-inline">
-											<input type="radio" value="1" name="fixo"
-												class="form-check-input" id="fixo" th:field="*{gasto}">
-											<label class="form-check-label text-dark" for="fixo">Fixo</label>
+										<div id="pagamento" class="form-check form-check-inline">
+											<div th:each="p, status : ${pagamentos}" class="mt-2 mr-3">
+												<input th:id="${status.index}" class="form-check-input " type="radio" name="pagamento" th:value="${p}" th:field="*{pagamento}"
+													   autocomplete="off" checked>
+												<label class="form-check-label text-dark radiobox" th:text="${p.desc}"></label>
+											</div>
 										</div>
-										<div class="form-check form-check-inline">
-											<input type="radio" value="2" name="parcelado"
-												class="form-check-input" id="parcelado" th:field="*{gasto}">
-											<label class="form-check-label text-dark" for="parcelado">Parcelada</label>
-										</div>
-
 									</div>
 								</div>
 
 								<div id="qtdsParcelas" class="col-12 col-md-6 mb-3">
 									<label for="qtdParcelas">Quantidade de parcelas</label>
 									<div class="input-group">
-										<input type="number" class="form-control" id="qtdParcelas"
+										<input type="number" class="form-control" id="qtdParcelas" min="0"
 											placeholder="Quantidades parcelas"
 											aria-describedby="validationTooltipUsernamePrepend"
 											th:field="*{qtdParcelas}" />
