@@ -2,8 +2,13 @@ package br.com.jnsdev.financeiro.domain;
 
 import br.com.jnsdev.financeiro.domain.enuns.Pagamento;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.NumberFormat.Style;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -30,6 +35,11 @@ public class LancamentoDespesa extends Lancamento {
 
 	@Column(name = "numero_parcela", nullable = true)
 	private Integer numParcela;
+	
+	@NotNull
+    @NumberFormat(style = Style.CURRENCY, pattern = "#,##0.00")
+    @Column(name="valor_parcela",columnDefinition = "DECIMAL(7,2) DEFAULT 0.00")
+    private BigDecimal valorParcela;
 
 	@ManyToOne
 	@JoinColumn(name = "id_categoria")
@@ -133,8 +143,7 @@ public class LancamentoDespesa extends Lancamento {
 				", qtdParcelas= " + qtdParcelas +
 				", numParcela= " + numParcela +
 				", categoria= " + categoria +
-				", formaPagamento= " + formaPagamento +
-				", lancamento= " + lancamento +
+				", formaPagamento= " + formaPagamento.getNome() +
 				'}';
 	}
 }

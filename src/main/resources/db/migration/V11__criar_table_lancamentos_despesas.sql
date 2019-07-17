@@ -5,6 +5,7 @@ CREATE TABLE lancamentos_despesas (
     pagamento varchar(20) DEFAULT NULL,
     qtd_parcelas INT DEFAULT NULL,
     numero_parcela INT DEFAULT NULL,
+    valor_parcela DECIMAL(10,2) DEFAULT NULL,
     id_categoria BIGINT(20) NOT NULL ,
     id_forma_pagamento BIGINT(20) NOT NULL,
     id BIGINT(20) NOT NULL,

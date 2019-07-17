@@ -5,6 +5,7 @@ import br.com.jnsdev.financeiro.datatables.DatatablesColunas;
 import br.com.jnsdev.financeiro.domain.Lancamento;
 import br.com.jnsdev.financeiro.domain.LancamentoDespesa;
 import br.com.jnsdev.financeiro.domain.LancamentoReceita;
+import br.com.jnsdev.financeiro.domain.enuns.Pagamento;
 import br.com.jnsdev.financeiro.repository.LancamentoDespesaRepository;
 import br.com.jnsdev.financeiro.repository.LancamentoReceitaRepository;
 import br.com.jnsdev.financeiro.repository.LancamentoRepository;
@@ -55,7 +56,12 @@ public class LancamentoService {
 
 	@Transactional(readOnly = false)
 	public void salvarDespesa(LancamentoDespesa lancamento) {
-		despesaRepository.save(lancamento);
+		System.out.println("DESPESA: " + lancamento);
+		
+		if (lancamento.getPagamento().equals(Pagamento.APRAZO)) {
+			System.out.println("Salvar pagamento aprazo");
+		}
+//		despesaRepository.save(lancamento);
 	}
 
 }
