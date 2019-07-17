@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.time.LocalDate;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "lancamentos_receitas")
 public class LancamentoReceita extends Lancamento{
@@ -19,10 +20,12 @@ public class LancamentoReceita extends Lancamento{
     private Lancamento lancamento;
 
     public LancamentoReceita() {
+    	super();
     }
+    
 
     public LancamentoReceita(Long id) {
-        super(id);
+        super.setId(id);;
     }
 
     public LocalDate getDtRecebimento() {

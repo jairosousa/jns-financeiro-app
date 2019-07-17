@@ -1,16 +1,25 @@
 package br.com.jnsdev.financeiro.domain;
 
-import br.com.jnsdev.financeiro.domain.enuns.Pagamento;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 import org.springframework.format.annotation.NumberFormat.Style;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import br.com.jnsdev.financeiro.domain.enuns.Pagamento;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "lancamentos_despesas")
 public class LancamentoDespesa extends Lancamento {
@@ -35,11 +44,10 @@ public class LancamentoDespesa extends Lancamento {
 
 	@Column(name = "numero_parcela", nullable = true)
 	private Integer numParcela;
-	
-	@NotNull
-    @NumberFormat(style = Style.CURRENCY, pattern = "#,##0.00")
-    @Column(name="valor_parcela",columnDefinition = "DECIMAL(7,2) DEFAULT 0.00")
-    private BigDecimal valorParcela;
+
+	@NumberFormat(style = Style.CURRENCY, pattern = "#,##0.00")
+	@Column(name = "valor_parcela", columnDefinition = "DECIMAL(7,2) DEFAULT 0.00")
+	private BigDecimal valorParcela;
 
 	@ManyToOne
 	@JoinColumn(name = "id_categoria")
@@ -55,10 +63,25 @@ public class LancamentoDespesa extends Lancamento {
 	private Lancamento lancamento;
 
 	public LancamentoDespesa() {
+		super();
 	}
 
 	public LancamentoDespesa(Long id) {
-		super(id);
+		super.setId(id);
+	}
+	
+	public LancamentoDespesa(LancamentoDespesa lancamento) {
+		super.setCliente(lancamento.getCliente());
+		super.setDescricao(lancamento.getDescricao());
+		super.setNome(lancamento.getNome());
+		super.setDtLancamento(lancamento.getDtLancamento());
+		super.setFornecedor(lancamento.getFornecedor());
+		super.setValor(lancamento.getValor());
+		this.gastoFixo = lancamento.isGastoFixo();
+		this.pagamento = lancamento.getPagamento();
+		this.qtdParcelas = lancamento.getQtdParcelas();
+		this.categoria = lancamento.getCategoria();
+		this.formaPagamento = lancamento.getFormaPagamento();
 	}
 
 	public LocalDate getDtPagamento() {
@@ -125,6 +148,14 @@ public class LancamentoDespesa extends Lancamento {
 		this.gastoFixo = gastoFixo;
 	}
 
+	public BigDecimal getValorParcela() {
+		return valorParcela;
+	}
+
+	public void setValorParcela(BigDecimal valorParcela) {
+		this.valorParcela = valorParcela;
+	}
+
 	public Pagamento getPagamento() {
 		return pagamento;
 	}
@@ -135,15 +166,9 @@ public class LancamentoDespesa extends Lancamento {
 
 	@Override
 	public String toString() {
-		return "LancamentoDespesa{" +
-				"dtPagamento=" + dtPagamento +
-				", dtVencimento= " + dtVencimento +
-				", gasto fixo= " + gastoFixo +
-				", pagamento= " + pagamento +
-				", qtdParcelas= " + qtdParcelas +
-				", numParcela= " + numParcela +
-				", categoria= " + categoria +
-				", formaPagamento= " + formaPagamento.getNome() +
-				'}';
+		return "LancamentoDespesa{" + "dtPagamento=" + dtPagamento + ", dtVencimento= " + dtVencimento
+				+ ", gasto fixo= " + gastoFixo + ", pagamento= " + pagamento + ", qtdParcelas= " + qtdParcelas
+				+ ", numParcela= " + numParcela + ", categoria= " + categoria + ", formaPagamento= "
+				+ formaPagamento.getNome() + '}';
 	}
 }

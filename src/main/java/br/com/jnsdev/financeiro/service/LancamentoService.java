@@ -24,6 +24,9 @@ public class LancamentoService {
 	private LancamentoRepository repository;
 
 	@Autowired
+	private LancamentoDespesaService lancamentoDespesasService;
+
+	@Autowired
 	private LancamentoReceitaRepository receitaRepository;
 
 	@Autowired
@@ -56,12 +59,14 @@ public class LancamentoService {
 
 	@Transactional(readOnly = false)
 	public void salvarDespesa(LancamentoDespesa lancamento) {
-		System.out.println("DESPESA: " + lancamento);
-		
+
 		if (lancamento.getPagamento().equals(Pagamento.APRAZO)) {
-			System.out.println("Salvar pagamento aprazo");
+			lancamentoDespesasService.gerarLancamentoParcelado(lancamento);
+		} else {
+			
+			despesaRepository.save(lancamento);
 		}
-//		despesaRepository.save(lancamento);
+		
 	}
 
 }
