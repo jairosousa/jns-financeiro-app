@@ -100,10 +100,10 @@ public class LancamentoController {
 //        return "redirect:/lancamentos/cadastrar";
 //    }
 
-	@GetMapping("datatables/server")
+	@GetMapping("receita/datatables/server")
 	public ResponseEntity<?> getLancamento(HttpServletRequest request, @AuthenticationPrincipal User user) {
 		Cliente cliente = clienteService.buscarPorUsuarioEmail(user.getUsername());
-		return ResponseEntity.ok(service.buscarLancamento(request, cliente.getId()));
+		return ResponseEntity.ok(service.buscarLancamentoReceita(request, cliente.getId()));
 	}
 
 	@GetMapping("lista")
