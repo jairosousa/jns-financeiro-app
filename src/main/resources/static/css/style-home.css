@@ -1,17 +1,18 @@
 body {
-	/* font-family: 'Montserrat', sans-serif; */
-	font-family: 'Exo', sans-serif;
-	font-weight: 200;
+    /* font-family: 'Montserrat', sans-serif; */
+    font-family: 'Exo', sans-serif;
+    font-weight: 200;
 }
 
 .layout-main {
-	min-height: 39rem;
+    min-height: 39rem;
 }
+
 .jumbotron {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-  margin-bottom: 0;
-  background-color: #fff;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    margin-bottom: 0;
+    background-color: #fff;
 }
 
 .bg-acai {
@@ -23,42 +24,43 @@ li .nav-item .dropdown .show {
 }
 
 @media (min-width: 768px) {
-  .jumbotron {
-    padding-top: 6rem;
-    padding-bottom: 3rem;
-  }
+    .jumbotron {
+        padding-top: 6rem;
+        padding-bottom: 3rem;
+    }
 }
 
 .jumbotron p:last-child {
-  margin-bottom: 0;
+    margin-bottom: 0;
 }
 
 .jumbotron-heading {
-  font-weight: 200;
+    font-weight: 200;
 }
 
 .jumbotron .container {
-  max-width: 80rem;
+    max-width: 80rem;
 }
 
-.icons{
-	color: #007BFF;
+.icons {
+    color: #007BFF;
 }
 
 .table .thead-dark th {
-	background-color: #007BFF;
+    background-color: #007BFF;
 }
 
 footer {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
 }
 
 footer p {
-  margin-bottom: .25rem;
+    margin-bottom: .25rem;
 }
 
-.modal .modal-body input, .modal .modal-body textarea{
+.modal .modal-body input,
+.modal .modal-body textarea {
     border: 1px solid #e6e6e6;
     box-shadow: none;
 }
@@ -73,17 +75,25 @@ footer p {
     font-family: 'Open Sans', sans-serif;
 }
 
+
 /* jQuery loading autocomplete */
+
 .ui-autocomplete-loading {
-  background: white url("/image/ui-anim_basic_16x16.gif") right center no-repeat;
+    background: white url("/image/ui-anim_basic_16x16.gif") right center no-repeat;
 }
 
 section {
-	animation-name: titulo-capa;
-    animation-duration: 5s;
+    animation-name: titulo-capa;
+    animation-duration: 2s;
 }
 
 @keyframes titulo-capa {
-    0% {opacity: 0;transform: translate(0,-20px)}
-    100% {opacity: 1;transform: translate(0,0)}
+    0% {
+        opacity: 0;
+        transform: translate(0, -20px)
+    }
+    100% {
+        opacity: 1;
+        transform: translate(0, 0)
+    }
 }
