@@ -93,17 +93,16 @@ public class LancamentoController {
 		return "redirect:/lancamentos/cadastrar/despesa";
 	}
 
-//    @PostMapping("salvar")
-//    public String salvar(Lancamento lancamento, RedirectAttributes attr) {
-//        service.salvar(lancamento);
-//        attr.addFlashAttribute("sucesso", "Lançamento salvo com sucesso");
-//        return "redirect:/lancamentos/cadastrar";
-//    }
-
 	@GetMapping("receita/datatables/server")
-	public ResponseEntity<?> getLancamento(HttpServletRequest request, @AuthenticationPrincipal User user) {
+	public ResponseEntity<?> getLancamentoReceita(HttpServletRequest request, @AuthenticationPrincipal User user) {
 		Cliente cliente = clienteService.buscarPorUsuarioEmail(user.getUsername());
 		return ResponseEntity.ok(service.buscarLancamentoReceita(request, cliente.getId()));
+	}
+
+	@GetMapping("despesa/datatables/server")
+	public ResponseEntity<?> getLancamentoDespesa(HttpServletRequest request, @AuthenticationPrincipal User user) {
+		Cliente cliente = clienteService.buscarPorUsuarioEmail(user.getUsername());
+		return ResponseEntity.ok(service.buscarLancamentoDespesas(request, cliente.getId()));
 	}
 
 	@GetMapping("lista")

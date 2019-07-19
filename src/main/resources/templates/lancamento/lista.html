@@ -2,55 +2,94 @@
 <html xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml" layout:decorate="~{layout}">
 
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
 </head>
 
 <body>
 
-    <section class="layout-content" layout:fragment="corpo">
-        <main role="main">
-            <header th:replace="fragments/jumbotron :: jumbotron">
-                <div>jumbotron</div>
-            </header>
+<section class="layout-content" layout:fragment="corpo">
+    <main role="main">
+        <header th:replace="fragments/jumbotron :: jumbotron">
+            <div>jumbotron</div>
+        </header>
 
-            <div class="album py-5 bg-light">
-                <div class="container">
-                    <h2 class="text-primary"><i class="fas fa-file-invoice-dollar"></i> Lançamentos</h2>
-                    <hr/>
+        <div class="album py-5 bg-light">
+            <div class="container">
 
-                    <div class="row">
-                        <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
 
-                            <div class="container table-responsive">
-                                <table id="table-lancamento-receita" class="table table-sm table-striped table-bordered nowrap hover display" style="width: 100%">
-                                    <thead class="thead-dark">
-                                        <tr>
-                                            <th class="text-center" scope="col">#</th>
-                                            <th scope="col">Nome</th>
-                                            <th scope="col">Descrição</th>
-                                            <th class="text-center" scope="col">Valor</th>
-                                            <th class="text-center" scope="col">Data</th>
-                                            <th scope="col">Fornecedor</th>
-                                            <th scope="col">Data recebimento</th>
-                                            <th class="text-center" scope="col">Editar</th>
-                                            <th class="text-center" scope="col">Excluir</th>
+                        <h4 class="text-primary"><i class="fas fa-file-invoice-dollar"></i> Receitas</h4>
+                        <hr/>
+                        <div class="container table-responsive">
+                            <table id="table-lancamento-receita"
+                                   class="table table-sm table-striped table-bordered nowrap hover display"
+                                   style="width: 100%">
+                                <thead class="thead-dark">
+                                <tr>
+                                    <th class="text-center" scope="col">#</th>
+                                    <th scope="col">Nome</th>
+                                    <th scope="col">Descrição</th>
+                                    <th class="text-center" scope="col">Valor</th>
+                                    <th class="text-center" scope="col">Data</th>
+                                    <th scope="col">Fornecedor</th>
+                                    <th scope="col">Data recebimento</th>
+                                    <th class="text-center" scope="col">Editar</th>
+                                    <th class="text-center" scope="col">Excluir</th>
 
-                                        </tr>
-                                    </thead>
+                                </tr>
+                                </thead>
 
-                                </table>
-                            </div>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row  mt-4">
+                    <div class="col-md-12">
+
+                        <h4 class="text-primary"><i class="fas fa-file-invoice-dollar"></i> Despesas</h4>
+                        <hr/>
+                        <div class="container table-responsive">
+                            <table id="table-lancamento-despesa"
+                                   class="table table-sm table-striped table-bordered nowrap hover display"
+                                   style="width: 100%">
+                                <thead class="thead-dark">
+                                <tr>
+                                    <th class="text-center" scope="col">#</th>
+                                    <th scope="col">Nome</th>
+                                    <th scope="col">Descrição</th>
+                                    <th class="text-center" scope="col">Valor</th>
+                                    <th class="text-center" scope="col">Data</th>
+                                    <th scope="col">Fornecedor</th>
+                                    <th scope="col">Categoria</th>
+                                    <th scope="col">Data Pag.</th>
+                                    <th scope="col">data Venc.</th>
+                                    <th scope="col">Gasto Fixo</th>
+                                    <th scope="col">Pagamento</th>
+                                    <th scope="col">Qtd. Parcelas</th>
+                                    <th scope="col">Parcela</th>
+                                    <th scope="col">Valor Parcela</th>
+                                    <th scope="col">Forma Pag.</th>
+                                    <th class="text-center" scope="col">Editar</th>
+                                    <th class="text-center" scope="col">Excluir</th>
+
+                                </tr>
+                                </thead>
+
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-        </main>
+    </main>
 
-    </section>
-    <script th:src="@{/js/lancamento.js?(v=${version})}" th:fragment="js"></script>
-    <script th:inline="javascript" th:fragment="inlinescript">
-    </script>
+</section>
+<script th:src="@{/js/lancamento.js?(v=${version})}" th:fragment="js"></script>
+<script th:inline="javascript" th:fragment="inlinescript">
+</script>
 </body>
 
 </html>

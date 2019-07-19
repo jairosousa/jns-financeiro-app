@@ -23,7 +23,7 @@ public interface LancamentoReceitaRepository extends JpaRepository<LancamentoRec
     @Query("select l.id as id, l.nome as nome, l.descricao as descricao," 
     		+ " l.valor as valor, l.dtLancamento as dtLacamento," 
     		+ " l.fornecedor as fornecedor, lr.dtRecebimento as dtRecebimento" 
-    		+ " from LancamentoReceita lr " 
+    		+ " from LancamentoReceita lr "
     		+ " join lr.lancamento l"
     		+ " where l.cliente.id = :id " +
             "AND l.nome  like '%' || :search || '%' " +

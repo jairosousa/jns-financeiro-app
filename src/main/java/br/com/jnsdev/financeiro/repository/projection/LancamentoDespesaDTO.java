@@ -30,11 +30,11 @@ public interface LancamentoDespesaDTO {
 	
 	boolean getGastoFixo();
 	
-	Pagamento getPagamento();
+	String getPagamento();
 	
 	Integer getQtdParcelas();
 	
-	Integer getNumParcelas();
+	Integer getNumParcela();
 	
 	BigDecimal getValorParcela();
 	

@@ -4,6 +4,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import br.com.jnsdev.financeiro.repository.projection.LancamentoDespesaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -55,6 +56,17 @@ public class LancamentoService {
 		return datatables.getResponse(pages);
 	}
 
+	@Transactional(readOnly = true)
+    public Map<String, Object> buscarLancamentoDespesas(HttpServletRequest request, Long id) {
+		datatables.setRequest(request);
+		datatables.setColunas(DatatablesColunas.LANCAMENTOS_DESPESA);
+
+		Page<LancamentoDespesaDTO> pages = datatables.getSearch().isEmpty()
+				? despesaRepository.findAllByIdCliente(id, datatables.getPageable())
+				: despesaRepository.findAllBySearchByIdCliente(id, datatables.getSearch(), datatables.getPageable());
+		return datatables.getResponse(pages);
+    }
+
 	@Transactional(readOnly = false)
 	public void salvarReceita(LancamentoReceita lancamento) {
 		receitaRepository.save(lancamento);
@@ -66,10 +78,10 @@ public class LancamentoService {
 		if (lancamento.getPagamento().equals(Pagamento.APRAZO)) {
 			lancamentoDespesasService.gerarLancamentoParcelado(lancamento);
 		} else {
-			
+
 			despesaRepository.save(lancamento);
 		}
-		
+
 	}
 
 }
