@@ -46,4 +46,17 @@ public class CategoriaController {
         return "categoria/cadastro";
     }
 
+	@GetMapping("/excluir/{id}")
+	public String excluir(@PathVariable("id") Long id, RedirectAttributes attr) {
+
+		if (service.naoExisteCategoriaEmLancamentoDespesa(id)) {
+			service.delete(id);
+			attr.addFlashAttribute("sucesso", "Operação realizada com sucesso");
+		} else {
+			attr.addFlashAttribute("falha", "Operação não realizada, existe despesa relacionadas a categoria");
+		}
+
+		return "redirect:/categorias";
+	}
+
 }

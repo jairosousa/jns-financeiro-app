@@ -63,8 +63,8 @@ public class FormaPagamentoService {
 		}
 	}
 
-	@Transactional(readOnly = false)
+	@Transactional(readOnly = true)
 	public boolean naoExisteFormaPagamentoEmLancamentoDespesa(Long id) {
-		return despesaRepository.hasDepesasCadastrada(id).isEmpty();
+		return despesaRepository.hasFormaPagamentoDepesasCadastrada(id).isEmpty();
 	}
 }

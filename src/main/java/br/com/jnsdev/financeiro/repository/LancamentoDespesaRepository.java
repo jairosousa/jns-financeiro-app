@@ -43,6 +43,11 @@ public interface LancamentoDespesaRepository extends JpaRepository<LancamentoDes
     @Query("select ld " +
             "from LancamentoDespesa ld " +
             "where ld.formaPagamento.id = :idFormaPagamento")
-    List<LancamentoDespesa> hasDepesasCadastrada(Long idFormaPagamento);
+    List<LancamentoDespesa> hasFormaPagamentoDepesasCadastrada(Long idFormaPagamento);
+
+    @Query("select ld " +
+            "from LancamentoDespesa ld " +
+            "where ld.categoria.id = :idCategoria")
+    List<LancamentoDespesa> hasCategoriaDepesasCadastrada(Long idCategoria);
 
 }

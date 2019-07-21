@@ -5,6 +5,7 @@ import br.com.jnsdev.financeiro.datatables.DatatablesColunas;
 import br.com.jnsdev.financeiro.domain.Categoria;
 import br.com.jnsdev.financeiro.domain.Fornecedor;
 import br.com.jnsdev.financeiro.repository.CategoriaRepository;
+import br.com.jnsdev.financeiro.repository.LancamentoDespesaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,9 @@ public class CategoriaService {
 
 	@Autowired
 	private CategoriaRepository repository;
+
+	@Autowired
+	private LancamentoDespesaRepository despesaRepository;
 
 	@Autowired
 	private Datatables datatables;
@@ -54,4 +58,14 @@ public class CategoriaService {
     public Categoria buscarPorId(Long id) {
 		return repository.getOne(id);
     }
+
+	@Transactional(readOnly = false)
+    public void delete(Long id) {
+		repository.deleteById(id);
+	}
+
+	@Transactional(readOnly = true)
+	public boolean naoExisteCategoriaEmLancamentoDespesa(Long id) {
+		return despesaRepository.hasCategoriaDepesasCadastrada(id).isEmpty();
+	}
 }
