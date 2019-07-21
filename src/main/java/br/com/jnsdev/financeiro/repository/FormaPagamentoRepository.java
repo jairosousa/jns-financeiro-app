@@ -1,6 +1,7 @@
 package br.com.jnsdev.financeiro.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,5 +22,6 @@ public interface FormaPagamentoRepository extends JpaRepository<FormaPagamento, 
 	
 	@Query("select fp from FormaPagamento fp where fp.cliente.id = :id")
 	List<FormaPagamento> findAllById(Long id);
+
 
 }

@@ -8,7 +8,7 @@ $(document).ready(function() {
         },
         searching: true,
         order: [
-            [2, "asc"]
+            [0, "asc"]
         ],
         lengthMenu: [5, 10],
         processing: true,
@@ -17,10 +17,6 @@ $(document).ready(function() {
         ajax: {
             url: '/fp/datatables/server',
             data: 'data'
-        },
-        success: function() {
-            console.log(data);
-
         },
         columns: [
             { data: 'id' },

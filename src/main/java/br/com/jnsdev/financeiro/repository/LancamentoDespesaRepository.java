@@ -10,6 +10,9 @@ import org.springframework.stereotype.Repository;
 
 import br.com.jnsdev.financeiro.domain.LancamentoDespesa;
 
+import java.util.List;
+import java.util.Optional;
+
 @Repository
 public interface LancamentoDespesaRepository extends JpaRepository<LancamentoDespesa, Long> {
 
@@ -36,4 +39,10 @@ public interface LancamentoDespesaRepository extends JpaRepository<LancamentoDes
             "AND l.nome  like '%' || :search || '%' " +
             "OR l.fornecedor.nome  like '%' || :search || '%'"  )
     Page<LancamentoDespesaDTO> findAllBySearchByIdCliente(Long id, String search, Pageable pageable);
+
+    @Query("select ld " +
+            "from LancamentoDespesa ld " +
+            "where ld.formaPagamento.id = :idFormaPagamento")
+    List<LancamentoDespesa> hasDepesasCadastrada(Long idFormaPagamento);
+
 }

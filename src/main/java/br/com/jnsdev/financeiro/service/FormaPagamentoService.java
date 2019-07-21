@@ -9,7 +9,9 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import br.com.jnsdev.financeiro.repository.LancamentoDespesaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +24,9 @@ public class FormaPagamentoService {
 
 	@Autowired
 	private Datatables datatables;
+
+	@Autowired
+	private LancamentoDespesaRepository despesaRepository;
 
 	@Transactional(readOnly = false)
 	public void salvar(FormaPagamento fp) {
@@ -49,4 +54,17 @@ public class FormaPagamentoService {
 		fFp.setNome(fp.getNome());
 	}
 
+	@Transactional(readOnly = false)
+	public void delete(Long id) {
+		try {
+			repository.deleteById(id);
+		} catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityViolationException("Não é possivel excluir forma ce pagamento");
+		}
+	}
+
+	@Transactional(readOnly = false)
+	public boolean naoExisteFormaPagamentoEmLancamentoDespesa(Long id) {
+		return despesaRepository.hasDepesasCadastrada(id).isEmpty();
+	}
 }

@@ -18,7 +18,7 @@
                         <div class="col-md-8 ">
                             <div th:replace="fragments/alert :: alerta-sucesso"></div>
 
-                            <form th:action="${fp.id == null} ? @{/fp/salvar} : ${/fp/editar}" th:object="${fp}" method="POST" class="was-validated">
+                            <form th:action="${fp.id == null} ? @{/fp/salvar} : @{/fp/editar}" th:object="${fp}" method="POST" class="was-validated">
 
                                 <div class="mb-3">
                                     <label for="nome">Nome</label>
