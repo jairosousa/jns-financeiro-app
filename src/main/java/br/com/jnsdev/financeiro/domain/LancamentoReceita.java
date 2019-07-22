@@ -8,49 +8,44 @@ import java.time.LocalDate;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "lancamentos_receitas")
-public class LancamentoReceita extends Lancamento{
+public class LancamentoReceita extends Lancamento {
 
-    @Column(name = "data_recebimento", nullable = false)
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private LocalDate dtRecebimento;
+	@Column(name = "data_recebimento", nullable = false)
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+	private LocalDate dtRecebimento;
 
-    @OneToOne
-    @JoinColumn(name="id")
-    @MapsId
-    private Lancamento lancamento;
+	@JoinColumn(name = "id")
+	@MapsId
+	private Long id;
 
-    public LancamentoReceita() {
-    	super();
-    }
-    
+	public LancamentoReceita() {
+		super();
+	}
 
-    public LancamentoReceita(Long id) {
-        super.setId(id);;
-    }
+	public LancamentoReceita(Long id) {
+		super.setId(id);
+	}
 
-    public LocalDate getDtRecebimento() {
-        return dtRecebimento;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setDtRecebimento(LocalDate dtRecebimento) {
-        this.dtRecebimento = dtRecebimento;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public Lancamento getLancamento() {
-        return lancamento;
-    }
+	public LocalDate getDtRecebimento() {
+		return dtRecebimento;
+	}
 
-    public void setLancamento(Lancamento lancamento) {
-        this.lancamento = lancamento;
-    }
+	public void setDtRecebimento(LocalDate dtRecebimento) {
+		this.dtRecebimento = dtRecebimento;
+	}
 
-    @Override
-    public String toString() {
-        return "LancamentoReceita{" +
-                "id= " + super.getId() +
-                ", Nome= " + super.getNome() +
-                ", cliente= " + super.getCliente().getNome() +
-                ", dtRecebimento= " + dtRecebimento +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "LancamentoReceita{" + "id= " + getId() + ", Nome= " + super.getNome() + ", cliente= "
+				+ super.getCliente().getNome() + ", cliente id= " + super.getCliente().getId() + ", dtRecebimento= "
+				+ dtRecebimento + '}';
+	}
 }

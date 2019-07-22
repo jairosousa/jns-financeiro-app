@@ -1,10 +1,10 @@
 package br.com.jnsdev.financeiro.service;
 
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
-import br.com.jnsdev.financeiro.repository.projection.LancamentoDespesaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -19,6 +19,7 @@ import br.com.jnsdev.financeiro.domain.enuns.Pagamento;
 import br.com.jnsdev.financeiro.repository.LancamentoDespesaRepository;
 import br.com.jnsdev.financeiro.repository.LancamentoReceitaRepository;
 import br.com.jnsdev.financeiro.repository.LancamentoRepository;
+import br.com.jnsdev.financeiro.repository.projection.LancamentoDespesaDTO;
 import br.com.jnsdev.financeiro.repository.projection.LancamentoReceitaDTO;
 
 @Service
@@ -57,7 +58,7 @@ public class LancamentoService {
 	}
 
 	@Transactional(readOnly = true)
-    public Map<String, Object> buscarLancamentoDespesas(HttpServletRequest request, Long id) {
+	public Map<String, Object> buscarLancamentoDespesas(HttpServletRequest request, Long id) {
 		datatables.setRequest(request);
 		datatables.setColunas(DatatablesColunas.LANCAMENTOS_DESPESA);
 
@@ -65,11 +66,26 @@ public class LancamentoService {
 				? despesaRepository.findAllByIdCliente(id, datatables.getPageable())
 				: despesaRepository.findAllBySearchByIdCliente(id, datatables.getSearch(), datatables.getPageable());
 		return datatables.getResponse(pages);
-    }
+	}
 
 	@Transactional(readOnly = false)
 	public void salvarReceita(LancamentoReceita lancamento) {
 		receitaRepository.save(lancamento);
+	}
+
+	@Transactional(readOnly = false)
+	public void editarReceita(LancamentoReceita lancamento) {
+		System.out.println("lancamento: " + lancamento.toString());
+		LancamentoReceita lr = buscarLancamentoReceita(lancamento.getId()).get();
+
+		System.out.println("lr: " + lr.toString());
+		lr.setCliente(lancamento.getCliente());
+		lr.setFornecedor(lancamento.getFornecedor());
+		lr.setNome(lancamento.getNome());
+		lr.setDescricao(lancamento.getDescricao());
+		lr.setDtLancamento(lancamento.getDtLancamento());
+		lr.setDtRecebimento(lancamento.getDtRecebimento());
+		lr.setValor(lancamento.getValor());
 	}
 
 	@Transactional(readOnly = false)
@@ -82,6 +98,12 @@ public class LancamentoService {
 			despesaRepository.save(lancamento);
 		}
 
+	}
+
+	@Transactional(readOnly = true)
+	public Optional<LancamentoReceita> buscarLancamentoReceita(Long id) {
+
+		return receitaRepository.findById(id);
 	}
 
 }

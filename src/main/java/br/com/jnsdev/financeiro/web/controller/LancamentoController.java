@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -59,6 +60,14 @@ public class LancamentoController {
 		attr.addFlashAttribute("sucesso", "Lançamento salvo com sucesso");
 		return "redirect:/lancamentos/cadastrar/receita";
 	}
+	
+	@PostMapping("editar/receita")
+	public String editarReceita(LancamentoReceita lancamento, RedirectAttributes attr) {
+		service.editarReceita(lancamento);
+		attr.addFlashAttribute("sucesso", "Lançamento atualizado com sucesso");
+		return "redirect:/lancamentos/receita/editar/" + lancamento.getId();
+		
+	}
 
 	@GetMapping("cadastrar/despesa")
 	public String abriCadastroDespesa(LancamentoDespesa lancamento, ModelMap model,
@@ -92,6 +101,14 @@ public class LancamentoController {
 		attr.addFlashAttribute("sucesso", "Lançamento salvo com sucesso");
 		return "redirect:/lancamentos/cadastrar/despesa";
 	}
+	
+	@GetMapping("/receita/editar/{id}")
+    public String preEditarReceita(@PathVariable("id") Long id, ModelMap model) {
+        LancamentoReceita lancamentoReceita = service.buscarLancamentoReceita(id).get();
+        System.out.println("Lancamento: " + lancamentoReceita.toString());
+        model.addAttribute("lancamento", lancamentoReceita);
+        return "lancamento/cadastro-receita";
+    }
 
 	@GetMapping("receita/datatables/server")
 	public ResponseEntity<?> getLancamentoReceita(HttpServletRequest request, @AuthenticationPrincipal User user) {
