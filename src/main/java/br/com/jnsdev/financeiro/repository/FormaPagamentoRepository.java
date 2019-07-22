@@ -20,8 +20,8 @@ public interface FormaPagamentoRepository extends JpaRepository<FormaPagamento, 
 	@Query("select fp from FormaPagamento fp where fp.cliente.id = :id")
 	Page<FormaPagamento> findAllById(Long id, Pageable pageable);
 	
-	@Query("select fp from FormaPagamento fp where fp.cliente.id = :id")
-	List<FormaPagamento> findAllById(Long id);
+	@Query("select fp from FormaPagamento fp where fp.cliente.id = :idCliente")
+	List<FormaPagamento> findAllByIdCliente(Long idCliente);
 
 
 }

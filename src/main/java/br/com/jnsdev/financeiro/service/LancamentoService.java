@@ -26,10 +26,7 @@ import br.com.jnsdev.financeiro.repository.projection.LancamentoReceitaDTO;
 public class LancamentoService {
 
 	@Autowired
-	private LancamentoRepository repository;
-
-	@Autowired
-	private LancamentoDespesaService lancamentoDespesasService;
+	private LancamentoDespesaService despesasService;
 
 	@Autowired
 	private LancamentoReceitaRepository receitaRepository;
@@ -39,11 +36,6 @@ public class LancamentoService {
 
 	@Autowired
 	private Datatables datatables;
-
-	@Transactional(readOnly = false)
-	public void salvar(Lancamento lancamento) {
-		repository.save(lancamento);
-	}
 
 	@Transactional(readOnly = true)
 	public Map<String, Object> buscarLancamentoReceita(HttpServletRequest request, Long id) {
@@ -75,10 +67,8 @@ public class LancamentoService {
 
 	@Transactional(readOnly = false)
 	public void editarReceita(LancamentoReceita lancamento) {
-		System.out.println("lancamento: " + lancamento.toString());
 		LancamentoReceita lr = buscarLancamentoReceita(lancamento.getId()).get();
 
-		System.out.println("lr: " + lr.toString());
 		lr.setCliente(lancamento.getCliente());
 		lr.setFornecedor(lancamento.getFornecedor());
 		lr.setNome(lancamento.getNome());
@@ -88,22 +78,21 @@ public class LancamentoService {
 		lr.setValor(lancamento.getValor());
 	}
 
+	@Transactional(readOnly = true)
+	public Optional<LancamentoReceita> buscarLancamentoReceita(Long id) {
+		return receitaRepository.findById(id);
+	}
+
 	@Transactional(readOnly = false)
 	public void salvarDespesa(LancamentoDespesa lancamento) {
 
 		if (lancamento.getPagamento().equals(Pagamento.APRAZO)) {
-			lancamentoDespesasService.gerarLancamentoParcelado(lancamento);
+			despesasService.gerarLancamentoParcelado(lancamento);
 		} else {
 
 			despesaRepository.save(lancamento);
 		}
 
-	}
-
-	@Transactional(readOnly = true)
-	public Optional<LancamentoReceita> buscarLancamentoReceita(Long id) {
-
-		return receitaRepository.findById(id);
 	}
 
 }

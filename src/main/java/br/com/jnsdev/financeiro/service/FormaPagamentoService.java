@@ -5,6 +5,7 @@ import br.com.jnsdev.financeiro.datatables.DatatablesColunas;
 import br.com.jnsdev.financeiro.domain.FormaPagamento;
 import br.com.jnsdev.financeiro.repository.FormaPagamentoRepository;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -66,5 +67,15 @@ public class FormaPagamentoService {
 	@Transactional(readOnly = true)
 	public boolean naoExisteFormaPagamentoEmLancamentoDespesa(Long id) {
 		return despesaRepository.hasFormaPagamentoDepesasCadastrada(id).isEmpty();
+	}
+	
+	@Transactional(readOnly = true)
+	public List<FormaPagamento> buscarTodosPorUsuario(Long idCliente) {
+		return repository.findAllByIdCliente(idCliente);
+	}
+
+	@Transactional(readOnly = true)
+	public boolean naoTemFormaDePagamentoCadastrada(Long id) {
+		return buscarTodosPorUsuario(id).isEmpty();
 	}
 }
