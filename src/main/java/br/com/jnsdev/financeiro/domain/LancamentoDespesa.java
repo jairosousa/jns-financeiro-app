@@ -60,7 +60,7 @@ public class LancamentoDespesa extends Lancamento {
 	@OneToOne
 	@JoinColumn(name = "id")
 	@MapsId
-	private Lancamento lancamento;
+	private Long id;
 
 	public LancamentoDespesa() {
 		super();
@@ -69,7 +69,7 @@ public class LancamentoDespesa extends Lancamento {
 	public LancamentoDespesa(Long id) {
 		super.setId(id);
 	}
-	
+
 	public LancamentoDespesa(LancamentoDespesa lancamento) {
 		super.setCliente(lancamento.getCliente());
 		super.setDescricao(lancamento.getDescricao());
@@ -132,12 +132,12 @@ public class LancamentoDespesa extends Lancamento {
 		this.formaPagamento = formaPagamento;
 	}
 
-	public Lancamento getLancamento() {
-		return lancamento;
+	public Long getId() {
+		return id;
 	}
 
-	public void setLancamento(Lancamento lancamento) {
-		this.lancamento = lancamento;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public boolean isGastoFixo() {
@@ -166,9 +166,11 @@ public class LancamentoDespesa extends Lancamento {
 
 	@Override
 	public String toString() {
-		return "LancamentoDespesa{" + "dtPagamento=" + dtPagamento + ", dtVencimento= " + dtVencimento
-				+ ", gasto fixo= " + gastoFixo + ", pagamento= " + pagamento + ", qtdParcelas= " + qtdParcelas
-				+ ", numParcela= " + numParcela + ", categoria= " + categoria + ", formaPagamento= "
-				+ formaPagamento.getNome() + '}';
+		return "LancamentoDespesa{" + "id= " + id + ", nome= " + super.getNome() + ", descricao= "
+				+ super.getDescricao() + ", data lancamento= " + super.getDtLancamento() + " , fornecedor= "
+				+ super.getFornecedor() + " , valor= " + super.getValor() + ", dtPagamento=" + dtPagamento
+				+ ", dtVencimento= " + dtVencimento + ", gasto fixo= " + gastoFixo + ", pagamento= " + pagamento
+				+ ", qtdParcelas= " + qtdParcelas + ", numParcela= " + numParcela + ", categoria= " + categoria
+				+ ", formaPagamento= " + formaPagamento.getNome() + '}';
 	}
 }

@@ -95,4 +95,27 @@ public class LancamentoService {
 
 	}
 
+	@Transactional(readOnly = false)
+	public void editarDespesa(LancamentoDespesa lancamento) {
+		LancamentoDespesa ld = buscarLancamentoDespesa(lancamento.getId()).get();
+
+		ld.setCliente(lancamento.getCliente());
+		ld.setDescricao(lancamento.getDescricao());
+		ld.setNome(lancamento.getNome());
+		ld.setDtLancamento(lancamento.getDtLancamento());
+		ld.setFornecedor(lancamento.getFornecedor());
+		ld.setValor(lancamento.getValor());
+		ld.setGastoFixo(lancamento.isGastoFixo());
+		ld.setPagamento(lancamento.getPagamento());
+		ld.setCategoria(lancamento.getCategoria());
+		ld.setFormaPagamento(lancamento.getFormaPagamento());
+		ld.setValorParcela(lancamento.getValorParcela());
+
+	}
+
+	@Transactional(readOnly = true)
+	public Optional<LancamentoDespesa> buscarLancamentoDespesa(Long id) {
+		return despesaRepository.findById(id);
+	}
+
 }

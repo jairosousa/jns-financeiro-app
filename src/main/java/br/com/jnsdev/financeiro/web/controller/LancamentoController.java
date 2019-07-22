@@ -85,9 +85,8 @@ public class LancamentoController {
 
 	@GetMapping("/receita/editar/{id}")
 	public String preEditarReceita(@PathVariable("id") Long id, ModelMap model) {
-		LancamentoReceita lancamentoReceita = service.buscarLancamentoReceita(id).get();
-		System.out.println("Lancamento: " + lancamentoReceita.toString());
-		model.addAttribute("lancamento", lancamentoReceita);
+		LancamentoReceita lancamento = service.buscarLancamentoReceita(id).get();
+		model.addAttribute("lancamento", lancamento);
 		return "lancamento/cadastro-receita";
 	}
 
@@ -126,12 +125,27 @@ public class LancamentoController {
 
 		return "lancamento/cadastro-despesa";
 	}
+	
+	@GetMapping("/despesa/editar/{id}")
+	public String preEditarDespesa(@PathVariable("id") Long id, ModelMap model) {
+		LancamentoDespesa lancamento= service.buscarLancamentoDespesa(id).get();
+		System.out.println("Lancamento: " + lancamento.toString());
+		model.addAttribute("lancamento", lancamento);
+		return "lancamento/editar-despesa";
+	}
 
 	@PostMapping("salvar/despesa")
 	public String salvarDespesa(LancamentoDespesa lancamento, RedirectAttributes attr) {
 		service.salvarDespesa(lancamento);
 		attr.addFlashAttribute("sucesso", "Lançamento salvo com sucesso");
 		return "redirect:/lancamentos/cadastrar/despesa";
+	}
+	
+	@PostMapping("editar/despesa")
+	public String editarDespesa(LancamentoDespesa lancamento, RedirectAttributes attr) {
+		service.editarDespesa(lancamento);
+		attr.addFlashAttribute("sucesso", "Lançamento atualizado com sucesso");
+		return "redirect:/lancamentos/despesa/editar/" + lancamento.getId();
 	}
 
 	@GetMapping("despesa/datatables/server")

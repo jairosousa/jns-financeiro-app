@@ -16,28 +16,26 @@ import java.util.Optional;
 @Repository
 public interface LancamentoDespesaRepository extends JpaRepository<LancamentoDespesa, Long> {
 
-    @Query("select l.id as id, l.nome as nome, l.descricao as descricao,"
-            + " l.valor as valor, l.dtLancamento as dtLacamento,"
-            + " l.fornecedor as fornecedor, ld.categoria as categoria," +
+    @Query("select ld.id as id, ld.nome as nome, ld.descricao as descricao,"
+            + " ld.valor as valor, ld.dtLancamento as dtLacamento,"
+            + " ld.fornecedor as fornecedor, ld.categoria as categoria," +
             " ld.dtPagamento as dtPagamento, ld.dtVencimento as dtVencimento," +
             " ld.gastoFixo as gastoFixo, ld.pagamento as pagamento, ld.qtdParcelas as qtdParcelas," +
             " ld.numParcela as numParcela, ld.valorParcela as valorParcela, ld.formaPagamento as formaPagamento"
             + " from LancamentoDespesa ld"
-            + "	join ld.lancamento l"
-            + " where l.cliente.id = :id")
+            + " where ld.cliente.id = :id")
     Page<LancamentoDespesaDTO> findAllByIdCliente(Long id, Pageable pageable);
 
-    @Query("select l.id as id, l.nome as nome, l.descricao as descricao,"
-            + " l.valor as valor, l.dtLancamento as dtLacamento,"
-            + " l.fornecedor as fornecedor, ld.categoria as categoria," +
+    @Query("select ld.id as id, ld.nome as nome, ld.descricao as descricao,"
+            + " ld.valor as valor, ld.dtLancamento as dtLacamento,"
+            + " ld.fornecedor as fornecedor, ld.categoria as categoria," +
             " ld.dtPagamento as dtPagamento, ld.dtVencimento as dtVencimento," +
             " ld.gastoFixo as gastoFixo, ld.pagamento as pagamento, ld.qtdParcelas as qtdParcelas," +
             " ld.numParcela as numParcela, ld.valorParcela as valorParcela, ld.formaPagamento as formaPagamento"
             + " from LancamentoDespesa ld "
-            + " join ld.lancamento l"
-            + " where l.cliente.id = :id " +
-            "AND l.nome  like '%' || :search || '%' " +
-            "OR l.fornecedor.nome  like '%' || :search || '%'"  )
+            + " where ld.cliente.id = :id " +
+            "AND ld.nome  like '%' || :search || '%' " +
+            "OR ld.fornecedor.nome  like '%' || :search || '%'"  )
     Page<LancamentoDespesaDTO> findAllBySearchByIdCliente(Long id, String search, Pageable pageable);
 
     @Query("select ld " +

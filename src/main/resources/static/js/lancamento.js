@@ -83,7 +83,7 @@ $(document).ready(function() {
             },
             searching: true,
             order: [
-                [3, "desc"]
+                [0, "asc"]
             ],
             lengthMenu: [5, 10, 15],
             responsive: true,
@@ -162,7 +162,7 @@ $(document).ready(function() {
                     // botão
                     // editar
                     "render": function(id) {
-                        return '<a class="btn btn-success btn-sm btn-block" href="/lancamentos/editar/' +
+                        return '<a class="btn btn-success btn-sm btn-block" href="/lancamentos/despesa/editar/' +
                             id +
                             '" role="button"><i class="fas fa-edit"></i></a>';
                     }
@@ -171,7 +171,7 @@ $(document).ready(function() {
                     orderable: false,
                     data: 'id', // adicionar // botão // excluir
                     "render": function(id) {
-                        return '<a class="btn btn-danger btn-sm btn-block" href="/lancamentos/excluir/' +
+                        return '<a class="btn btn-danger btn-sm btn-block" href="/lancamentos/despesa/excluir/' +
                             id +
                             '" role="button" data-toggle="modal" data-target="#confirm-modal"><i class="fas fa-times-circle"></i></a>';
                     }

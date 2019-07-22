@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.w3.org/1999/xhtml" layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8" />
+</head>
+<body>
+	<section class="layout-content" layout:fragment="corpo">
+		<main role="main"> <header
+			th:replace="fragments/jumbotron :: jumbotron">
+			<div>jumbotron</div>
+		</header>
+
+		<div class="album py-5 bg-light">
+			<div class="container">
+				<div class="d-flex justify-content-center">
+					<div class="col-md-8 ">
+						<div th:replace="fragments/alert :: alerta-sucesso"></div>
+
+						<div class="display-5 text-primary">
+							<h3>Despesa</h3>
+							<hr />
+						</div>
+						<form
+							th:action="@{/lancamentos/editar/despesa}"
+							th:object="${lancamento}" method="POST" class="was-validated">
+
+							<div class="form-row">
+								<div class="col-12 col-md-6 mb-3">
+									<label for="nome">Nome</label>
+									<div class="input-group">
+										<input type="text" class="form-control" id="nome"
+											placeholder="Nome Lançamento"
+											aria-describedby="validationTooltipUsernamePrepend"
+											th:field="*{nome}" required />
+										<div class="invalid-feedback">Nome é requerido.</div>
+									</div>
+								</div>
+
+								<div class="col-12 col-md-6 mb-3">
+									<label for="descricao">Descrição</label>
+									<div class="input-group">
+										<input type="text" class="form-control" id="descricao"
+											placeholder="Nome Lançamento"
+											aria-describedby="validationTooltipUsernamePrepend"
+											th:field="*{descricao}" required />
+										<div class="invalid-feedback">Descricão é requerida.</div>
+									</div>
+								</div>
+
+								<div class="col-12 col-md-6 mb-3">
+									<label for="nome">Data</label>
+									<div class="input-group">
+										<input type="date" class="form-control" id="dtLancamento"
+											aria-describedby="validationTooltipUsernamePrepend"
+											th:field="*{dtLancamento}" required />
+										<div class="invalid-feedback">Data de lancamento é
+											requerida.</div>
+									</div>
+								</div>
+
+								<div class="col-12 col-md-6 form-group">
+									<label for="valor">Valor</label> <input type="text"
+										class="form-control" id="valor" data-mask="#.##0,00"
+										data-mask-reverse="true" th:field="*{valor}" required />
+									<div class="invalid-feedback">Valor é requerida.</div>
+								</div>
+
+								<div class="form-group col-md-6">
+									<label for="fornecedor">Fornecedor</label> <select
+										id="fornecedor" class="form-control" th:field="*{fornecedor}"
+										required>
+										<option value="">Selecione...</option>
+										<option th:each="f : ${fornecedores}" th:value="${f.id}"
+											th:text="${f.nome}"></option>
+									</select>
+									<div class="invalid-feedback">Fornecedor é requerido.</div>
+								</div>
+
+								<div class="form-group col-md-6">
+									<label for="categoria">Categoria</label> <select id="categoria"
+										class="form-control" th:field="*{categoria}" required>
+										<option value="">Selecione...</option>
+										<option th:each="c : ${categorias}" th:value="${c.id}"
+											th:text="${c.nome}"></option>
+									</select>
+									<div class="invalid-feedback">Fornecedor é requerido.</div>
+								</div>
+
+								<div class="col-12 col-md-6 mb-3">
+									<label for="nome">Data vencimento</label>
+									<div class="input-group">
+										<input type="date" class="form-control" id="dtVencimento"
+											aria-describedby="validationTooltipUsernamePrepend"
+											th:field="*{dtVencimento}" required />
+										<div class="invalid-feedback">Data de vencimento é
+											requerida.</div>
+									</div>
+								</div>
+
+								<div class="col-12 col-md-6 mb-3">
+									<label for="nome">Data pagamento</label>
+									<div class="input-group">
+										<input type="date" class="form-control" id="dtPagamento"
+											aria-describedby="validationTooltipUsernamePrepend"
+											th:field="*{dtPagamento}" />
+
+									</div>
+								</div>
+
+								<div class="form-group col-md-6 mb-3">
+									<label for="formaPagamento">Forma Pagamento</label> <select
+										id="formaPagamento" class="form-control"
+										th:field="*{formaPagamento}" required>
+										<option value="">Selecione...</option>
+										<option th:each="fp : ${formasPagamentos}" th:value="${fp.id}"
+											th:text="${fp.nome}"></option>
+									</select>
+									<div class="invalid-feedback">A Forma de Pagamento é
+										requerido.</div>
+								</div>
+
+								<div class="col-12 col-md-6">
+									<label for="gastoFixo">Gasto Fixo ?</label>
+									<div class="input-group mt-3">
+										<div class="form-check">
+											<input type="checkbox" class="form-check-input" id="gastoFixo"
+														   th:field="*{gastoFixo}">
+											<label id="paglabel" class="form-check-label font-weight-bold text-dark " for="gastoFixo">Não</label>
+										</div>
+									</div>
+								</div>
+
+							</div>
+
+							<div class="form-row mt-3" >
+
+								<div class="col-12 col-md-6 mb-3">
+									<label for="pagamento">Pagamento</label>
+									<div class="input-group">
+										<div id="pagamento" class="form-check form-check-inline">
+											<div th:each="p, status : ${pagamentos}" class="mt-2 mr-3">
+												<input th:id="${status.index}" class="form-check-input " type="radio" name="pagamento" th:value="${p}" th:field="*{pagamento}"
+													   autocomplete="off" checked>
+												<label class="form-check-label text-dark radiobox" th:text="${p.desc}"></label>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div id="qtdsParcelas" class="col-12 col-md-6 mb-3">
+									<label for="qtdParcelas">Quantidade de parcelas</label>
+									<div class="input-group">
+										<input type="number" class="form-control" id="qtdParcelas" min="0"
+											placeholder="Quantidades parcelas"
+											aria-describedby="validationTooltipUsernamePrepend"
+											th:field="*{qtdParcelas}" disabled/>
+									</div>
+
+								</div>
+								
+								<div id="numParcela" class="col-12 col-md-6 mb-3">
+									<label for="qtdParcelas">Nº da parcela</label>
+									<div class="input-group">
+										<input type="number" class="form-control" id="numParcela" min="0"
+											placeholder="Quantidades parcelas"
+											aria-describedby="validationTooltipUsernamePrepend"
+											th:field="*{numParcela}" disabled/>
+									</div>
+
+								</div>
+								
+								<div class="col-12 col-md-6 form-group">
+									<label for="valorParcela">Valor da Parcela</label> <input type="text"
+										class="form-control" id="valorParcela" data-mask="#.##0,00"
+										data-mask-reverse="true" th:field="*{valorParcela}" />
+									<!-- <div class="invalid-feedback">Valor parcela é requerida.</div> -->
+								</div>
+
+							</div>
+
+							<hr />
+							<input type="hidden" th:field="*{id}"> <input
+								type="hidden" th:field="*{cliente.id}">
+
+							<div class="form-group row">
+								<div class="col-sm-10">
+									<button type="submit" class="btn btn-primary"
+										data-toggle="tooltip" data-placement="right" title="Salvar">
+										<i class="fas fa-save"></i>
+									</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		</main>
+	</section>
+
+	<script th:src="~{}" th:fragment="js"></script>
+	<script th:src="@{/js/lancamento.js?(v=${version})}" th:fragment="js"></script>
+	<script th:inline="javascript" th:fragment="inlinescript"></script>
+</body>
+</html>

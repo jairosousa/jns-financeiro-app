@@ -43,7 +43,7 @@ public class FormaPagamento extends AbstractEntity {
 
 	@Override
 	public String toString() {
-		return "FormaPagamento [nome=" + nome + ", cliente=" + cliente + ", getId()=" + getId() + "]";
+		return "FormaPagamento [nome=" + nome + ", getId()=" + getId() + "]";
 	}
 
 }
