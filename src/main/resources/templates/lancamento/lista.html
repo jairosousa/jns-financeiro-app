@@ -16,23 +16,28 @@
 
 
 		<input id="mes" type="hidden" th:value="${mes}">
-		
+		<input id="ano" type="hidden" th:value="${ano}">
+
 		<div class="album py-5 bg-light">
 			<div class="container">
-				<div class="row">
-					<div class="col">
-						<button id=anterior class="btn btn-link btn-sm mb-3"
+				<div class="row mb-3 justify-content-between">
+					<div class="col-sm-4 align-self-center">
+						<button id=anterior class="btn btn-link btn-sm"
 							> <span title="próximo"
 							aria-hidden="true"></span>
 							<i class="fas fa-angle-double-left"></i>
 						</button>
-						<button id="proximo" class="btn btn-link btn-sm mb-3 float-right"
+					</div>
+					<div class="col-sm-4 text-center align-self-center">
+						<span id="mesAtual" class="h5 text-primary"></span>/<span id="anoAtual" class="h5 text-primary"></span>
+					</div>
+					<div class="col-sm-4 text-right align-self-center">
+						<button id="proximo" class="btn btn-link btn-sm float-right"
 							> <span title="próximo"
 							aria-hidden="true"></span>
 							<i class="fas fa-angle-double-right"></i>
 						</button>
 					</div>
-					<div></div>
 				</div>
 
 				<div class="row">
@@ -112,7 +117,7 @@
 	</section>
 	<script th:src="@{/js/lancamento.js?(v=${version})}" th:fragment="js"></script>
 	<script th:inline="javascript" th:fragment="inlinescript">
-		
+
 	</script>
 </body>
 

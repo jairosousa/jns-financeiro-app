@@ -159,6 +159,7 @@ public class LancamentoController {
 	@GetMapping("lista")
 	public String listaLancamentos(ModelMap model) {
 		model.addAttribute("mes", LocalDate.now().getMonth().getValue());
+		model.addAttribute("ano", LocalDate.now().getYear());
 		return "lancamento/lista";
 	}
 

@@ -1,16 +1,22 @@
 $(document).ready(function() {
     moment.locale('pt-BR');
     var mes = $('#mes').val();
+    var ano = $('#ano').val();
+    $('#mesAtual').text(mes);
+    $('#anoAtual').text(ano);
+
+    console.log(ano);
 
     var tabler = criarTabelaReceita(mes);
 
     var tabled = criarTabelaDespesas(mes);
     
     $("#proximo").on("click", function () {
+        mes = parseInt(mes) + 1;
     	if(mes == 12) {
     		mes = 12;
     	} else {
-    		mes = parseInt(mes) + 1;
+            $('#mesAtual').text(mes)
     		tabler.destroy();
     		tabled.destroy();
     		tabler = criarTabelaReceita(mes);
@@ -19,10 +25,11 @@ $(document).ready(function() {
     });
     
     $("#anterior").on("click", function () {
+        mes = parseInt(mes) - 1;
     	if(mes == 1) {
     		mes = 1;
     	} else {
-    		mes = parseInt(mes) - 1;
+            $('#mesAtual').text(mes);
     		tabler.destroy();
     		tabled.destroy();
     		tabler = criarTabelaReceita(mes);
