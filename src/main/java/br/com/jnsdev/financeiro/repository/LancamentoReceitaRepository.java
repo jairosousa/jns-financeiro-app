@@ -15,17 +15,19 @@ public interface LancamentoReceitaRepository extends JpaRepository<LancamentoRec
     @Query("select lr.id as id, lr.nome as nome, lr.descricao as descricao,"
     		+ " lr.valor as valor, lr.dtLancamento as dtLacamento,"
     		+ " lr.fornecedor as fornecedor, lr.dtRecebimento as dtRecebimento"
-    		+ " from LancamentoReceita lr "
-    		+ " where lr.cliente.id = :id")
-    Page<LancamentoReceitaDTO> findAllByIdCliente(Long id, Pageable pageable);
+    		+ " from LancamentoReceita lr"
+    		+ " where lr.cliente.id = :id"
+    		+ " and extract(month from lr.dtRecebimento) = :mes ")
+    Page<LancamentoReceitaDTO> findAllByIdClienteByMonth(Long id, int mes, Pageable pageable);
 
     @Query("select lr.id as id, lr.nome as nome, lr.descricao as descricao," 
     		+ " lr.valor as valor, lr.dtLancamento as dtLacamento," 
     		+ " lr.fornecedor as fornecedor, lr.dtRecebimento as dtRecebimento" 
-    		+ " from LancamentoReceita lr "
-    		+ " where lr.cliente.id = :id " +
-            "AND lr.nome  like '%' || :search || '%' " +
-            "OR lr.fornecedor.nome  like '%' || :search || '%'"  )
-    Page<LancamentoReceitaDTO> findAllBySearchByIdCliente(Long id, String search, Pageable pageable);
+    		+ " from LancamentoReceita lr"
+    		+ " where lr.cliente.id = :id"
+    		+ " and extract(month from lr.dtRecebimento) = :mes"
+            + " AND lr.nome  like '%' || :search || '%'"
+            + " OR lr.fornecedor.nome  like '%' || :search || '%'")
+    Page<LancamentoReceitaDTO> findAllBySearchByIdClienteByMonth(Long id, int mes, String search, Pageable pageable);
     
 }

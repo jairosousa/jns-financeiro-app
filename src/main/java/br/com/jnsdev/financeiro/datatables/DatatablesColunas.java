@@ -7,6 +7,6 @@ public class DatatablesColunas {
     public static final String[] FP = {"id", "nome"};
     public static final String[] FORNECEDORES = {"id", "nome", "dtCadastro", "atividade", "logradouro", "N°", "complemento", "cep", "bairro", "cidade", "uf"};
     public static final String[] FORMAS_PAGAMENTOS = {"id",  "nome"};
-    public static final String[] LANCAMENTOS_RECEITA = {"id", "nome", "descricao", "valor", "dtLancamento", "fornecedor.nome", "dtRecebimento"};
-    public static final String[] LANCAMENTOS_DESPESA = {"id", "nome", "descricao", "valor", "dtLancamento", "fornecedor.nome", "categoria.nome", "dtPagamento", "dtVencimento", "gastoFixo", "pagamento", "qtdParcelas", "numParcela", "valorParcela", "formaPagamento.nome"};
+    public static final String[] LANCAMENTOS_RECEITA = {"id", "nome", "valor", "dtRecebimento", "fornecedor.nome", "dtLancamento", "descricao"};
+    public static final String[] LANCAMENTOS_DESPESA = {"id", "nome", "valor", "dtLancamento", "dtPagamento", "dtVencimento", "gastoFixo", "pagamento", "qtdParcelas", "numParcela", "valorParcela", "formaPagamento.nome", "fornecedor.nome", "categoria.nome", "descricao"};
 }

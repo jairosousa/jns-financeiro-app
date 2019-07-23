@@ -90,10 +90,10 @@ public class LancamentoController {
 		return "lancamento/cadastro-receita";
 	}
 
-	@GetMapping("receita/datatables/server")
-	public ResponseEntity<?> getLancamentoReceita(HttpServletRequest request, @AuthenticationPrincipal User user) {
+	@GetMapping("receita/datatables/server/{mes}")
+	public ResponseEntity<?> getLancamentoReceita(HttpServletRequest request, @PathVariable int mes, @AuthenticationPrincipal User user) {
 		Cliente cliente = clienteService.buscarPorUsuarioEmail(user.getUsername());
-		return ResponseEntity.ok(service.buscarLancamentoReceita(request, cliente.getId()));
+		return ResponseEntity.ok(service.buscarLancamentoReceita(request, mes, cliente.getId()));
 	}
 
 	// ******DESPESAS********
@@ -148,16 +148,17 @@ public class LancamentoController {
 		return "redirect:/lancamentos/despesa/editar/" + lancamento.getId();
 	}
 
-	@GetMapping("despesa/datatables/server")
-	public ResponseEntity<?> getLancamentoDespesa(HttpServletRequest request, @AuthenticationPrincipal User user) {
+	@GetMapping("despesa/datatables/server/{mes}")
+	public ResponseEntity<?> getLancamentoDespesaMonth(HttpServletRequest request, @PathVariable("mes") int mes, @AuthenticationPrincipal User user) {
 		Cliente cliente = clienteService.buscarPorUsuarioEmail(user.getUsername());
-		return ResponseEntity.ok(service.buscarLancamentoDespesas(request, cliente.getId()));
+		return ResponseEntity.ok(service.buscarLancamentoDespesas(request, mes, cliente.getId()));
 	}
 
 	// ******LISTAS********
 	
 	@GetMapping("lista")
-	public String listaLancamentos() {
+	public String listaLancamentos(ModelMap model) {
+		model.addAttribute("mes", LocalDate.now().getMonth().getValue());
 		return "lancamento/lista";
 	}
 

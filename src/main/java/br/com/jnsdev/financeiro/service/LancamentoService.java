@@ -38,26 +38,27 @@ public class LancamentoService {
 	private Datatables datatables;
 
 	@Transactional(readOnly = true)
-	public Map<String, Object> buscarLancamentoReceita(HttpServletRequest request, Long id) {
+	public Map<String, Object> buscarLancamentoReceita(HttpServletRequest request, int mes, Long id) {
 		datatables.setRequest(request);
 		datatables.setColunas(DatatablesColunas.LANCAMENTOS_RECEITA);
 
 		Page<LancamentoReceitaDTO> pages = datatables.getSearch().isEmpty()
-				? receitaRepository.findAllByIdCliente(id, datatables.getPageable())
-				: receitaRepository.findAllBySearchByIdCliente(id, datatables.getSearch(), datatables.getPageable());
+				? receitaRepository.findAllByIdClienteByMonth(id, mes, datatables.getPageable())
+				: receitaRepository.findAllBySearchByIdClienteByMonth(id, mes, datatables.getSearch(), datatables.getPageable());
 
 		return datatables.getResponse(pages);
 	}
 
 	@Transactional(readOnly = true)
-	public Map<String, Object> buscarLancamentoDespesas(HttpServletRequest request, Long id) {
+	public Map<String, Object> buscarLancamentoDespesas(HttpServletRequest request, int mes, Long id) {
 		datatables.setRequest(request);
 		datatables.setColunas(DatatablesColunas.LANCAMENTOS_DESPESA);
-
+		
 		Page<LancamentoDespesaDTO> pages = datatables.getSearch().isEmpty()
-				? despesaRepository.findAllByIdCliente(id, datatables.getPageable())
-				: despesaRepository.findAllBySearchByIdCliente(id, datatables.getSearch(), datatables.getPageable());
-		return datatables.getResponse(pages);
+				? despesaRepository.findAllByIdClienteByMonth(id, mes, datatables.getPageable())
+						: despesaRepository.findAllBySearchByIdClienteByMonth(id, mes, datatables.getSearch(), datatables.getPageable());
+				
+				return datatables.getResponse(pages);
 	}
 
 	@Transactional(readOnly = false)

@@ -1,79 +1,37 @@
 $(document).ready(function() {
     moment.locale('pt-BR');
-    var tabler = $('#table-lancamento-receita')
-        .DataTable({
-            // dom: 'Bfrtip',
-            processing: true,
-            serverSide: true,
-            "language": {
-                "url": "/datatables/translationBR"
-            },
-            searching: true,
-            order: [
-                [3, "desc"]
-            ],
-            lengthMenu: [5, 10, 15],
-            responsive: true,
-//            scrollY: "40vh",
-            ajax: {
-                url: '/lancamentos/receita/datatables/server',
-                data: 'data'
-            },
-            columns: [{
-                    data: 'id'
-                },
-                {
-                    data: 'nome'
-                },
-                {
-                    data: 'descricao'
-                },
-                {
-                    data: 'valor',
-                    render: $.fn.dataTable.render.number('.', ',', 2, 'R$ '),
-                    className: "text-right"
-                },
-                {
-                    data: 'dtLancamento',
-                    render: function(dtLancamento) {
-                        return moment(dtLancamento).format('L');
-                    },
-                    className: "text-center"
-                },
-                {
-                    data: 'fornecedor.nome'
-                },
-                {
-                    data: 'dtRecebimento',
-                    render: function(dtRecebimento) {
-                        return moment(dtRecebimento).format('L');
-                    },
-                    className: "text-center"
-                },
-                {
-                    orderable: false,
-                    data: 'id', // adicionar
-                    // botão
-                    // editar
-                    "render": function(id) {
-                        return '<a class="btn btn-success btn-sm btn-block" href="/lancamentos/receita/editar/' +
-                            id +
-                            '" role="button"><i class="fas fa-edit"></i></a>';
-                    }
-                },
-                {
-                    orderable: false,
-                    data: 'id', // adicionar // botão // excluir
-                    "render": function(id) {
-                        return '<a class="btn btn-danger btn-sm btn-block" href="/lancamentos/receita/excluir/' +
-                            id +
-                            '" role="button" data-toggle="modal" data-target="#confirm-modal"><i class="fas fa-times-circle"></i></a>';
-                    }
-                }
-            ]
-        });
+    var mes = $('#mes').val();
 
-    var tabled = $('#table-lancamento-despesa')
+    var tabler = criarTabelaReceita(mes);
+
+    var tabled = criarTabelaDespesas(mes);
+    
+    $("#proximo").on("click", function () {
+    	if(mes == 12) {
+    		mes = 12;
+    	} else {
+    		mes = parseInt(mes) + 1;
+    		tabler.destroy();
+    		tabled.destroy();
+    		tabler = criarTabelaReceita(mes);
+    		tabled = criarTabelaDespesas(mes);
+    	}
+    });
+    
+    $("#anterior").on("click", function () {
+    	if(mes == 1) {
+    		mes = 1;
+    	} else {
+    		mes = parseInt(mes) - 1;
+    		tabler.destroy();
+    		tabled.destroy();
+    		tabler = criarTabelaReceita(mes);
+    		tabled = criarTabelaDespesas(mes);
+    	}
+    });
+    
+    function criarTabelaDespesas(mes) {
+    	return $('#table-lancamento-despesa')
         .DataTable({
             // dom: 'Bfrtip',
             processing: true,
@@ -89,7 +47,7 @@ $(document).ready(function() {
             responsive: true,
 //            scrollY: "40vh",
             ajax: {
-                url: '/lancamentos/despesa/datatables/server',
+                url: '/lancamentos/despesa/datatables/server/' + mes,
                 data: 'data'
             },
             columns: [{
@@ -97,9 +55,6 @@ $(document).ready(function() {
             },
                 {
                     data: 'nome'
-                },
-                {
-                    data: 'descricao'
                 },
                 {
                     data: 'valor',
@@ -112,11 +67,6 @@ $(document).ready(function() {
                         return moment(dtLancamento).format('L');
                     },
                     className: "text-center"
-                },
-                {
-                    data: 'fornecedor.nome'
-                },{
-                    data: 'categoria.nome'
                 },
                 {
                     data: 'dtPagamento',
@@ -157,6 +107,15 @@ $(document).ready(function() {
                     data: 'formaPagamento.nome'
                 },
                 {
+                    data: 'fornecedor.nome'
+                },
+                {
+                    data: 'categoria.nome'
+                },
+                {
+                    data: 'descricao'
+                },
+                {
                     orderable: false,
                     data: 'id', // adicionar
                     // botão
@@ -178,6 +137,82 @@ $(document).ready(function() {
                 }
             ]
         });
+    }
+    
+    function criarTabelaReceita(mes) {
+    	return $('#table-lancamento-receita')
+        .DataTable({
+            // dom: 'Bfrtip',
+            processing: true,
+            serverSide: true,
+            "language": {
+                "url": "/datatables/translationBR"
+            },
+            searching: true,
+            order: [
+                [3, "desc"]
+            ],
+            lengthMenu: [5, 10, 15],
+            responsive: true,
+//            scrollY: "40vh",
+            ajax: {
+                url: '/lancamentos/receita/datatables/server/' + mes,
+                data: 'data'
+            },
+            columns: [{
+                    data: 'id'
+                },
+                {
+                    data: 'nome'
+                },
+                {
+                    data: 'valor',
+                    render: $.fn.dataTable.render.number('.', ',', 2, 'R$ '),
+                    className: "text-right"
+                },
+                {
+                    data: 'dtRecebimento',
+                    render: function(dtRecebimento) {
+                        return moment(dtRecebimento).format('L');
+                    },
+                    className: "text-center"
+                },
+                {
+                    data: 'fornecedor.nome'
+                },
+                {
+                    data: 'dtLancamento',
+                    render: function(dtLancamento) {
+                        return moment(dtLancamento).format('L');
+                    },
+                    className: "text-center"
+                },
+                {
+                    data: 'descricao'
+                },
+                {
+                    orderable: false,
+                    data: 'id', // adicionar
+                    // botão
+                    // editar
+                    "render": function(id) {
+                        return '<a class="btn btn-success btn-sm btn-block" href="/lancamentos/receita/editar/' +
+                            id +
+                            '" role="button"><i class="fas fa-edit"></i></a>';
+                    }
+                },
+                {
+                    orderable: false,
+                    data: 'id', // adicionar // botão // excluir
+                    "render": function(id) {
+                        return '<a class="btn btn-danger btn-sm btn-block" href="/lancamentos/receita/excluir/' +
+                            id +
+                            '" role="button" data-toggle="modal" data-target="#confirm-modal"><i class="fas fa-times-circle"></i></a>';
+                    }
+                }
+            ]
+        });
+    }
 })
 
 $('#qtdsParcelas').hide();

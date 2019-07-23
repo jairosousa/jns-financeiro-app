@@ -1,95 +1,119 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml" layout:decorate="~{layout}">
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.w3.org/1999/xhtml" layout:decorate="~{layout}">
 
 <head>
-    <meta charset="UTF-8"/>
+<meta charset="UTF-8" />
 </head>
 
 <body>
 
-<section class="layout-content" layout:fragment="corpo">
-    <main role="main">
-        <header th:replace="fragments/jumbotron :: jumbotron">
-            <div>jumbotron</div>
-        </header>
+	<section class="layout-content" layout:fragment="corpo">
+		<main role="main"> <header
+			th:replace="fragments/jumbotron :: jumbotron">
+			<div>jumbotron</div>
+		</header>
 
-        <div class="album py-5 bg-light">
-            <div class="container">
 
-                <div class="row">
-                    <div class="col-md-12">
+		<input id="mes" type="hidden" th:value="${mes}">
+		
+		<div class="album py-5 bg-light">
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<button id=anterior class="btn btn-link btn-sm mb-3"
+							> <span title="próximo"
+							aria-hidden="true"></span>
+							<i class="fas fa-angle-double-left"></i>
+						</button>
+						<button id="proximo" class="btn btn-link btn-sm mb-3 float-right"
+							> <span title="próximo"
+							aria-hidden="true"></span>
+							<i class="fas fa-angle-double-right"></i>
+						</button>
+					</div>
+					<div></div>
+				</div>
 
-                        <h4 class="text-primary"><i class="fas fa-file-invoice-dollar"></i> Receitas</h4>
-                        <hr/>
-                        <div class="container table-responsive">
-                            <table id="table-lancamento-receita"
-                                   class="table table-sm table-striped table-bordered nowrap hover display"
-                                   style="width: 100%">
-                                <thead class="thead-dark">
-                                <tr>
-                                    <th class="text-center" scope="col">#</th>
-                                    <th scope="col">Nome</th>
-                                    <th scope="col">Descrição</th>
-                                    <th class="text-center" scope="col">Valor</th>
-                                    <th class="text-center" scope="col">Data</th>
-                                    <th scope="col">Fornecedor</th>
-                                    <th scope="col">Data recebimento</th>
-                                    <th class="text-center" scope="col">Editar</th>
-                                    <th class="text-center" scope="col">Excluir</th>
+				<div class="row">
+					<div class="col-md-12">
 
-                                </tr>
-                                </thead>
+						<h4 class="text-primary">
+							<i class="fas fa-file-invoice-dollar"></i> Receitas
+						</h4>
+						<hr />
+						<div class="container table-responsive">
+							<table id="table-lancamento-receita"
+								class="table table-sm table-striped table-bordered nowrap hover display"
+								style="width: 100%">
+								<thead class="thead-dark">
+									<tr>
+										<th class="text-center" scope="col">#</th>
+										<th scope="col">Nome</th>
+										<th class="text-center" scope="col">Valor</th>
+										<th class="text-center" scope="col">Data recebimento</th>
+										<th scope="col">Fornecedor</th>
+										<th scope="col">Data lançamento</th>
+										<th scope="col">Descrição</th>
+										<th class="text-center" scope="col">Editar</th>
+										<th class="text-center" scope="col">Excluir</th>
 
-                            </table>
-                        </div>
-                    </div>
-                </div>
+									</tr>
+								</thead>
 
-                <div class="row  mt-4">
-                    <div class="col-md-12">
+							</table>
+						</div>
+					</div>
+				</div>
 
-                        <h4 class="text-primary"><i class="fas fa-file-invoice-dollar"></i> Despesas</h4>
-                        <hr/>
-                        <div class="container table-responsive">
-                            <table id="table-lancamento-despesa"
-                                   class="table table-sm table-striped table-bordered nowrap hover display"
-                                   style="width: 100%">
-                                <thead class="thead-dark">
-                                <tr>
-                                    <th class="text-center" scope="col">#</th>
-                                    <th scope="col">Nome</th>
-                                    <th scope="col">Descrição</th>
-                                    <th class="text-center" scope="col">Valor</th>
-                                    <th class="text-center" scope="col">Data</th>
-                                    <th scope="col">Fornecedor</th>
-                                    <th scope="col">Categoria</th>
-                                    <th scope="col">Data Pag.</th>
-                                    <th scope="col">data Venc.</th>
-                                    <th scope="col">Gasto Fixo</th>
-                                    <th scope="col">Pagamento</th>
-                                    <th scope="col">Qtd. Parcelas</th>
-                                    <th scope="col">Parcela</th>
-                                    <th scope="col">Valor Parcela</th>
-                                    <th scope="col">Forma Pag.</th>
-                                    <th class="text-center" scope="col">Editar</th>
-                                    <th class="text-center" scope="col">Excluir</th>
+				<div class="row  mt-4">
+					<div class="col-md-12">
 
-                                </tr>
-                                </thead>
+						<h4 class="text-primary">
+							<i class="fas fa-file-invoice-dollar"></i> Despesas
+						</h4>
+						<hr />
+						<div class="container table-responsive">
+							<table id="table-lancamento-despesa"
+								class="table table-sm table-striped table-bordered nowrap hover display"
+								style="width: 100%">
+								<thead class="thead-dark">
+									<tr>
+										<th class="text-center" scope="col">#</th>
+										<th scope="col">Nome</th>
+										<th class="text-center" scope="col">Valor</th>
+										<th class="text-center" scope="col">Data</th>
+										<th scope="col">Data Pag.</th>
+										<th scope="col">data Venc.</th>
+										<th scope="col">Gasto Fixo</th>
+										<th scope="col">Pagamento</th>
+										<th scope="col">Qtd. Parcelas</th>
+										<th scope="col">Parcela</th>
+										<th scope="col">Valor Parcela</th>
+										<th scope="col">Forma Pag.</th>
+										<th scope="col">Fornecedor</th>
+										<th scope="col">Categoria</th>
+										<th scope="col">Descrição</th>
+										<th class="text-center" scope="col">Editar</th>
+										<th class="text-center" scope="col">Excluir</th>
 
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+									</tr>
+								</thead>
 
-    </main>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-</section>
-<script th:src="@{/js/lancamento.js?(v=${version})}" th:fragment="js"></script>
-<script th:inline="javascript" th:fragment="inlinescript">
-</script>
+		</main>
+
+	</section>
+	<script th:src="@{/js/lancamento.js?(v=${version})}" th:fragment="js"></script>
+	<script th:inline="javascript" th:fragment="inlinescript">
+		
+	</script>
 </body>
 
 </html>
