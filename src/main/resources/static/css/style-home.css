@@ -4,6 +4,8 @@ body {
     font-weight: 200;
 }
 
+th { white-space: nowrap; }
+
 .layout-main {
     min-height: 39rem;
 }

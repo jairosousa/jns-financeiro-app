@@ -108,17 +108,12 @@ $(document).ready(function() {
                     className: "text-center"
                 },
                 {
-                    data: 'gastoFixo',
-                    render: function(gastoFixo) {
-                        return gastoFixo ? 'Sim' : 'Não';
-                    },
-                    className: "text-center"
-                }, {
                     data: 'pagamento',
                     render: function(pagamento) {
                         return (pagamento == 'APRAZO') ? 'À prazo' : 'A vista';
                     }
-                }, {
+                }, 
+                {
                     data: 'qtdParcelas'
                 },
                 {
@@ -128,6 +123,13 @@ $(document).ready(function() {
                     data: 'valorParcela',
                     render: $.fn.dataTable.render.number('.', ',', 2, 'R$ '),
                     className: "text-right"
+                },
+                {
+                    data: 'gastoFixo',
+                    render: function(gastoFixo) {
+                        return gastoFixo ? 'Sim' : 'Não';
+                    },
+                    className: "text-center"
                 },
                 {
                     data: 'formaPagamento.nome'
@@ -169,6 +171,9 @@ $(document).ready(function() {
     	return $('#table-lancamento-receita')
         .DataTable({
             // dom: 'Bfrtip',
+        	"createdRow": function ( row, data, index ) {
+        		$('td', row).eq(3).addClass('text-success');
+            },
             processing: true,
             serverSide: true,
             "language": {
@@ -222,18 +227,12 @@ $(document).ready(function() {
                     // botão
                     // editar
                     "render": function(id) {
-                        return '<a class="btn btn-success btn-sm btn-block" href="/lancamentos/receita/editar/' +
+                        return '<a class="btn btn-success btn-sm btn-block d-inline mr-2" href="/lancamentos/receita/editar/' +
                             id +
-                            '" role="button"><i class="fas fa-edit"></i></a>';
-                    }
-                },
-                {
-                    orderable: false,
-                    data: 'id', // adicionar // botão // excluir
-                    "render": function(id) {
-                        return '<a class="btn btn-danger btn-sm btn-block" href="/lancamentos/receita/excluir/' +
+                            '" role="button" title="Editar"><i class="fas fa-edit"></i></a>' +
+                            '<a class="btn btn-danger btn-sm btn-block d-inline" href="/lancamentos/receita/excluir/' +
                             id +
-                            '" role="button" data-toggle="modal" data-target="#confirm-modal"><i class="fas fa-times-circle"></i></a>';
+                            '" role="button" data-toggle="modal" data-target="#confirm-modal" title="Excluir"><i class="fas fa-times-circle"></i></a>';
                     }
                 }
             ]
