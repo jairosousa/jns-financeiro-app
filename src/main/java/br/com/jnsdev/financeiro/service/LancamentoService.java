@@ -1,5 +1,6 @@
 package br.com.jnsdev.financeiro.service;
 
+import java.time.LocalDate;
 import java.util.Map;
 import java.util.Optional;
 
@@ -38,25 +39,31 @@ public class LancamentoService {
 	private Datatables datatables;
 
 	@Transactional(readOnly = true)
-	public Map<String, Object> buscarLancamentoReceita(HttpServletRequest request, int mes, Long id) {
+	public Map<String, Object> buscarLancamentoReceita(HttpServletRequest request, int mes, int ano, Long id) {
 		datatables.setRequest(request);
 		datatables.setColunas(DatatablesColunas.LANCAMENTOS_RECEITA);
+		
+		mes = (mes == 0) ? LocalDate.now().getMonthValue() : mes;
+		ano = (ano == 0) ? LocalDate.now().getYear() : ano;
 
 		Page<LancamentoReceitaDTO> pages = datatables.getSearch().isEmpty()
-				? receitaRepository.findAllByIdClienteByMonth(id, mes, datatables.getPageable())
-				: receitaRepository.findAllBySearchByIdClienteByMonth(id, mes, datatables.getSearch(), datatables.getPageable());
+				? receitaRepository.findAllByIdClienteByMonth(id, mes, ano, datatables.getPageable())
+				: receitaRepository.findAllBySearchByIdClienteByMonth(id, mes, ano, datatables.getSearch(), datatables.getPageable());
 
 		return datatables.getResponse(pages);
 	}
 
 	@Transactional(readOnly = true)
-	public Map<String, Object> buscarLancamentoDespesas(HttpServletRequest request, int mes, Long id) {
+	public Map<String, Object> buscarLancamentoDespesas(HttpServletRequest request, int mes,  int ano, Long id) {
 		datatables.setRequest(request);
 		datatables.setColunas(DatatablesColunas.LANCAMENTOS_DESPESA);
 		
+		mes = (mes == 0) ? LocalDate.now().getMonthValue() : mes;
+		ano = (ano == 0) ? LocalDate.now().getYear() : ano;
+		
 		Page<LancamentoDespesaDTO> pages = datatables.getSearch().isEmpty()
-				? despesaRepository.findAllByIdClienteByMonth(id, mes, datatables.getPageable())
-						: despesaRepository.findAllBySearchByIdClienteByMonth(id, mes, datatables.getSearch(), datatables.getPageable());
+				? despesaRepository.findAllByIdClienteByMonth(id, mes, ano, datatables.getPageable())
+						: despesaRepository.findAllBySearchByIdClienteByMonth(id, mes, ano, datatables.getSearch(), datatables.getPageable());
 				
 				return datatables.getResponse(pages);
 	}

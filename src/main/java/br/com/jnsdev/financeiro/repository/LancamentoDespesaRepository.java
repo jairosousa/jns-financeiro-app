@@ -23,8 +23,8 @@ public interface LancamentoDespesaRepository extends JpaRepository<LancamentoDes
 			+ " from LancamentoDespesa ld"
 			+ " where ld.cliente.id = :id"
 			+ " and extract(month from ld.dtVencimento) = :mes"
-			)
-	Page<LancamentoDespesaDTO> findAllByIdClienteByMonth(Long id, int mes, Pageable pageable);
+			+ " and extract(year from ld.dtVencimento) = :ano")
+	Page<LancamentoDespesaDTO> findAllByIdClienteByMonth(Long id, int mes, int ano, Pageable pageable);
 
     @Query("select ld.id as id, ld.nome as nome, ld.descricao as descricao,"
             + " ld.valor as valor, ld.dtLancamento as dtLacamento,"
@@ -32,14 +32,13 @@ public interface LancamentoDespesaRepository extends JpaRepository<LancamentoDes
             + " ld.dtPagamento as dtPagamento, ld.dtVencimento as dtVencimento," 
             + " ld.gastoFixo as gastoFixo, ld.pagamento as pagamento, ld.qtdParcelas as qtdParcelas,"
             + " ld.numParcela as numParcela, ld.valorParcela as valorParcela, ld.formaPagamento as formaPagamento"
-            + " from LancamentoDespesa ld "
-            + " where ld.cliente.id = :id "
-            + "and extract(month from ld.dtVencimento) = :mes "
-            + "AND ld.nome  like '%' || :search || '%' "
-            + "OR ld.fornecedor.nome  like '%' || :search || '%'"  )
-    Page<LancamentoDespesaDTO> findAllBySearchByIdClienteByMonth(Long id, int mes, String search, Pageable pageable);
-    
-    
+            + " from LancamentoDespesa ld"
+            + " where ld.cliente.id = :id"
+            + " AND extract(month from ld.dtVencimento) = :mes"
+            + " AND extract(year from ld.dtVencimento) = :ano"
+            + " AND ld.nome  like '%' || :search || '%'"
+            + " OR ld.fornecedor.nome  like '%' || :search || '%'")
+    Page<LancamentoDespesaDTO> findAllBySearchByIdClienteByMonth(Long id, int mes, int ano, String search, Pageable pageable);
 
     @Query("select ld " +
             "from LancamentoDespesa ld " +

@@ -5,36 +5,55 @@ $(document).ready(function() {
     $('#mesAtual').text(mes);
     $('#anoAtual').text(ano);
 
-    console.log(ano);
+    var tabler = criarTabelaReceita(mes, ano);
 
-    var tabler = criarTabelaReceita(mes);
-
-    var tabled = criarTabelaDespesas(mes);
+    var tabled = criarTabelaDespesas(mes, ano);
     
     $("#proximo").on("click", function () {
         mes = parseInt(mes) + 1;
-    	if(mes == 12) {
-    		mes = 12;
+    	if(mes > 12) {
+    		ano = parseInt(ano) + 1;
+    		$('#anoAtual').text(ano);
+    		mes = 1;
+    		$('#mesAtual').text(mes);
     	} else {
             $('#mesAtual').text(mes)
-    		tabler.destroy();
-    		tabled.destroy();
-    		tabler = criarTabelaReceita(mes);
-    		tabled = criarTabelaDespesas(mes);
     	}
+    	
+    	tabler.destroy();
+		tabled.destroy();
+		tabler = criarTabelaReceita(mes, ano);
+		tabled = criarTabelaDespesas(mes, ano);
     });
     
     $("#anterior").on("click", function () {
         mes = parseInt(mes) - 1;
-    	if(mes == 1) {
-    		mes = 1;
+    	if(mes < 1) {
+    		ano = parseInt(ano) - 1;
+    		$('#anoAtual').text(ano);
+    		mes = 12;
+    		$('#mesAtual').text(mes);
     	} else {
             $('#mesAtual').text(mes);
-    		tabler.destroy();
-    		tabled.destroy();
-    		tabler = criarTabelaReceita(mes);
-    		tabled = criarTabelaDespesas(mes);
     	}
+    	
+    	tabler.destroy();
+		tabled.destroy();
+		tabler = criarTabelaReceita(mes, ano);
+		tabled = criarTabelaDespesas(mes, ano);
+    });
+    
+    $("#voltarMesAtual").on("click", function () {
+    	mes = $('#mes').val() == null ? new Date().getMonth() + 1 : $('#mes').val();
+        ano = $('#ano').val() == null ? new Date().getFullYear() : $('#ano').val();
+        
+        $('#anoAtual').text(ano);
+        $('#mesAtual').text(mes);
+    	
+    	tabler.destroy();
+    	tabled.destroy();
+    	tabler = criarTabelaReceita(mes, ano);
+    	tabled = criarTabelaDespesas(mes, ano);
     });
     
     function criarTabelaDespesas(mes) {
@@ -54,7 +73,7 @@ $(document).ready(function() {
             responsive: true,
 //            scrollY: "40vh",
             ajax: {
-                url: '/lancamentos/despesa/datatables/server/' + mes,
+                url: '/lancamentos/despesa/datatables/server/' + mes + "/" + ano,
                 data: 'data'
             },
             columns: [{
@@ -163,7 +182,7 @@ $(document).ready(function() {
             responsive: true,
 //            scrollY: "40vh",
             ajax: {
-                url: '/lancamentos/receita/datatables/server/' + mes,
+                url: '/lancamentos/receita/datatables/server/' + mes+ "/" + ano,
                 data: 'data'
             },
             columns: [{
