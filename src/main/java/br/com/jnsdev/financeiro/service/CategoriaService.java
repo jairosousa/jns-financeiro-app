@@ -3,7 +3,6 @@ package br.com.jnsdev.financeiro.service;
 import br.com.jnsdev.financeiro.datatables.Datatables;
 import br.com.jnsdev.financeiro.datatables.DatatablesColunas;
 import br.com.jnsdev.financeiro.domain.Categoria;
-import br.com.jnsdev.financeiro.domain.Fornecedor;
 import br.com.jnsdev.financeiro.repository.CategoriaRepository;
 import br.com.jnsdev.financeiro.repository.LancamentoDespesaRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -4,7 +4,9 @@ body {
     font-weight: 200;
 }
 
-th { white-space: nowrap; }
+th {
+    white-space: nowrap;
+}
 
 .layout-main {
     min-height: 39rem;
@@ -75,6 +77,42 @@ footer p {
 .modal-body label {
     font-weight: 400;
     font-family: 'Open Sans', sans-serif;
+}
+
+.border-left-primary {
+    border-left: 0.25rem solid #007BFF !important;
+}
+
+.border-left-danger {
+    border-left: 0.25rem solid #dc3545 !important;
+}
+
+.text-danger-50 {
+    color: rgba(220, 53, 69, .5);
+}
+
+.text-success-50 {
+    color: rgba(40, 167, 69, .5);
+}
+
+.text-primary-50 {
+    color: rgba(0, 123, 255, .5);
+}
+
+.border-left-success {
+    border-left: 0.25rem solid #28a745 !important;
+}
+
+.border-success-50 {
+    border-color: rgba(40, 167, 69, .45) !important;
+}
+
+.border-danger-50 {
+    border-color: rgba(220, 53, 69, .45) !important;
+}
+
+.border-primary-50 {
+    border-color: rgba(0, 123, 255, .45) !important;
 }
 
 

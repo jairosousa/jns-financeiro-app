@@ -6,7 +6,6 @@ import java.time.LocalDate;
 import br.com.jnsdev.financeiro.domain.Categoria;
 import br.com.jnsdev.financeiro.domain.FormaPagamento;
 import br.com.jnsdev.financeiro.domain.Fornecedor;
-import br.com.jnsdev.financeiro.domain.enuns.Pagamento;
 
 public interface LancamentoDespesaDTO {
 

@@ -1,53 +1,51 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.w3.org/1999/xhtml" layout:decorate="~{layout}">
+<html xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml" layout:decorate="~{layout}">
+
 <head>
-<meta charset="UTF-8" />
+    <meta charset="UTF-8" />
 </head>
+
 <body>
 
-	<section class="layout-content" layout:fragment="corpo">
-	    <main role="main">
-	
-	        <header
-	                th:replace="fragments/jumbotron :: jumbotron">
-	            <div>jumbotron</div>
-	        </header>
-	
-	        <div class="album py-5 bg-light" sec:authorize="hasAuthority('USUARIO')">
-	
-	            <div class="container">
-	
-	                <div class="row">
-	USUARIO
-	
-	
-	
-	
-	                </div>
-	            </div>
-	        </div>
-	        
-	        <div class="album py-5 bg-light" sec:authorize="hasAuthority('ADMIN')">
-	
-	            <div class="container">
-	
-	                <div class="row">
-	ADMNISTRADOR
-	
-	
-	
-	
-	                </div>
-	            </div>
-	        </div>
+    <section class="layout-content" layout:fragment="corpo">
+        <main role="main">
 
-    </main>
-</section>
+            <header th:replace="fragments/jumbotron :: jumbotron">
+                <div>jumbotron</div>
+            </header>
 
-<script th:src="~{}" th:fragment="js"></script>
-<script th:src="@{/js/dashboard.js?(v=${version})}" th:fragment="js"></script>
-<script th:inline="javascript" th:fragment="inlinescript"></script>
+            <div class="bg-light" sec:authorize="hasAuthority('USUARIO')">
+
+
+                <header th:replace="dashboard/dcliente :: dCliente">
+                    <div>jumbotron</div>
+                </header>
+
+
+            </div>
+
+            <div class="album py-5 bg-light" sec:authorize="hasAuthority('ADMIN')">
+
+                <div class="container">
+
+                    <div class="row">
+
+                        <header th:replace="dashboard/dadministrador :: dAdministrador">
+                            <div>Administrador</div>
+                        </header>
+
+
+
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </section>
+
+    <script th:src="~{}" th:fragment="js"></script>
+    <script th:src="@{/js/dashboard.js?(v=${version})}" th:fragment="js"></script>
+    <script th:inline="javascript" th:fragment="inlinescript"></script>
 
 </body>
 

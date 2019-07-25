@@ -13,13 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.jnsdev.financeiro.datatables.Datatables;
 import br.com.jnsdev.financeiro.datatables.DatatablesColunas;
-import br.com.jnsdev.financeiro.domain.Lancamento;
 import br.com.jnsdev.financeiro.domain.LancamentoDespesa;
 import br.com.jnsdev.financeiro.domain.LancamentoReceita;
 import br.com.jnsdev.financeiro.domain.enuns.Pagamento;
 import br.com.jnsdev.financeiro.repository.LancamentoDespesaRepository;
 import br.com.jnsdev.financeiro.repository.LancamentoReceitaRepository;
-import br.com.jnsdev.financeiro.repository.LancamentoRepository;
 import br.com.jnsdev.financeiro.repository.projection.LancamentoDespesaDTO;
 import br.com.jnsdev.financeiro.repository.projection.LancamentoReceitaDTO;
 
