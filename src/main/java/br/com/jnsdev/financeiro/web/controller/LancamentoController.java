@@ -100,9 +100,11 @@ public class LancamentoController {
 	@GetMapping("/receita/excluir/{id}")
 	public String excluirReceita(@PathVariable("id") Long id, RedirectAttributes attr) {
 
+		LocalDate dtVencto = service.buscarDataVencimentoReceita(id);
+
 		service.deleteReceita(id);
 
-		return "redirect:/lancamentos/lista";
+		return "redirect:/lancamentos/lista/" + dtVencto.getMonthValue() + "/" + dtVencto.getYear();
 	}
 
 	// ******DESPESAS********
@@ -167,17 +169,30 @@ public class LancamentoController {
 	@GetMapping("/despesa/excluir/{id}")
 	public String excluirDespesa(@PathVariable("id") Long id, RedirectAttributes attr) {
 
+		LocalDate dtVencto = service.buscarDataVencimentoDespesa(id);
+
 		service.deleteDespesa(id);
 
-		return "redirect:/lancamentos/lista";
+		return "redirect:/lancamentos/lista/" + dtVencto.getMonthValue() + "/" + dtVencto.getYear();
 	}
 
 	// ******LISTAS********
 
-	@GetMapping("lista")
-	public String listaLancamentos(ModelMap model) {
-		model.addAttribute("mes", LocalDate.now().getMonth().getValue());
-		model.addAttribute("ano", LocalDate.now().getYear());
+	/**
+	 * Lista utilizada na exclusão de despesa para retornas para mesma pagina
+	 * 
+	 * @param model
+	 * @param mes
+	 * @param ano
+	 * @return
+	 */
+	@GetMapping("lista/{mes}/{ano}")
+	public String listaLancamentosMontYear(ModelMap model, @PathVariable("mes") int mes, @PathVariable("ano") int ano) {
+		mes = mes == 0 ? LocalDate.now().getMonth().getValue() : mes;
+		ano = ano == 0 ? LocalDate.now().getYear() : ano;
+
+		model.addAttribute("mes", mes);
+		model.addAttribute("ano", ano);
 		return "lancamento/lista";
 	}
 

@@ -1,5 +1,6 @@
 package br.com.jnsdev.financeiro.repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -49,5 +50,8 @@ public interface LancamentoDespesaRepository extends JpaRepository<LancamentoDes
             "from LancamentoDespesa ld " +
             "where ld.categoria.id = :idCategoria")
     List<LancamentoDespesa> hasCategoriaDepesasCadastrada(Long idCategoria);
+
+    @Query("select ld.dtVencimento from LancamentoDespesa ld where ld.id = :id")
+    LocalDate findDataVencimento(Long id);
 
 }

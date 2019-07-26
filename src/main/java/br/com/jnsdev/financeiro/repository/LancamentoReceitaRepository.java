@@ -1,5 +1,7 @@
 package br.com.jnsdev.financeiro.repository;
 
+import java.time.LocalDate;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -31,5 +33,8 @@ public interface LancamentoReceitaRepository extends JpaRepository<LancamentoRec
             + " AND lr.nome  like '%' || :search || '%'"
             + " OR lr.fornecedor.nome  like '%' || :search || '%'")
     Page<LancamentoReceitaDTO> findAllBySearchByIdClienteByMonth(Long id, int mes, int ano, String search, Pageable pageable);
+
+	@Query("select lr.dtRecebimento from LancamentoReceita lr where lr.id = :id")
+	LocalDate findDataVencimento(Long id);
     
 }

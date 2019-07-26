@@ -135,4 +135,14 @@ public class LancamentoService {
 		despesaRepository.deleteById(id);
 	}
 
+	@Transactional(readOnly = true)
+	public LocalDate buscarDataVencimentoDespesa(Long id) {
+		return despesaRepository.findDataVencimento(id);
+	}
+	
+	@Transactional(readOnly = true)
+	public LocalDate buscarDataVencimentoReceita(Long id) {
+		return receitaRepository.findDataVencimento(id);
+	}
+
 }
