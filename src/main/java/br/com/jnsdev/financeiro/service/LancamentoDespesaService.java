@@ -21,7 +21,7 @@ public class LancamentoDespesaService {
 	@Transactional(readOnly = false)
 	public void gerarLancamentoParcelado(LancamentoDespesa lancamento) {
 		List<LancamentoDespesa> despesas = new ArrayList<>();
-		
+
 		for (int i = 0; i < lancamento.getQtdParcelas(); i++) {
 			LancamentoDespesa lanc = new LancamentoDespesa(lancamento);
 			lanc.setNumParcela(i + 1);
@@ -39,6 +39,13 @@ public class LancamentoDespesaService {
 
 	private LocalDate gerarDataVencimento(LocalDate data, int i) {
 		return data.plusDays(i * 30);
+	}
+
+	@Transactional(readOnly = false)
+	public void gerarLancamentoAvista(LancamentoDespesa lancamento) {
+		lancamento.setValorParcela(lancamento.getValor());
+		lancamento.setNumParcela(0);
+		repository.save(lancamento);
 	}
 
 }

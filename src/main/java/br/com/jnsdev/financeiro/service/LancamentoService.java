@@ -102,8 +102,7 @@ public class LancamentoService {
 		if (lancamento.getPagamento().equals(Pagamento.APRAZO)) {
 			despesasService.gerarLancamentoParcelado(lancamento);
 		} else {
-
-			despesaRepository.save(lancamento);
+			despesasService.gerarLancamentoAvista(lancamento);
 		}
 
 	}
