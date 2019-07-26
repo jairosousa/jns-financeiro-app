@@ -140,7 +140,6 @@ public class LancamentoController {
 	@GetMapping("/despesa/editar/{id}")
 	public String preEditarDespesa(@PathVariable("id") Long id, ModelMap model) {
 		LancamentoDespesa lancamento = service.buscarLancamentoDespesa(id).get();
-		System.out.println("Lancamento: " + lancamento.toString());
 		model.addAttribute("lancamento", lancamento);
 		return "lancamento/editar-despesa";
 	}
