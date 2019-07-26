@@ -40,30 +40,16 @@ public class LancamentoService {
 	public Map<String, Object> buscarLancamentoReceita(HttpServletRequest request, int mes, int ano, Long id) {
 		datatables.setRequest(request);
 		datatables.setColunas(DatatablesColunas.LANCAMENTOS_RECEITA);
-		
+
 		mes = (mes == 0) ? LocalDate.now().getMonthValue() : mes;
 		ano = (ano == 0) ? LocalDate.now().getYear() : ano;
 
 		Page<LancamentoReceitaDTO> pages = datatables.getSearch().isEmpty()
 				? receitaRepository.findAllByIdClienteByMonth(id, mes, ano, datatables.getPageable())
-				: receitaRepository.findAllBySearchByIdClienteByMonth(id, mes, ano, datatables.getSearch(), datatables.getPageable());
+				: receitaRepository.findAllBySearchByIdClienteByMonth(id, mes, ano, datatables.getSearch(),
+						datatables.getPageable());
 
 		return datatables.getResponse(pages);
-	}
-
-	@Transactional(readOnly = true)
-	public Map<String, Object> buscarLancamentoDespesas(HttpServletRequest request, int mes,  int ano, Long id) {
-		datatables.setRequest(request);
-		datatables.setColunas(DatatablesColunas.LANCAMENTOS_DESPESA);
-		
-		mes = (mes == 0) ? LocalDate.now().getMonthValue() : mes;
-		ano = (ano == 0) ? LocalDate.now().getYear() : ano;
-		
-		Page<LancamentoDespesaDTO> pages = datatables.getSearch().isEmpty()
-				? despesaRepository.findAllByIdClienteByMonth(id, mes, ano, datatables.getPageable())
-						: despesaRepository.findAllBySearchByIdClienteByMonth(id, mes, ano, datatables.getSearch(), datatables.getPageable());
-				
-				return datatables.getResponse(pages);
 	}
 
 	@Transactional(readOnly = false)
@@ -87,6 +73,27 @@ public class LancamentoService {
 	@Transactional(readOnly = true)
 	public Optional<LancamentoReceita> buscarLancamentoReceita(Long id) {
 		return receitaRepository.findById(id);
+	}
+
+	@Transactional(readOnly = false)
+	public void deleteReceita(Long id) {
+		receitaRepository.deleteById(id);
+	}
+
+	@Transactional(readOnly = true)
+	public Map<String, Object> buscarLancamentoDespesas(HttpServletRequest request, int mes, int ano, Long id) {
+		datatables.setRequest(request);
+		datatables.setColunas(DatatablesColunas.LANCAMENTOS_DESPESA);
+
+		mes = (mes == 0) ? LocalDate.now().getMonthValue() : mes;
+		ano = (ano == 0) ? LocalDate.now().getYear() : ano;
+
+		Page<LancamentoDespesaDTO> pages = datatables.getSearch().isEmpty()
+				? despesaRepository.findAllByIdClienteByMonth(id, mes, ano, datatables.getPageable())
+				: despesaRepository.findAllBySearchByIdClienteByMonth(id, mes, ano, datatables.getSearch(),
+						datatables.getPageable());
+
+		return datatables.getResponse(pages);
 	}
 
 	@Transactional(readOnly = false)
@@ -122,6 +129,11 @@ public class LancamentoService {
 	@Transactional(readOnly = true)
 	public Optional<LancamentoDespesa> buscarLancamentoDespesa(Long id) {
 		return despesaRepository.findById(id);
+	}
+
+	@Transactional(readOnly = false)
+	public void deleteDespesa(Long id) {
+		despesaRepository.deleteById(id);
 	}
 
 }

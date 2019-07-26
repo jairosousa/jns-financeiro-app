@@ -91,18 +91,26 @@ public class LancamentoController {
 	}
 
 	@GetMapping("receita/datatables/server/{mes}/{ano}")
-	public ResponseEntity<?> getLancamentoReceita(HttpServletRequest request, @PathVariable int mes, 
+	public ResponseEntity<?> getLancamentoReceita(HttpServletRequest request, @PathVariable int mes,
 			@PathVariable int ano, @AuthenticationPrincipal User user) {
 		Cliente cliente = clienteService.buscarPorUsuarioEmail(user.getUsername());
 		return ResponseEntity.ok(service.buscarLancamentoReceita(request, mes, ano, cliente.getId()));
 	}
 
+	@GetMapping("/receita/excluir/{id}")
+	public String excluirReceita(@PathVariable("id") Long id, RedirectAttributes attr) {
+
+		service.deleteReceita(id);
+
+		return "redirect:/lancamentos/lista";
+	}
+
 	// ******DESPESAS********
-	
+
 	@GetMapping("cadastrar/despesa")
 	public String abriCadastroDespesa(LancamentoDespesa lancamento, ModelMap model, RedirectAttributes attr,
 			@AuthenticationPrincipal User user) {
-		
+
 		Cliente cliente = clienteService.buscarPorUsuarioEmail(user.getUsername());
 
 		if (cliente.hasNotId()) {
@@ -126,10 +134,10 @@ public class LancamentoController {
 
 		return "lancamento/cadastro-despesa";
 	}
-	
+
 	@GetMapping("/despesa/editar/{id}")
 	public String preEditarDespesa(@PathVariable("id") Long id, ModelMap model) {
-		LancamentoDespesa lancamento= service.buscarLancamentoDespesa(id).get();
+		LancamentoDespesa lancamento = service.buscarLancamentoDespesa(id).get();
 		System.out.println("Lancamento: " + lancamento.toString());
 		model.addAttribute("lancamento", lancamento);
 		return "lancamento/editar-despesa";
@@ -141,7 +149,7 @@ public class LancamentoController {
 		attr.addFlashAttribute("sucesso", "Lançamento salvo com sucesso");
 		return "redirect:/lancamentos/cadastrar/despesa";
 	}
-	
+
 	@PostMapping("editar/despesa")
 	public String editarDespesa(LancamentoDespesa lancamento, RedirectAttributes attr) {
 		service.editarDespesa(lancamento);
@@ -150,14 +158,22 @@ public class LancamentoController {
 	}
 
 	@GetMapping("despesa/datatables/server/{mes}/{ano}")
-	public ResponseEntity<?> getLancamentoDespesaMonth(HttpServletRequest request, @PathVariable("mes") int mes, 
+	public ResponseEntity<?> getLancamentoDespesaMonth(HttpServletRequest request, @PathVariable("mes") int mes,
 			@PathVariable int ano, @AuthenticationPrincipal User user) {
 		Cliente cliente = clienteService.buscarPorUsuarioEmail(user.getUsername());
 		return ResponseEntity.ok(service.buscarLancamentoDespesas(request, mes, ano, cliente.getId()));
 	}
 
+	@GetMapping("/despesa/excluir/{id}")
+	public String excluirDespesa(@PathVariable("id") Long id, RedirectAttributes attr) {
+
+		service.deleteDespesa(id);
+
+		return "redirect:/lancamentos/lista";
+	}
+
 	// ******LISTAS********
-	
+
 	@GetMapping("lista")
 	public String listaLancamentos(ModelMap model) {
 		model.addAttribute("mes", LocalDate.now().getMonth().getValue());
@@ -166,7 +182,7 @@ public class LancamentoController {
 	}
 
 	// ******ATRIBUTOS********
-	
+
 	@ModelAttribute("fornecedores")
 	public List<Fornecedor> getFornecedores() {
 		return fornecedorService.buscarTodosOrderByNome();
