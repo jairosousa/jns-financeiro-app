@@ -81,4 +81,6 @@ $(document).ready(function () {
             },
         });
     }
+
+    
 });// Fim reader

@@ -252,18 +252,18 @@ $("#gastoFixo").change(function() {
 
 $("#gastoFixo").trigger("change");
 
-$("#1").change(function() {
+$("#pag-1").change(function() {
     if ($(this).prop("checked") == true) {
-        $('#qtdsParcelas').show(1000);
+        $('#qtdsParcelas').show(500);
     }
 });
 
-$("#1").trigger("change");
+$("#pag-1").trigger("change");
 
-$("#0").change(function() {
+$("#pag-0").change(function() {
     if ($(this).prop("checked") == true) {
-        $('#qtdsParcelas').hide(1000);
+        $('#qtdsParcelas').hide(500);
     }
 });
 
-$("#0").trigger("change");
+$("#pag-0").trigger("change");
