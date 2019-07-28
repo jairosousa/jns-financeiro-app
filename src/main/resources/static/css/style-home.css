@@ -85,6 +85,10 @@ footer p {
     border-left: 0.25rem solid #dc3545 !important;
 }
 
+.border-left-danger-50 {
+    border-left: 0.25rem solid rgba(220, 53, 69, .5) !important;
+}
+
 .text-danger-50 {
     color: rgba(220, 53, 69, .5);
 }
