@@ -114,7 +114,6 @@ public class LancamentoController {
 			@AuthenticationPrincipal User user) {
 
 		Cliente cliente = clienteService.buscarPorUsuarioEmail(user.getUsername());
-
 		if (cliente.hasNotId()) {
 			attr.addFlashAttribute("falha", "Cliente: " + user.getUsername()
 					+ ", Você deve concluir seu cadastro antes realizar uma operação.");
