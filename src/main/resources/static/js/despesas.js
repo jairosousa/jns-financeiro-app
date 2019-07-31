@@ -80,51 +80,54 @@ $(document).ready(function() {
         });
     }
 
-   
+
 }); // Fim reader
 
 
 // Editar o Pagamento da despesa
 $(function() {
-    $('.btn-editar').on('click', function (event) {
-    	event.preventDefault();
-    	
-    	var botaoEditar = $(event.currentTarget);
-    	var id = botaoEditar.data('codigo');
-    	
-    	$.ajax({
-    		method: "GET",
-    		url: "/pagamentos/despesa/edit/" + id,
-    		beforeSend: function () {
+    $('.btn-editar').on('click', function(event) {
+        event.preventDefault();
+
+        var botaoEditar = $(event.currentTarget);
+        var id = botaoEditar.data('codigo');
+
+        $.ajax({
+            method: "GET",
+            url: "/pagamentos/despesa/edit/" + id,
+            beforeSend: function() {
                 // Abrir Modal
                 $("#editar-despesas-modal").modal('show');
             },
-            success: function (data) {
-            	 $('#edt_id').val(data.id);
-            	 $('#edt_nome').text(data.nome);
-            	console.log(data)
+            success: function(data) {
+                $('#edt_id').val(data.id);
+                $('#edt_nome').text(data.nome);
+                console.log(data)
             },
-            error: function () {
+            error: function() {
                 alert("Ops... ocorreu um erro, tente mais tarde.");
             }
-    	});
-	})
-	
-	$('#btn-edit-modal').on('click', function () {
-		var dto = {};
-		dto.id = $("#edt_id").val();
-		dto.dtPagamento = $("#dtPagamento").val();
-		
-		console.log(dto);
-		$.ajax({
-			 method: "POST",
-	         url: "/pagamentos/edit/",
-	         data: dto,
-	         success: function () {
-	        	 $("#editar-despesas-modal").modal('hide');
-	            
-	         }
-		});
-	});
+        });
+    })
+
+    $('#btn-edit-modal').on('click', function() {
+        var dto = {};
+        dto.id = $("#edt_id").val();
+        dto.dtPagamento = $("#dtPagamento").val();
+
+        console.log(dto);
+        $.ajax({
+            method: "POST",
+            url: "/pagamentos/edit/despesa/",
+            data: dto,
+            success: function() {
+                $("#editar-despesas-modal").modal('hide');
+
+            },
+            error: function() {
+                alert("Ops... ocorreu um erro, tente mais tarde.");
+            }
+        });
+    });
 
 });

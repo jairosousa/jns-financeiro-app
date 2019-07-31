@@ -49,11 +49,9 @@ public interface LancamentoDespesaRepository extends JpaRepository<LancamentoDes
         @Query("select ld.dtVencimento from LancamentoDespesa ld where ld.id = :id")
         LocalDate findDataVencimento(Long id);
 
-        @Query("select ld from LancamentoDespesa ld"
-                + " where ld.cliente.id = :id"
-                + " AND month(ld.dtVencimento) = :mes"
-                + " AND year(ld.dtVencimento) = :ano" 
-                + " AND ld.dtPagamento is null")
+        @Query("select ld from LancamentoDespesa ld" + " where ld.cliente.id = :id"
+                        + " AND month(ld.dtVencimento) = :mes" + " AND year(ld.dtVencimento) = :ano"
+                        + " AND ld.dtPagamento is null")
         Optional<List<LancamentoDespesa>> findByNotDataPagamento(Long id, int mes, int ano);
 
 }

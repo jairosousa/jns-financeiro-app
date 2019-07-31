@@ -1,5 +1,6 @@
 package br.com.jnsdev.financeiro.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,8 +27,17 @@ public class PagamentoService {
     }
 
     @Transactional(readOnly = true)
-	public LancamentoDespesa buscarDespesas(Long id) {
-		return despesaRepository.findById(id).get() ;
-	}
+    public LancamentoDespesa buscarDespesas(Long id) {
+        return despesaRepository.findById(id).get();
+    }
+
+    @Transactional(readOnly = false)
+    public void atualizarDespesaDataPagamento(Long id, String dtPagamento) {
+        LancamentoDespesa despesa = despesaRepository.findById(id).get();
+        // DateTimeFormatter dtf = DateTimeFormatter.forPattern("yyyy-MM-dd");
+        LocalDate dt = LocalDate.parse(dtPagamento);
+
+        despesa.setDtPagamento(dt);
+    }
 
 }

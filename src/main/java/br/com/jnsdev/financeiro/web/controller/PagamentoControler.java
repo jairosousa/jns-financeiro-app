@@ -2,6 +2,8 @@ package br.com.jnsdev.financeiro.web.controller;
 
 import java.time.LocalDate;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -72,13 +74,12 @@ public class PagamentoControler {
         return ResponseEntity.ok(despesa);
     }
     
-    @PostMapping("edit")
-    public String editarPromocao(DespesaPagDto dto) {
-System.out.println(dto);
-       LancamentoDespesa despesa = service.buscarDespesas(dto.getId());
-       despesa.setDtPagamento(dto.getDtPagamento());
-
-        return "redirect:/listar/ajax";
+    @PostMapping("edit/despesa")
+    public ResponseEntity<?> editarPromocao(@Valid DespesaPagDto dto) {
+        System.out.println(dto.toString());
+        // service.atualizarDespesaDataPagamento(id, dtPagamento);
+       
+        return ResponseEntity.ok().build();
     }
 
 }

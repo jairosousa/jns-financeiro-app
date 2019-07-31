@@ -2,10 +2,17 @@ package br.com.jnsdev.financeiro.service.projection;
 
 import java.time.LocalDate;
 
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class DespesaPagDto {
 
+	@NotNull
 	private Long id;
 
+	@NotNull
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private LocalDate dtPagamento;
 
 	public Long getId() {
