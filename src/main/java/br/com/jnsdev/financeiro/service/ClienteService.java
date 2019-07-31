@@ -54,6 +54,7 @@ public class ClienteService {
 		c2.getEndereco().setEstado(cliente.getEndereco().getEstado());
 	}
 
+	@SuppressWarnings("serial")
 	public boolean userHasAdmin(User user) {
 		return user.getAuthorities().contains(new GrantedAuthority() {
 

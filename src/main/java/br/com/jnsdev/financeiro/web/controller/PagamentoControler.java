@@ -3,6 +3,7 @@ package br.com.jnsdev.financeiro.web.controller;
 import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
@@ -10,12 +11,15 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.jnsdev.financeiro.domain.Cliente;
+import br.com.jnsdev.financeiro.domain.LancamentoDespesa;
 import br.com.jnsdev.financeiro.service.ClienteService;
 import br.com.jnsdev.financeiro.service.PagamentoService;
+import br.com.jnsdev.financeiro.service.projection.DespesaPagDto;
 
 /**
  * PagamentoControler
@@ -60,6 +64,21 @@ public class PagamentoControler {
         model.addAttribute("despesas", service.buscarDespesasNãoPagasNoMes(cliente.getId(), mes, ano));
 
         return "pagamento/despesas-card";
+    }
+    
+    @GetMapping("despesa/edit/{id}")
+    public ResponseEntity<?> preEditarDespesas(@PathVariable("id") LancamentoDespesa despesa) {
+
+        return ResponseEntity.ok(despesa);
+    }
+    
+    @PostMapping("edit")
+    public String editarPromocao(DespesaPagDto dto) {
+System.out.println(dto);
+       LancamentoDespesa despesa = service.buscarDespesas(dto.getId());
+       despesa.setDtPagamento(dto.getDtPagamento());
+
+        return "redirect:/listar/ajax";
     }
 
 }

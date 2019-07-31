@@ -25,4 +25,9 @@ public class PagamentoService {
         return despesaRepository.findByNotDataPagamento(id, mes, ano).orElse(new ArrayList<LancamentoDespesa>());
     }
 
+    @Transactional(readOnly = true)
+	public LancamentoDespesa buscarDespesas(Long id) {
+		return despesaRepository.findById(id).get() ;
+	}
+
 }

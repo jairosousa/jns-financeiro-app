@@ -1,34 +1,42 @@
 <div class="row m-0">
-    <div class="col-md-12">
-        <ul th:each="d : ${despesas}">
-            <li>
-                <div class="card border-left-danger-50 shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col">
-                                <div class="text-xs font-weight-bold text-secondary text-uppercase">
-                                    <span th:text="${d.nome}"></span> / <span th:text="${d.descricao}"></span> </div>
-                                <hr class="border border-danger-50 mb-2" />
-                                <div class="d-flex justify-content-between">
-                                    <h5><span class="text-danger-50" th:text="|R$ ${{d.valor}}|"></span></h5>
+	<div class="col-md-12">
+		<ul th:each="d : ${despesas}">
+			<li>
+				<div class="card border-left-danger-50 shadow h-100 py-2">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<div class="col">
+								<div
+									class="text-xs font-weight-bold text-secondary text-uppercase">
+									<span th:text="${d.nome}"></span> / <span
+										th:text="${d.descricao}"></span>
+								</div>
+								<hr class="border border-danger-50 mb-2" />
+								<div class="d-flex justify-content-between">
+									<h5>
+										<span class="text-danger-50" th:text="|R$ ${{d.valor}}|"></span>
+									</h5>
 
-                                    <div class="text-right text-danger">
-                                        <label for=""><strong>Vencimento: </strong></label>
-                                        <span th:text="${#temporals.format(d.dtVencimento, 'dd/MM/yyyy')}"></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-auto">
-                                                    <button class="btn btn-link" data-toggle="tooltip" data-placement="right" title="Pagar">
-                                                        <i class="fas fa-check fa-2x text-success-50"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                </li>
-                            </ul>
+									<div class="text-right text-danger">
+										<label for=""><strong>Vencimento: </strong></label> <span
+											th:text="${#temporals.format(d.dtVencimento, 'dd/MM/yyyy')}"></span>
+									</div>
+								</div>
+							</div>
+							<div class="col-auto">
+								<button th:attr="data-codigo=${d.id}"  class="btn btn-link btn-editar" data-toggle="tooltip"
+									data-placement="right" title="Pagar">
+									<i class="fas fa-check fa-2x text-success-50"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
 
-                        </div>
-                    </div>
+			</li>
+		</ul>
+		<div th:replace="pagamento/despesas-modal :: editar-despesas-modal"></div>
+	</div>
+
+
+</div>
