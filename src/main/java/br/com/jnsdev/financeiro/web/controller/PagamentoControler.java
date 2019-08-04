@@ -2,8 +2,6 @@ package br.com.jnsdev.financeiro.web.controller;
 
 import java.time.LocalDate;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -21,7 +19,6 @@ import br.com.jnsdev.financeiro.domain.Cliente;
 import br.com.jnsdev.financeiro.domain.LancamentoDespesa;
 import br.com.jnsdev.financeiro.service.ClienteService;
 import br.com.jnsdev.financeiro.service.PagamentoService;
-import br.com.jnsdev.financeiro.service.projection.DespesaPagDto;
 
 /**
  * PagamentoControler
@@ -75,11 +72,9 @@ public class PagamentoControler {
     }
     
     @PostMapping("edit/despesa")
-    public ResponseEntity<?> editarPromocao(@Valid DespesaPagDto dto) {
-        System.out.println(dto.toString());
-        // service.atualizarDespesaDataPagamento(id, dtPagamento);
-       
-        return ResponseEntity.ok().build();
+    public String editarPromocao(LancamentoDespesa despesa) {
+        service.atualizarDespesaDataPagamento(despesa);
+        return "redirect:/pagamentos/listar/0/0";
     }
 
 }

@@ -1,52 +1,60 @@
 <!DOCTYPE html>
-<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org"
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
+
 <body>
 
 	<!-- Modal -->
-	<div class="modal fade" id="editar-despesas-modal" tabindex="-1"
-		role="dialog" aria-labelledby="exampleModalCenterTitle"
-		aria-hidden="true" th:fragment="editar-despesas-modal">
-		<div class="modal-dialog modal-dialog-centered modal-lg"
-			role="document">
+	<div class="modal fade" id="editar-despesas-modal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalCenterTitle" aria-hidden="true" th:fragment="editar-despesas-modal">
+		<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLongTitle">Pagamento</h5>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<div class="modal-body ">
-					<form id="form-edit-promo" action="#">
-						
-						<div class="form-row text-center">
-							<div class="col-12 mb-3">
+				<form id="form-edit-promo" th:action="@{/pagamentos/edit/despesa}" method="POST">
+					<div class="modal-body ">
+
+						<div class="form-row">
+							<div class="col-6 form-group mb-3">
+								<label for="nome">Nome</label>
+								<input type="text" class="form-control" id="nome" name="nome" disabled/>
+
+							</div>
+							<div class="col-6 form-group mb-3">
+								<label for="nome">descrição</label>
+								<input type="text" class="form-control" id="descricao" name="descricao" disabled/>
+
+							</div>
+							<div class="col-6 form-group mb-3">
 								<label for="nome">Data Pagamento</label>
-								<div class="input-group">
-									<input type="date" class="form-control" id="dtPagamento"
-										
-										name="dtPagamento" required />
-									
-								</div>
+								<input type="date" class="form-control" id="dtPagamento" name="dtPagamento" required />
+
+							</div>
+							<div class="col-6 form-group">
+								<label for="valor">Valor Pago</label> <input type="text" class="form-control"
+									id="valorParcela" name="valorParcela" data-mask="#.##0,00" data-mask-reverse="true" required />
 							</div>
 						</div>
 
 						<input type="hidden" class="form-control" id="edt_id" name="id" />
-					</form>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"
-						data-dismiss="modal">Cancelar</button>
-					<button id="btn-edit-modal" class="btn btn-primary">Confirmar</button>
-				</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+						<button type="submit" id="btn-edit-modal" class="btn btn-primary">Confirmar</button>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
 
 </body>
+
 </html>
