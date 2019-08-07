@@ -33,12 +33,12 @@ public class PagamentoControler {
     @Autowired
     private ClienteService clienteService;
 
-    @GetMapping("listar/{mes}/{ano}")
-    public String listarDespesasAvencerNoMes(Model model, @PathVariable("mes") int mes, @PathVariable("ano") int ano,
+    @GetMapping("listar")
+    public String listarDespesasAvencerNoMes(Model model,
             @AuthenticationPrincipal User user) {
 
-        mes = (mes == 0) ? LocalDate.now().getMonthValue() : mes;
-        ano = (ano == 0) ? LocalDate.now().getYear() : ano;
+        int mes = LocalDate.now().getMonthValue();
+        int ano = LocalDate.now().getYear();
 
         Cliente cliente = clienteService.buscarPorUsuarioEmail(user.getUsername());
         model.addAttribute("mes", mes);

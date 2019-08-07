@@ -33,7 +33,7 @@ $(document).ready(function() {
             }
 
             atualizarDespesas(mes, ano);
-            
+
         });
     });
     $("#voltarMesAtual").on("click", function() {
