@@ -74,7 +74,7 @@ public class PagamentoControler {
     @PostMapping("edit/despesa")
     public String editarPromocao(LancamentoDespesa despesa) {
         service.atualizarDespesaDataPagamento(despesa);
-        return "redirect:/pagamentos/listar/0/0";
+        return "redirect:/pagamentos/listar";
     }
 
 }
