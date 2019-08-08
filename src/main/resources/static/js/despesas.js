@@ -72,7 +72,7 @@ $(document).ready(function() {
                     $(".despesa").fadeIn(0, function() {
                         $(this).append(`<div class="row h4 m-0 text-center text-success">
                             <div class="col-md-12">
-                    <ul><li>Não há despesa vencida</li></ul>
+                    <ul><li class="border border-left-success rounded shadow py-4 h4 "><i class="far fa-thumbs-up"></i> Não há despesa vencida no mês</li></ul>
 
                         </div>
                     </div>`)
