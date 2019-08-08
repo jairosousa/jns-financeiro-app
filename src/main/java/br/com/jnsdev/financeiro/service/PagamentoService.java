@@ -21,7 +21,6 @@ public class PagamentoService {
 
 	@Transactional(readOnly = true)
 	public List<LancamentoDespesa> buscarDespesasNãoPagasNoMes(Long id, int mes, int ano) {
-
 		return despesaRepository.findByNotDataPagamento(id, mes, ano).orElse(new ArrayList<LancamentoDespesa>());
 	}
 

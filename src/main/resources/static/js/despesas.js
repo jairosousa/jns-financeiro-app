@@ -64,7 +64,7 @@ $(document).ready(function() {
             },
             success: function(response) {
 
-                if (response.length > 2030) {
+                if (response.length > 142) {
                     $(".despesa").fadeIn(0, function() {
                         $(this).append(response);
                     })
