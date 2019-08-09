@@ -66,7 +66,7 @@ public class DashboardController {
 	public ModelAndView pesquisar(DclienteFilter filter, @AuthenticationPrincipal User user) {
 		ModelAndView mv = new ModelAndView("/dashboard/dashboard");
 		Cliente cliente = clienteService.buscarPorUsuarioEmail(user.getUsername());
-		mv.addObject("filter", new DclienteFilter());
+		mv.addObject("filter", filter);
 		mv.addObject("cliente", cliente);
 		mv.addObject("valores", service.getValoresMesUsuario(cliente.getId(), filter.getMes(), filter.getAno()));
 		

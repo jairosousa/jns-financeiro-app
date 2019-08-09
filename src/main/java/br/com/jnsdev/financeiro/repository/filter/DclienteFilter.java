@@ -1,39 +1,32 @@
 package br.com.jnsdev.financeiro.repository.filter;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class DclienteFilter {
 
-	private String mesAno;
+	private int mes;
+
+	private int ano;
 
 	public DclienteFilter() {
-		this.mesAno = LocalDate.now().format(DateTimeFormatter.ofPattern("MMMM-yyyy"));
-	}
-
-	public LocalDate getDateParse() {
-		return LocalDate.parse(mesAno + "-01");
+		this.mes = LocalDate.now().getMonthValue();
+		this.ano = LocalDate.now().getYear();
 	}
 
 	public int getMes() {
-		return getDateParse().getMonthValue();
+		return mes;
+	}
+
+	public void setMes(int mes) {
+		this.mes = mes;
 	}
 
 	public int getAno() {
-		return getDateParse().getYear();
+		return ano;
 	}
 
-	@Override
-	public String toString() {
-		return "DclienteFilter [mesAno=" + mesAno + ", getDateParse()=" + getDateParse() + "]";
-	}
-
-	public String getMesAno() {
-		return mesAno;
-	}
-
-	public void setMesAno(String mesAno) {
-		this.mesAno = mesAno;
+	public void setAno(int ano) {
+		this.ano = ano;
 	}
 
 }

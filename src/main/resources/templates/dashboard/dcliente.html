@@ -9,17 +9,42 @@
 
 	<section th:fragment="dCliente">
 		<div class="container pt-4">
-				<form method="GET" th:object="${filter}"
-					th:action="@{/dashboard/filter}" class="form-inline">
-					<div class="form-group">
-							<label for="mesAno" class="font-weight-bold text-primary">Mês/Ano</label>
-								<input type="month" class="form-control mx-sm-3" id="mesAno"
-									autofocus="autofocus" th:field="*{mesAno}" />
-							<button type="submit" class="btn btn-primary">
-								<i class="fas fa-search-dollar"></i>
-							</button>
+			<form method="GET" th:object="${filter}"
+				th:action="@{/dashboard/filter}" class="form-inline">
+				<div class="form-group">
+					<div class="input-group mr-sm-3">
+						<div class="input-group-prepend">
+							<label class="input-group-text font-weight-bold text-primary" for="mes">Mês</label>
+						</div>
+						<select class="form-control" id="mes" th:field="*{mes}">
+							<option value="0" selected>Selecione...</option>
+							<option value="1">Janeiro</option>
+							<option value="2">Fevereiro</option>
+							<option value="3">Março</option>
+							<option value="4">Abril</option>
+							<option value="5">Maio</option>
+							<option value="6">Junho</option>
+							<option value="7">Julho</option>
+							<option value="8">Agosto</option>
+							<option value="9">Setembro</option>
+							<option value="10">Outubro</option>
+							<option value="11">Novembro</option>
+							<option value="12">Dezembro</option>
+						</select>
 					</div>
-				</form>
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<label class="input-group-text font-weight-bold text-primary" for="ano">Ano</label>
+						</div>
+						<input type="number" class="form-control" id="ano" th:field="*{ano}"/>
+					</div>
+					
+					
+					<button type="submit" class="btn btn-primary mx-sm-3">
+						<i class="fas fa-search-dollar"></i>
+					</button>
+				</div>
+			</form>
 			<div class="row">
 				<div class="col-xl-4 col-md-6 mb-4 mt-4">
 					<div class="card border-left-primary shadow h-100 py-2">
