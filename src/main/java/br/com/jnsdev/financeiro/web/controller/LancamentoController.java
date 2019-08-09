@@ -184,10 +184,10 @@ public class LancamentoController {
 	 * @param ano
 	 * @return
 	 */
-	@GetMapping("lista/{mes}/{ano}")
-	public String listaLancamentosMontYear(ModelMap model, @PathVariable("mes") int mes, @PathVariable("ano") int ano) {
-		mes = mes == 0 ? LocalDate.now().getMonth().getValue() : mes;
-		ano = ano == 0 ? LocalDate.now().getYear() : ano;
+	@GetMapping("lista")
+	public String listaLancamentosMontYear(ModelMap model) {
+		int mes = LocalDate.now().getMonth().getValue();
+		int ano = LocalDate.now().getYear();
 
 		model.addAttribute("mes", mes);
 		model.addAttribute("ano", ano);

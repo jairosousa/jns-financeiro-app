@@ -9,20 +9,22 @@
 <body>
 
 	<section class="layout-content" layout:fragment="corpo">
-		<main role="main"> <header
+		<main role="main"> 
+		<header
 			th:replace="fragments/jumbotron :: jumbotron">
 			<div>jumbotron</div>
-		</header> <input id="mes" type="hidden" th:value="${mes}"> <input
-			id="ano" type="hidden" th:value="${ano}">
+		</header> 
+		<input id="mes" type="hidden" th:value="${mes}"/>
+		<input id="ano" type="hidden" th:value="${ano}"/>
 
-		<div class="album py-5 bg-light">
+		<div class="album py-2 bg-light">
 			<div class="container">
 				<div class="row mb-3 justify-content-md-center">
 					<div class="col-sm-4 text-center">
 						<button id=voltarMesAtual class="btn btn-link btn-sm">
-							<span title="próximo" aria-hidden="true"></span> <i
-								class="fas fa-angle-double-left"></i> Voltar data atual <i
-								class="fas fa-angle-double-right"></i>
+							<span title="próximo" aria-hidden="true"></span> 
+							<i class="fas fa-angle-double-left"></i> Voltar
+							<i class="fas fa-angle-double-right"></i>
 						</button>
 					</div>
 				</div>

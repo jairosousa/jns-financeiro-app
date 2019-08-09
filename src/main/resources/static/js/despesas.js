@@ -43,7 +43,7 @@ $(document).ready(function() {
             ano = new Date().getFullYear();
 
             $('#anoAtual').text(ano);
-            $('#mesAtual').text(mes);
+            $('#mesAtual').text(meses(mes));
 
             atualizarDespesas(mes, ano);
         })

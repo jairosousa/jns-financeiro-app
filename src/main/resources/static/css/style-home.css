@@ -151,6 +151,10 @@ footer p {
     border-color: rgba(255, 193, 7, .45) !important;
 }
 
+.border-bottom-success-50 {
+	border-bottom: 0.25rem solid #28a745 !important;
+}
+
 .btn-close{
     font-size: 1rem;
     color: white !important;
