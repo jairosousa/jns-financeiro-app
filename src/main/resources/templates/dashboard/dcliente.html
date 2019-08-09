@@ -2,67 +2,87 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 </head>
 
 <body>
 
-<section th:fragment="dCliente">
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-4 col-md-6 mb-4 mt-4">
-                <div class="card border-left-primary shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-0">Total receita </div>
-                                <hr class="border border-primary-50 mb-4" />
-                                <div class="h5 mb-0 font-weight-bold text-primary" th:text="|R$ ${{valores.receitas}}|">$40,000</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-dollar-sign fa-2x text-primary-50"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+	<section th:fragment="dCliente">
+		<div class="container pt-4">
+				<form method="GET" th:object="${filter}"
+					th:action="@{/dashboard/filter}" class="form-inline">
+					<div class="form-group">
+							<label for="mesAno" class="font-weight-bold text-primary">Mês/Ano</label>
+								<input type="month" class="form-control mx-sm-3" id="mesAno"
+									autofocus="autofocus" th:field="*{mesAno}" />
+							<button type="submit" class="btn btn-primary">
+								<i class="fas fa-search-dollar"></i>
+							</button>
+					</div>
+				</form>
+			<div class="row">
+				<div class="col-xl-4 col-md-6 mb-4 mt-4">
+					<div class="card border-left-primary shadow h-100 py-2">
+						<div class="card-body">
+							<div class="row no-gutters align-items-center">
+								<div class="col mr-2">
+									<div
+										class="text-xs font-weight-bold text-primary text-uppercase mb-0">Total
+										receita</div>
+									<hr class="border border-primary-50 mb-4" />
+									<div class="h5 mb-0 font-weight-bold text-primary"
+										th:text="|R$ ${{valores.receitas}}|">$40,000</div>
+								</div>
+								<div class="col-auto">
+									<i class="fas fa-dollar-sign fa-2x text-primary-50"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 
-            <div class="col-xl-4 col-md-6 mb-4 mt-4">
-                <div class="card border-left-danger shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-danger text-uppercase mb-0">Total despesas</div>
-                                <hr class="border border-danger-50 mb-4" />
-                                <div class="h5 mb-0 font-weight-bold text-danger" th:text="|R$ ${{valores.despesas}}|">$40,000</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-money-bill-wave fa-2x text-danger-50"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+				<div class="col-xl-4 col-md-6 mb-4 mt-4">
+					<div class="card border-left-danger shadow h-100 py-2">
+						<div class="card-body">
+							<div class="row no-gutters align-items-center">
+								<div class="col mr-2">
+									<div
+										class="text-xs font-weight-bold text-danger text-uppercase mb-0">Total
+										despesas</div>
+									<hr class="border border-danger-50 mb-4" />
+									<div class="h5 mb-0 font-weight-bold text-danger"
+										th:text="|R$ ${{valores.despesas}}|">$40,000</div>
+								</div>
+								<div class="col-auto">
+									<i class="fas fa-money-bill-wave fa-2x text-danger-50"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 
-            <div class="col-xl-4 col-md-6 mb-4 mt-4">
-                <div class="card border-left-success shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-success text-uppercase mb-0">Saldo </div>
-                                <hr class="border border-success-50 mb-4" />
-                                <div class="h5 mb-0 font-weight-bold text-success" th:text="|R$ ${{valores.saldo}}|">$40,000</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-search-dollar fa-2x text-success-50"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+				<div class="col-xl-4 col-md-6 mb-4 mt-4">
+					<div class="card border-left-success shadow h-100 py-2">
+						<div class="card-body">
+							<div class="row no-gutters align-items-center">
+								<div class="col mr-2">
+									<div
+										class="text-xs font-weight-bold text-success text-uppercase mb-0">Saldo
+									</div>
+									<hr class="border border-success-50 mb-4" />
+									<div class="h5 mb-0 font-weight-bold text-success"
+										th:text="|R$ ${{valores.saldo}}|">$40,000</div>
+								</div>
+								<div class="col-auto">
+									<i class="fas fa-search-dollar fa-2x text-success-50"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 
 </body>
 </html>

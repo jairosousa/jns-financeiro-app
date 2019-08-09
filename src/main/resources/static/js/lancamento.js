@@ -2,7 +2,7 @@ $(document).ready(function() {
     moment.locale('pt-BR');
     var mes = $('#mes').val();
     var ano = $('#ano').val();
-    $('#mesAtual').text(mes);
+    $('#mesAtual').text(meses(mes));
     $('#anoAtual').text(ano);
 
     var tabler = criarTabelaReceita(mes, ano);
@@ -15,9 +15,9 @@ $(document).ready(function() {
             ano = parseInt(ano) + 1;
             $('#anoAtual').text(ano);
             mes = 1;
-            $('#mesAtual').text(mes);
+            $('#mesAtual').text(meses(mes));
         } else {
-            $('#mesAtual').text(mes)
+            $('#mesAtual').text(meses(mes))
         }
 
         tabler.destroy();
@@ -32,9 +32,9 @@ $(document).ready(function() {
             ano = parseInt(ano) - 1;
             $('#anoAtual').text(ano);
             mes = 12;
-            $('#mesAtual').text(mes);
+            $('#mesAtual').text(meses(mes));
         } else {
-            $('#mesAtual').text(mes);
+            $('#mesAtual').text(meses(mes));
         }
 
         tabler.destroy();
@@ -166,6 +166,24 @@ $(document).ready(function() {
                 ]
             });
     }
+    
+    function meses(mes) {
+    	var arrayMes = new Array(12);
+    	arrayMes[0] = "Janeiro";
+    	arrayMes[1] = "Fevereiro";
+    	arrayMes[2] = "Março";
+    	arrayMes[3] = "Abril";
+    	arrayMes[4] = "Maio";
+    	arrayMes[5] = "Junho";
+    	arrayMes[6] = "Julho";
+    	arrayMes[7] = "Agosto";
+    	arrayMes[8] = "Setembro";
+    	arrayMes[9] = "Outubro";
+    	arrayMes[10] = "Novembro";
+    	arrayMes[11] = "Dezembro";
+
+    	return arrayMes[mes -1];
+	}
 
     function criarTabelaReceita(mes) {
         return $('#table-lancamento-receita')
