@@ -7,8 +7,6 @@
 
 <body>
 
-</body>
-
 <section th:fragment="dCliente">
     <div class="container">
         <div class="row">
@@ -19,7 +17,7 @@
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-0">Total receita </div>
                                 <hr class="border border-primary-50 mb-4" />
-                                <div class="h5 mb-0 font-weight-bold text-primary">$40,000</div>
+                                <div class="h5 mb-0 font-weight-bold text-primary" th:text="|R$ ${{valores.receitas}}|">$40,000</div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-dollar-sign fa-2x text-primary-50"></i>
@@ -36,7 +34,7 @@
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-danger text-uppercase mb-0">Total despesas</div>
                                 <hr class="border border-danger-50 mb-4" />
-                                <div class="h5 mb-0 font-weight-bold text-danger">$40,000</div>
+                                <div class="h5 mb-0 font-weight-bold text-danger" th:text="|R$ ${{valores.despesas}}|">$40,000</div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-money-bill-wave fa-2x text-danger-50"></i>
@@ -53,7 +51,7 @@
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-success text-uppercase mb-0">Saldo </div>
                                 <hr class="border border-success-50 mb-4" />
-                                <div class="h5 mb-0 font-weight-bold text-success">$40,000</div>
+                                <div class="h5 mb-0 font-weight-bold text-success" th:text="|R$ ${{valores.saldo}}|">$40,000</div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-search-dollar fa-2x text-success-50"></i>
@@ -66,4 +64,5 @@
     </div>
 </section>
 
+</body>
 </html>

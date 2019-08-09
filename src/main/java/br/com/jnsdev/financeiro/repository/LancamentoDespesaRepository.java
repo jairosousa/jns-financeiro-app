@@ -1,5 +1,6 @@
 package br.com.jnsdev.financeiro.repository;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -53,5 +54,13 @@ public interface LancamentoDespesaRepository extends JpaRepository<LancamentoDes
                         + " AND month(ld.dtVencimento) = :mes" + " AND year(ld.dtVencimento) = :ano"
                         + " AND ld.dtPagamento is null")
         Optional<List<LancamentoDespesa>> findByNotDataPagamento(Long id, int mes, int ano);
+        
+//        ///**DASHBOARD**///
+        @Query("select sum(ld.valorParcela)"
+        		+ " from LancamentoDespesa ld" 
+        		+ " where ld.cliente.id = :id" 
+        		+ " AND month(ld.dtVencimento) = :mes" 
+        		+ " AND year(ld.dtVencimento) = :ano")
+        Optional<BigDecimal> findSumMes(Long id, int mes, int ano);
 
 }
