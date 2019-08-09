@@ -87,19 +87,25 @@
 				</div>
 
 				<div class="col-xl-4 col-md-6 mb-4 mt-4">
-					<div class="card border-left-success shadow h-100 py-2">
+					<div class="card shadow h-100 py-2"
+						th:classappend="${valores.saldo >= 0 ? 'border-left-success' : 'border-left-warning'}">
 						<div class="card-body">
 							<div class="row no-gutters align-items-center">
 								<div class="col mr-2">
 									<div
-										class="text-xs font-weight-bold text-success text-uppercase mb-0">Saldo
+										class="text-xs font-weight-bold text-success text-uppercase mb-0"
+										th:classappend="${valores.saldo >= 0 ? 'text-success' : 'text-warning'}">Saldo
 									</div>
-									<hr class="border border-success-50 mb-4" />
-									<div class="h5 mb-0 font-weight-bold text-success"
-										th:text="|R$ ${{valores.saldo}}|">$40,000</div>
+									<hr class="border mb-4" 
+									th:classappend="${valores.saldo >= 0 ? 'border-success-50' : 'border-warning-50'}"/>
+									<div class="h5 mb-0 font-weight-bold"
+										th:text="|R$ ${{valores.saldo}}|"
+										th:classappend="${valores.saldo >= 0 ? 'text-success' : 'text-warning'}">$40,000</div>
 								</div>
 								<div class="col-auto">
-									<i class="fas fa-search-dollar fa-2x text-success-50"></i>
+									<i class="fas fa-2x"
+									th:classappend="${valores.saldo >= 0 ? 'fa-thumbs-up text-success-50' : 'fa-thumbs-down text-warning-50'}"
+									></i>
 								</div>
 							</div>
 						</div>
