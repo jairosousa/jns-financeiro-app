@@ -29,11 +29,21 @@ public interface LancamentoReceitaRepository extends JpaRepository<LancamentoRec
     		+ " lr.valor as valor, lr.dtLancamento as dtLacamento," 
     		+ " lr.fornecedor as fornecedor, lr.dtRecebimento as dtRecebimento" 
     		+ " from LancamentoReceita lr"
-    		+ " where lr.cliente.id = :id"
+    		+ " where "
+    		+ " (lr.nome  like '%' || :search || '%'" 
+    		+ " AND lr.cliente.id = :id"
     		+ " AND extract(month from lr.dtRecebimento) = :mes"
-    		+ " AND extract(year from lr.dtRecebimento) = :ano "
-            + " AND lr.nome  like '%' || :search || '%'"
-            + " OR lr.fornecedor.nome  like '%' || :search || '%'")
+    		+ " AND extract(year from lr.dtRecebimento) = :ano)"
+            + " OR"
+            + " (lr.descricao  like '%' || :search || '%'"
+            + " AND lr.cliente.id = :id"
+    		+ " AND extract(month from lr.dtRecebimento) = :mes"
+    		+ " AND extract(year from lr.dtRecebimento) = :ano)"
+    		+ " OR"
+            + " (lr.fornecedor.nome  like '%' || :search || '%'"
+            + " AND lr.cliente.id = :id"
+    		+ " AND extract(month from lr.dtRecebimento) = :mes"
+    		+ " AND extract(year from lr.dtRecebimento) = :ano)")
     Page<LancamentoReceitaDTO> findAllBySearchByIdClienteByMonth(Long id, int mes, int ano, String search, Pageable pageable);
 
 	@Query("select lr.dtRecebimento from LancamentoReceita lr where lr.id = :id")

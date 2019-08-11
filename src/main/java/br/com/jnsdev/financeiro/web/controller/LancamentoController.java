@@ -158,8 +158,10 @@ public class LancamentoController {
 	}
 
 	@GetMapping("despesa/datatables/server/{mes}/{ano}")
-	public ResponseEntity<?> getLancamentoDespesaMonth(HttpServletRequest request, @PathVariable("mes") int mes,
-			@PathVariable int ano, @AuthenticationPrincipal User user) {
+	public ResponseEntity<?> getLancamentoDespesaMonth(HttpServletRequest request, 
+			@PathVariable("mes") int mes,
+			@PathVariable("ano") int ano, 
+			@AuthenticationPrincipal User user) {
 		Cliente cliente = clienteService.buscarPorUsuarioEmail(user.getUsername());
 		return ResponseEntity.ok(service.buscarLancamentoDespesas(request, mes, ano, cliente.getId()));
 	}

@@ -90,9 +90,9 @@ public class LancamentoService {
 
 		Page<LancamentoDespesaDTO> pages = datatables.getSearch().isEmpty()
 				? despesaRepository.findAllByIdClienteByMonth(id, mes, ano, datatables.getPageable())
-				: despesaRepository.findAllBySearchByIdClienteByMonth(id, mes, ano, datatables.getSearch(),
+				: despesaRepository.findAllBySearchByIdClienteByMonth(id, mes, ano, (datatables.getSearch()),
 						datatables.getPageable());
-
+				
 		return datatables.getResponse(pages);
 	}
 
