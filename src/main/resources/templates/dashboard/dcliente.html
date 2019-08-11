@@ -51,9 +51,10 @@
 						<div class="card-body">
 							<div class="row no-gutters align-items-center">
 								<div class="col mr-2">
-									<div
-										class="text-xs font-weight-bold text-primary text-uppercase mb-0">Total
-										receita</div>
+									<div class="text-xs font-weight-bold text-primary text-uppercase mb-0">Total receitas
+										<a class="float-right text-primary" th:href="@{/lancamentos/cadastrar/receita}"
+										data-toggle="tooltip" data-placement="left" title="Cadastrar receita"><i class="fas fa-plus-circle"></i></a>
+									</div>
 									<hr class="border border-primary-50 mb-4" />
 									<div class="h5 mb-0 font-weight-bold text-primary"
 										th:text="|R$ ${{valores.receitas}}|">$40,000</div>
@@ -73,7 +74,10 @@
 								<div class="col mr-2">
 									<div
 										class="text-xs font-weight-bold text-danger text-uppercase mb-0">Total
-										despesas</div>
+										despesas
+										<a class="float-right text-danger" th:href="@{/lancamentos/cadastrar/despesa}"
+										data-toggle="tooltip" data-placement="top" title="Cadastrar despesa"><i class="fas fa-plus-circle"></i></a>
+									</div>
 									<hr class="border border-danger-50 mb-4" />
 									<div class="h5 mb-0 font-weight-bold text-danger"
 										th:text="|R$ ${{valores.despesas}}|">$40,000</div>
@@ -92,9 +96,11 @@
 						<div class="card-body">
 							<div class="row no-gutters align-items-center">
 								<div class="col mr-2">
-									<div
-										class="text-xs font-weight-bold text-success text-uppercase mb-0"
+									<div class="text-xs font-weight-bold text-success text-uppercase mb-0"
 										th:classappend="${valores.saldo >= 0 ? 'text-success' : 'text-warning'}">Saldo
+										
+										<a class="float-right" th:classappend="${valores.saldo >= 0 ? 'text-success' : 'text-warning'}" th:href="@{/lancamentos/lista}"
+										data-toggle="tooltip" data-placement="left" title="Verificar lançamentos"><i class="fas fa-search-dollar"></i></a>
 									</div>
 									<hr class="border mb-4" 
 									th:classappend="${valores.saldo >= 0 ? 'border-success-50' : 'border-warning-50'}"/>
