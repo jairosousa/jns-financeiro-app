@@ -1,3 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<body>
 <div class="row m-0">
 	<div class="col-md-12">
 		<ul th:each="d : ${despesas}">
@@ -38,11 +46,11 @@
 			</li>
 		</ul>
 
-		<div class="row h4 m-0 text-center text-success" th:if="${!despesas}">
+		<div class="row h4 m-0 text-center text-success" th:if="${#lists.isEmpty(despesas)}">
 			<div class="col-md-12">
 				<ul>
 					<li class="border border-left-success rounded shadow py-4 h4 "><i
-						class="far fa-thumbs-up"></i> Não há despesa vencida no mês</li>
+						class="far fa-thumbs-up"></i> NÃ£o hÃ¡ despesa vencida no mÃªs</li>
 				</ul>
 
 			</div>
@@ -52,3 +60,7 @@
 	<script th:src="@{/js/despesas-card.js?(v=${version})}"
 		th:fragment="js"></script>
 </div>
+
+</body>
+
+</html>

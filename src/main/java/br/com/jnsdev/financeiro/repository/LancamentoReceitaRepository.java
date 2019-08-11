@@ -50,11 +50,11 @@ public interface LancamentoReceitaRepository extends JpaRepository<LancamentoRec
 	LocalDate findDataVencimento(Long id);
 	
 //  ///**DASHBOARD**///
-  @Query("select sum(lr.valor)"
-  		+ " from LancamentoReceita lr" 
-  		+ " where lr.cliente.id = :id" 
-  		+ " AND month(lr.dtLancamento) = :mes" 
-  		+ " AND year(lr.dtLancamento) = :ano")
+	@Query("select sum(lr.valor)"
+	  		+ " from LancamentoReceita lr" 
+	  		+ " where lr.cliente.id = :id" 
+	  		+ " AND month(lr.dtLancamento) = :mes" 
+	  		+ " AND year(lr.dtLancamento) = :ano")
 	public Optional<BigDecimal> findSumMes(Long id, int mes, int ano);
     
 }
