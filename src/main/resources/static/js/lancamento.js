@@ -59,11 +59,52 @@ $(document).ready(function() {
     function criarTabelaDespesas(mes) {
         return $('#table-lancamento-despesa')
             .DataTable({
-                // dom: 'Bfrtip',
+            	dom: 'Bfrtip',
+                buttons: [
+                	{
+                        extend:    'copyHtml5',
+                        text:      '<i class="far fa-copy"></i>',
+                        titleAttr: 'Copy',
+                        className: 'btn btn-outline-dark'
+                    },
+                	{
+                        extend: 'excel',
+                        text:      '<i class="far fa-file-excel"></i>',
+                        titleAttr: 'Excel',
+                        orientation: 'landscape',
+                        pageSize: 'LEGAL',
+                        title: 'Tabela de Lançamentos Despesas',
+                        className: 'btn btn-outline-success',
+                        exportOptions: {
+                            columns: [ 0, 1,  2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 ]
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        text:      '<i class="far fa-file-pdf"></i>',
+                        titleAttr: 'PDF',
+                        orientation: 'landscape',
+                        pageSize: 'LEGAL',
+                        download: 'open',
+                        className: 'btn btn-outline-danger',
+                        title: 'Tabela de Lançamentos Despesas',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+                        }
+                    }
+                ],
                 processing: true,
                 serverSide: true,
                 "language": {
-                    "url": "/datatables/translationBR"
+                    "url": "/datatables/translationBR",
+                    	buttons: {
+                            copyTitle: 'Copiado para área de transferencia',
+                            copyKeys: 'Impresso <i>ctrl</i> ou <i>\u2318</i> + <i>C</i> para copiar os dados da tabela para sua área de transferência. <br><br>Para cancelar, clique nesta mensagem ou pressione Esc.',
+                            copySuccess: {
+                                _: '%d Linhas copiadas',
+                                1: '1 linha copiada'
+                            }
+                        }	
                 },
                 searching: true,
                 order: [
@@ -166,43 +207,53 @@ $(document).ready(function() {
                 ]
             });
     }
-    
-    function meses(mes) {
-    	var arrayMes = new Array(12);
-    	arrayMes[0] = "Janeiro";
-    	arrayMes[1] = "Fevereiro";
-    	arrayMes[2] = "Março";
-    	arrayMes[3] = "Abril";
-    	arrayMes[4] = "Maio";
-    	arrayMes[5] = "Junho";
-    	arrayMes[6] = "Julho";
-    	arrayMes[7] = "Agosto";
-    	arrayMes[8] = "Setembro";
-    	arrayMes[9] = "Outubro";
-    	arrayMes[10] = "Novembro";
-    	arrayMes[11] = "Dezembro";
-
-    	return arrayMes[mes -1];
-	}
 
     function criarTabelaReceita(mes) {
         return $('#table-lancamento-receita')
             .DataTable({
-                // dom: 'Bfrtip',
-                "createdRow": function(row, data, index) {
-                    $('td', row).eq(3).addClass('text-success');
-                },
-                processing: true,
-                serverSide: true,
-                "language": {
-                    "url": "/datatables/translationBR"
-                },
-                searching: true,
+            	processing: true,
+                serverSide: true,searching: true,
                 order: [
                     [3, "desc"]
                 ],
                 lengthMenu: [5, 10, 15],
                 responsive: true,
+            	dom: 'Bfrtip',
+            	buttons: [
+            		{
+                        extend:    'copyHtml5',
+                        text:      '<i class="far fa-copy"></i>',
+                        titleAttr: 'Copy',
+                        className: 'btn btn-outline-dark'
+                    },
+                	{
+                        extend: 'excel',
+                        title: 'Tabela de Lançamentos Receitas',
+                        text:      '<i class="far fa-file-excel"></i>',
+                        titleAttr: 'Excel',
+                        className: 'btn btn-outline-success',
+                        exportOptions: {
+                            columns: [ 0, 1,  2, 3, 4, 5 ]
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        text:      '<i class="far fa-file-pdf"></i>',
+                        titleAttr: 'PDF',
+                        download: 'open',
+                        className: 'btn btn-outline-danger',
+                        title: 'Tabela de Lançamentos Receitas',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5]
+                        }
+                    }
+                ],
+                "createdRow": function(row, data, index) {
+                    $('td', row).eq(3).addClass('text-success');
+                },
+                "language": {
+                    "url": "/datatables/translationBR"
+                },
                 //            scrollY: "40vh",
                 ajax: {
                     url: '/lancamentos/receita/datatables/server/' + mes + "/" + ano,
@@ -256,6 +307,24 @@ $(document).ready(function() {
                 ]
             });
     }
+    
+    function meses(mes) {
+    	var arrayMes = new Array(12);
+    	arrayMes[0] = "Janeiro";
+    	arrayMes[1] = "Fevereiro";
+    	arrayMes[2] = "Março";
+    	arrayMes[3] = "Abril";
+    	arrayMes[4] = "Maio";
+    	arrayMes[5] = "Junho";
+    	arrayMes[6] = "Julho";
+    	arrayMes[7] = "Agosto";
+    	arrayMes[8] = "Setembro";
+    	arrayMes[9] = "Outubro";
+    	arrayMes[10] = "Novembro";
+    	arrayMes[11] = "Dezembro";
+
+    	return arrayMes[mes -1];
+	}
 })
 
 $('#qtdsParcelas').hide();

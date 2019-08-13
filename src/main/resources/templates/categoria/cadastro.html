@@ -13,14 +13,24 @@
                 <div>jumbotron</div>
             </header>
 
-            <div class="album py-5 bg-light">
+            <div class="album py-3 bg-light">
                 <div class="container">
 
                     <div class="d-flex justify-content-center">
                         <div class="col-md-8">
 
                             <div th:replace="fragments/alert :: alerta-sucesso"></div>
+                            
+                        <nav aria-label="breadcrumb">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item"><a th:href="@{/dashboard}">Home</a></li>
+								<li class="breadcrumb-item"><a th:href="@{/categorias}">Categorias</a></li>
+							</ol>
+						</nav>
 
+						<h5 class="text-primary pt-2"><i class="fas fa-sitemap"></i> Cadastro</h5>
+						<hr class="bg-primary" />
+						
                             <form th:action="@{/categorias/salvar}" th:object="${categoria}" method="POST" class="was-validated">
 
                                 <div class="mb-3">
@@ -44,7 +54,7 @@
 
                             <hr/>
 
-                            <h2 class="text-primary"><i class="fas fa-check-double"></i> Lista de Categorias</h2>
+                            <h5 class="text-primary"><i class="fas fa-sitemap"></i> Lista de Categorias</h5>
 
                             <hr class="bg-primary" />
 

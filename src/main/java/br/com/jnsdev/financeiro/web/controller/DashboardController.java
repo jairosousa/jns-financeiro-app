@@ -1,7 +1,6 @@
 package br.com.jnsdev.financeiro.web.controller;
 
 import java.time.LocalDate;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -38,30 +37,31 @@ public class DashboardController {
 		int mes = LocalDate.now().getMonthValue();
 		int ano = LocalDate.now().getYear();
 
-		if (cliente.hasId()) {
-			model.addAttribute("cliente", cliente);
-			model.addAttribute("filter", new DclienteFilter());
-//			Se for Cliente
-			if (!clienteService.userHasAdmin(user)) {
-				model.addAttribute("valores", service.getValoresMesUsuario(cliente.getId(), mes, ano));
-			} else {// Se for Cliente
-
-			}
-
+		if (clienteService.userHasAdmin(user)) {
 			return "dashboard/dashboard";
 		} else {
-			cliente.setEndereco(new Endereco());
-			cliente.setUsuario(new Usuario(user.getUsername()));
+
+			if (cliente.hasId()) {
+				model.addAttribute("cliente", cliente);
+				model.addAttribute("filter", new DclienteFilter());
+				model.addAttribute("valores", service.getValoresMesUsuario(cliente.getId(), mes, ano));
+				return "dashboard/dashboard";
+
+			} else {
+				cliente.setEndereco(new Endereco());
+				cliente.setUsuario(new Usuario(user.getUsername()));
+
+			}
+			attr.addFlashAttribute("falha", "Usuario: " + user.getUsername()
+					+ " você deve completar seu cadastro antes de executar qualquer operação!");
+			model.addAttribute("cliente", cliente);
+
+			return "redirect:/clientes/dados";
 
 		}
-		attr.addFlashAttribute("falha", "Usuario: " + user.getUsername()
-				+ " você deve completar seu cadastro antes de executar qualquer operação!");
-		model.addAttribute("cliente", cliente);
-
-		return "redirect:/clientes/dados";
 
 	}
-	
+
 	@GetMapping("filter")
 	public ModelAndView pesquisar(DclienteFilter filter, @AuthenticationPrincipal User user) {
 		ModelAndView mv = new ModelAndView("/dashboard/dashboard");
@@ -69,7 +69,7 @@ public class DashboardController {
 		mv.addObject("filter", filter);
 		mv.addObject("cliente", cliente);
 		mv.addObject("valores", service.getValoresMesUsuario(cliente.getId(), filter.getMes(), filter.getAno()));
-		
+
 		return mv;
 	}
 

@@ -2,9 +2,35 @@ $(document).ready(function() {
     moment.locale('pt-BR');
     var table = $('#table-categoria').DataTable({
         dom: 'Bfrtip',
+        buttons: [
+        	'copyHtml5',
+        	{
+                extend: 'excel',
+                title: 'Tabela de Categorias',
+                exportOptions: {
+                    columns: [ 0, 1 ]
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                download: 'open',
+                title: 'Tabela de Categorias',
+                exportOptions: {
+                    columns: [ 0, 1 ]
+                }
+            }
+        ],
 
         "language": {
-            "url": "/datatables/translationBR"
+            "url": "/datatables/translationBR",
+            buttons: {
+                copyTitle: 'Copiado para área de transferencia',
+                copyKeys: 'Impresso <i>ctrl</i> ou <i>\u2318</i> + <i>C</i> para copiar os dados da tabela para sua área de transferência. <br><br>Para cancelar, clique nesta mensagem ou pressione Esc.',
+                copySuccess: {
+                    _: '%d Linhas copiadas',
+                    1: '1 linha copiada'
+                }
+            }
         },
         searching: true,
         order: [

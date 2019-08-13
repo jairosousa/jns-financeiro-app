@@ -9,6 +9,11 @@
 
 	<section th:fragment="dCliente">
 		<div class="container pt-4">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a th:href="@{/dashboard}">Dashboard</a></li>
+			</ol>
+		</nav>
 			<form method="GET" th:object="${filter}"
 				th:action="@{/dashboard/filter}" class="form-inline">
 				<div class="form-group">

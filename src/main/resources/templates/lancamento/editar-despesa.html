@@ -17,10 +17,14 @@
 					<div class="col-md-8 ">
 						<div th:replace="fragments/alert :: alerta-sucesso"></div>
 
-						<div class="display-5 text-primary">
-							<h3>Despesa</h3>
-							<hr />
-						</div>
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item"><a th:href="@{/dashboard}">Home</a></li>
+								<li class="breadcrumb-item"><a th:href="@{/lancamentos/lista}">Lançamentos</a></li>
+								<li class="breadcrumb-item active" aria-current="page">Editar despesa</li>
+							</ol>
+						</nav>
+						
 						<form
 							th:action="@{/lancamentos/editar/despesa}"
 							th:object="${lancamento}" method="POST" class="was-validated">

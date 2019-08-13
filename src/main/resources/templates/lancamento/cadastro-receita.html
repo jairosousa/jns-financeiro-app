@@ -17,11 +17,15 @@
                 <div class="d-flex justify-content-center">
                     <div class="col-md-8 ">
                         <div th:replace="fragments/alert :: alerta-sucesso"></div>
+                        
+                        <nav aria-label="breadcrumb">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item"><a th:href="@{/dashboard}">Home</a></li>
+								<li class="breadcrumb-item"><a th:href="@{/lancamentos/lista}">Lançamentos</a></li>
+								<li class="breadcrumb-item active" aria-current="page">Cadastro receita</li>
+							</ol>
+						</nav>
 
-                        <div class="display-5 text-primary">
-                            <h3>Receita</h3>
-                            <hr/>
-                        </div>
                         <form th:action="${lancamento.id == null} ? @{/lancamentos/salvar/receita} : @{/lancamentos/editar/receita}"
                               th:object="${lancamento}" method="POST" class="was-validated">
 
