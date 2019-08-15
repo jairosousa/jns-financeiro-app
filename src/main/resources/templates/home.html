@@ -1,36 +1,33 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml"
-      layout:decorate="~{layout}">
+<html xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml" layout:decorate="~{layout}">
+
 <head>
     <meta charset="UTF-8" />
+  
 </head>
+
 <body>
+    <section class="layout-content" layout:fragment="corpo">
+        <div class="main">
+            <div class="text">
+                <svg>
+                    <defs>
+                        <mask id="mask" x="0" y="0" width="100%" height="100%">
+                            <rect class="alpha" x="0" y="0" width="100%" height="100%" />
+                            <text class="title" x="50%" y="0" dy="60%">Financy$</text>
+                        </mask>
+                    </defs>
 
-<section class="layout-content" layout:fragment="corpo">
-    <main role="main">
-
-        <header
-                th:replace="fragments/jumbotron :: jumbotron">
-            <div>jumbotron</div>
-        </header>
-
-        <div class="album py-5 bg-light">
-
-            <div class="container">
-
-                <div class="row">
-
-
-
-
-
-                </div>
+                    <!-- Elemento onde aplicaremos a máscara -->
+                    <rect class="base" x="0" y="0" width="100%" height="100%" />
+                </svg>
             </div>
-        </div>
+            <section class="background"></section>
 
-    </main>
-</section>
-<script th:src="~{}" th:fragment="js"></script>
-<script th:inline="javascript" th:fragment="inlinescript"></script>
+        </div>
+    </section>
+    <script th:src="~{}" th:fragment="js"></script>
+    <script th:inline="javascript" th:fragment="inlinescript"></script>
 </body>
+
 </html>

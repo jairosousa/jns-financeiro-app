@@ -12,7 +12,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import br.com.jnsdev.financeiro.domain.LancamentoDespesa;
-import br.com.jnsdev.financeiro.repository.lancamento.LancamentoDespesaRepositoryQuery;
 import br.com.jnsdev.financeiro.repository.projection.LancamentoDespesaDTO;
 
 @Repository

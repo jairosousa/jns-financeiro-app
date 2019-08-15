@@ -2,100 +2,128 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
-<meta charset="UTF-8">
+	<meta charset="UTF-8">
 </head>
 
 <body>
 	<header th:fragment="cabecalho">
-		<nav
+
+		<nav sec:authorize="!isAuthenticated()" class="navbar navbar-expand-md navbar-dark fixed-top bg-transparente">
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+				aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<a class="h2 navbar-brand" th:href="@{/}"> 
+				<!-- <img class="d-inline-block align-top" th:src="@{/image/nav.png}" width="30" height="30">  -->
+					<!-- <span>Financy</span><small>$</small> -->
+			</a> 
+
+
+			<div class="collapse navbar-collapse" id="navbarCollapse">
+				<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+					<li class="nav-item active">
+						<a class="nav-link" href="#"> <span class="sr-only"></span></a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#"></a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link disabled" href="#"></a>
+					</li>
+				</ul>
+				<!--				LINKS LOGIN E CADASTRAR-->
+				<form class="form-inline mt-2 mt-md-0">
+					<div class="form-check mb-2 mr-sm-2">
+						<a class="btn btn-outline-light my-2 my-sm-0" role="button" th:href="@{/login}">Login</a>
+					</div>
+
+					<div class="form-check mb-2 mr-sm-2">
+						<a class="btn btn-outline-light my-2 my-sm-0" role="button"
+							th:href="@{/u/cadastro/usuario/novo}">Cadastrar-se</a>
+					</div>
+				</form>
+			</div>
+		</nav>
+
+		<nav sec:authorize="isAuthenticated()"
 			class="navbar navbar-expand-md navbar-dark fixed-top bg-primary border-bottom-success-50">
 
-			<a class="h2 navbar-brand" th:href="@{/}"
-				sec:authorize="!isAuthenticated()"> <img
-				class="d-inline-block align-top" th:src="@{/image/nav.png}"
-				width="30" height="30"> Financys
-			</a> <a class="h2 navbar-brand" th:href="@{/dashboard}"
-				sec:authorize="isAuthenticated()"> <img
-				class="d-inline-block align-top" th:src="@{/image/nav.png}"
-				width="30" height="30"> Financys
+			<a class="h2 navbar-brand" th:href="@{/}" sec:authorize="!isAuthenticated()"> <img
+					class="d-inline-block align-top" th:src="@{/image/nav.png}" width="30" height="30">
+				<span>Financy</span><small>$</small>
+			</a> <a class="h2 navbar-brand" th:href="@{/dashboard}" sec:authorize="isAuthenticated()"> <img
+					class="d-inline-block align-top" th:src="@{/image/nav.png}" width="30" height="30">
+				<span>Financy</span><small>$</small>
 
 			</a>
 
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#navbarCollapse" aria-controls="navbarCollapse"
-				aria-expanded="false" aria-label="Toggle navigation">
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+				aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 
 			<div class="collapse navbar-collapse" id="navbarCollapse">
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item dropdown" sec:authorize="hasAuthority('ADMIN')">
-						<a class="btn btn-primary dropdown-toggle" href="#"
-						id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false"><i class="fas fa-user-cog"></i>
+						<a class="btn btn-primary dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-cog"></i>
 							Administrador</a>
 						<div class="dropdown-menu" aria-labelledby="dropdown01">
 							<a class="dropdown-item text-primary" th:href="@{/categorias}">
-							<i class="fas fa-sitemap"></i> Categorias</a>
+								<i class="fas fa-sitemap"></i> Categorias</a>
 
 							<div class="dropdown-divider"></div>
 							<h6 class="dropdown-header">USUÁRIO</h6>
-							<a class="dropdown-item text-primary" th:href="@{/u/lista}"><i
-								class="fas fa-users"></i> Lista</a> <a
-								class="dropdown-item text-primary" th:href="@{/u/editar/senha}"><i
-								class="fas fa-key"></i> Editar Senha</a>
+							<a class="dropdown-item text-primary" th:href="@{/u/lista}"><i class="fas fa-users"></i>
+								Lista</a> <a class="dropdown-item text-primary" th:href="@{/u/editar/senha}"><i
+									class="fas fa-key"></i> Editar Senha</a>
 
 							<div class="dropdown-divider"></div>
 							<h6 class="dropdown-header text-muted">FORNECEDOR</h6>
 							<a class="dropdown-item text-primary" th:href="@{/fornecedores}"><i
-								class="fas fa-user-plus"></i> Cadastro</a> <a
-								class="dropdown-item text-primary"
+									class="fas fa-user-plus"></i> Cadastro</a> <a class="dropdown-item text-primary"
 								th:href="@{/fornecedores/lista}"><i class="fas fa-users"></i>
 								Lista</a>
 
 						</div>
 					</li>
 
-					<li class="nav-item dropdown"
-						sec:authorize="hasAuthority('USUARIO')"><a
-						class="btn btn-primary dropdown-toggle" href="#" id="dropdown02"
-						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Fornecedor</a>
+					<li class="nav-item dropdown" sec:authorize="hasAuthority('USUARIO')"><a
+							class="btn btn-primary dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false">Fornecedor</a>
 						<div class="dropdown-menu" aria-labelledby="dropdown02">
 							<a class="dropdown-item text-primary" th:href="@{/fornecedores}">Novo</a>
-							<a class="dropdown-item text-primary"
-								th:href="@{/fornecedores/lista}">Lista</a>
-						</div></li>
+							<a class="dropdown-item text-primary" th:href="@{/fornecedores/lista}">Lista</a>
+						</div>
+					</li>
 
 
-					<li class="nav-item dropdown"
-						sec:authorize="hasAnyAuthority('USUARIO')"><a
-						class="btn btn-primary dropdown-toggle" href="#" id="dropdown03"
-						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Lançamentos</a>
+					<li class="nav-item dropdown" sec:authorize="hasAnyAuthority('USUARIO')"><a
+							class="btn btn-primary dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false">Lançamentos</a>
 						<div class="dropdown-menu" aria-labelledby="dropdown03">
 							<!--                            <a class="dropdown-item text-primary" th:href="@{/lancamentos/cadastrar}">Novo</a>-->
-							<button class="dropdown-item text-primary" role="button"
-								data-toggle="modal" data-target="#tipolanc-modal">Novo</button>
-							<a class="dropdown-item text-primary"
-								th:href="@{/lancamentos/lista}">Lista</a>
+							<button class="dropdown-item text-primary" role="button" data-toggle="modal"
+								data-target="#tipolanc-modal">Novo</button>
+							<a class="dropdown-item text-primary" th:href="@{/lancamentos/lista}">Lista</a>
 
 							<div class="dropdown-divider"></div>
 							<h6 class="dropdown-header text-muted">PAGAMENTO</h6>
-							<a class="dropdown-item text-primary"
-								th:href="@{/pagamentos/listar}">Lista</a>
+							<a class="dropdown-item text-primary" th:href="@{/pagamentos/listar}">Lista</a>
 
 							<div class="dropdown-divider"></div>
 							<h6 class="dropdown-header text-muted">FORMA PAGAMENTO</h6>
-							<a class="dropdown-item text-primary" th:href="@{/fp}">Cadastrar</a></li>
+							<a class="dropdown-item text-primary" th:href="@{/fp}">Cadastrar</a>
+					</li>
 
 				</ul>
 
 
 				<!--				LINKS LOGIN E CADASTRAR-->
-				<form class="form-inline mt-2 mt-md-0"
-					sec:authorize="!isAuthenticated()">
+				<form class="form-inline mt-2 mt-md-0" sec:authorize="!isAuthenticated()">
 					<div class="form-check mb-2 mr-sm-2">
-						<a class="btn btn-outline-light my-2 my-sm-0" role="button"
-							th:href="@{/login}">Login</a>
+						<a class="btn btn-outline-light my-2 my-sm-0" role="button" th:href="@{/login}">Login</a>
 					</div>
 
 					<div class="form-check mb-2 mr-sm-2">
@@ -105,22 +133,21 @@
 				</form>
 
 				<!--            LINK LOGOUT-->
-				<form th:action="@{/logout}" method="post"
-					class="form-inline mt-2 mt-md-0" sec:authorize="isAuthenticated()">
+				<form th:action="@{/logout}" method="post" class="form-inline mt-2 mt-md-0"
+					sec:authorize="isAuthenticated()">
 					<div class="btn-group mb-2 mr-sm-2">
 						<button type="button" class="btn btn-light">
-							<i class="fas fa-user text-primary"></i> <span
-								class="text-primary" sec:authentication="name">usuario</span>
+							<i class="fas fa-user text-primary"></i> <span class="text-primary"
+								sec:authentication="name">usuario</span>
 						</button>
-						<button type="button"
-							class="border-light btn btn-primary dropdown-toggle dropdown-toggle-split"
+						<button type="button" class="border-light btn btn-primary dropdown-toggle dropdown-toggle-split"
 							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						</button>
 
 						<div class="dropdown-menu border-primary shadow">
 
-							<a class="dropdown-item text-primary"
-								th:href="@{/clientes/dados}"><i class="fas fa-user-edit"></i>
+							<a class="dropdown-item text-primary" th:href="@{/clientes/dados}"><i
+									class="fas fa-user-edit"></i>
 								Atualizar Dados</a> <a class="dropdown-item text-primary"
 								th:href="@{/u/editar/senha}"><i class="fas fa-key"></i>
 								Editar Senha</a>
