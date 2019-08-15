@@ -15,8 +15,7 @@ import javax.mail.internet.MimeMessage;
 @Service
 public class EmailService {
 
-	@Value("${url.default}")
-	private String url;
+	private static final String URL = "https://jns-financys.herokuapp.com";
 	
 	@Autowired
 	private JavaMailSender mailSender;
@@ -33,7 +32,7 @@ public class EmailService {
 		Context context = new Context();
 		context.setVariable("titulo", "Bem vindo ao Financys");
 		context.setVariable("texto", "Precisamos que confirme seu cadastro, clicando no link abaixo");
-		context.setVariable("linkConfirmacao", url + "/u/confirmacao/cadastro?codigo=" + codigo);
+		context.setVariable("linkConfirmacao", URL + "/u/confirmacao/cadastro?codigo=" + codigo);
 		
 		String html = template.process("email/confirmacao", context);
 		helper.setTo(destino);
