@@ -202,7 +202,7 @@ svg text {
 
 .title {
     letter-spacing: 1px;
-    font-size: 7em;
+    font-size: 3em;
     font-weight: 800;
     text-transform: uppercase;
 }
@@ -221,8 +221,8 @@ svg text {
     background-size: cover;
     position: relative;
     width: 100%;
-    height: 100vh;
-    min-height: 700px;
+    height: 90vh;
+    min-height: 400px;
     opacity: 0.7;
 }
 
@@ -241,5 +241,13 @@ svg text {
     .jumbotron {
         padding-top: 6rem;
         padding-bottom: 3rem;
+    }
+
+    .title {
+        font-size: 7em;
+    }
+
+    .background {
+        height: 96vh;
     }
 }
