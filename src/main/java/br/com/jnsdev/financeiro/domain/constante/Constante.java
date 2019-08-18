@@ -9,7 +9,7 @@ public class Constante {
 
 	// CODIGO REFERENTE AO FORNECEDOR
 	public static final String CADASTRO_FORNECEDOR = "Cadastro novo fornecedor";
-	public static final String ATUALIZAR_FORNECEDOR = "Atualizar fornecedor";
+	public static final String ATUALIZAR_FORNECEDOR = "Atualização fornecedor";
 	public static final String EXCLUSAO_FORNECEDOR = "Exclusão fornecedor";
 
 	// CODIGO REFERENTE AO USUARIO
