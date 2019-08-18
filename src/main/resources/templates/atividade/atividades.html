@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml" layout:decorate="~{layout}">
+
+<head>
+    <meta charset="UTF-8" />
+</head>
+
+<body>
+
+    <section class="layout-content" layout:fragment="corpo">
+        <main role="main">
+            <header th:replace="fragments/jumbotron :: jumbotron">
+                <div>jumbotron</div>
+            </header>
+
+            <div class="album py-3 bg-light">
+                <div class="container">
+
+                    <div class="d-flex justify-content-center">
+                        <div class="col-md-8">
+
+                            <div th:replace="fragments/alert :: alerta-sucesso"></div>
+                            
+                        <nav aria-label="breadcrumb">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item"><a th:href="@{/dashboard}">Home</a></li>
+								<li class="breadcrumb-item active" aria-current="page">Atividades</a></li>
+							</ol>
+						</nav>
+
+
+                            <h5 class="text-primary"><i class="fas fa-database"></i> Lista de Atividades</h5>
+
+                            <hr class="bg-primary" />
+
+                            <table id="table-atividade" class="table table-sm table-striped table-bordered nowrap" style="width:100%">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">MOMENTO</th>
+                                        <th scope="col">AÇÃO</th>
+                                        <th scope="col">TÍTULO</th>
+                                        <th scope="col">USUARIO</th>
+                                    </tr>
+                                </thead>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+    </section>
+    <script th:src="@{/js/atividade.js?(v=${version})}" th:fragment="js"></script>
+    <script th:inline="javascript" th:fragment="inlinescript">
+    </script>
+</body>
+
+</html>

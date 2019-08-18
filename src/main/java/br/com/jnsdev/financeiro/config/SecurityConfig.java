@@ -31,6 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/fornecedores/*").hasAnyAuthority(ADMIN, USUARIO)
                 .antMatchers("/fornecedores/editar/*").hasAuthority(ADMIN)
                 .antMatchers("/fornecedores/excluir/*").hasAuthority(ADMIN)
+                .antMatchers("/atividades/*").hasAuthority(ADMIN)
                 // acesso privados USUARIO
                 .antMatchers("/fp/**").hasAuthority(USUARIO)
                 .antMatchers("/lancamentos/**").hasAuthority(USUARIO)
