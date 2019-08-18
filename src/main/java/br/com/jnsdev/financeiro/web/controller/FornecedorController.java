@@ -51,8 +51,7 @@ public class FornecedorController {
 	
 	@PostMapping("salvar")
 	public String salvar(Fornecedor fornecedor, RedirectAttributes attr, @AuthenticationPrincipal User user) {
-		Usuario usuario = usuarioService.buscarPorEmail(user.getUsername());
-		service.salvar(fornecedor, usuario);
+		service.salvar(fornecedor);
 		attr.addFlashAttribute("sucesso", "Operação realizada com sucesso");
 		
 		return  "redirect:/fornecedores";

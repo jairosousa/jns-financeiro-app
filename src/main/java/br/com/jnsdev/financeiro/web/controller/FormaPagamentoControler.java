@@ -42,8 +42,8 @@ public class FormaPagamentoControler {
     }
 
     @PostMapping("salvar")
-    public String salvar(FormaPagamento fp, RedirectAttributes attr, @AuthenticationPrincipal User user) {
-        service.salvar(fp, user.getUsername());
+    public String salvar(FormaPagamento fp, RedirectAttributes attr) {
+        service.salvar(fp);
         attr.addFlashAttribute("sucesso", "Operação realizada com sucesso");
 
         return "redirect:/fp";
@@ -51,8 +51,8 @@ public class FormaPagamentoControler {
     }
 
     @PostMapping("editar")
-    public String editar(FormaPagamento fp, RedirectAttributes attr, @AuthenticationPrincipal User user) {
-        service.editar(fp, user.getUsername()  );
+    public String editar(FormaPagamento fp, RedirectAttributes attr) {
+        service.editar(fp);
         attr.addFlashAttribute("sucesso", "Operação realizada com sucesso");
 
         return "redirect:/fp";

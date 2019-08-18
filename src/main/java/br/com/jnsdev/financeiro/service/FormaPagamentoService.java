@@ -34,7 +34,7 @@ public class FormaPagamentoService {
 	private AtividadeService atividadeService;
 
 	@Transactional(readOnly = false)
-	public void salvar(FormaPagamento fp, String email) {
+	public void salvar(FormaPagamento fp) {
 		repository.save(fp);
 		atividadeService.salvarAtividade(Constante.CADASTRO_FORMA_PAGAMENTO, ", cadastrou uma forma de pagamento");
 	}
@@ -55,7 +55,7 @@ public class FormaPagamentoService {
 	}
 
 	@Transactional(readOnly = false)
-	public void editar(FormaPagamento fp, String email) {
+	public void editar(FormaPagamento fp) {
 		FormaPagamento fFp = buscaPorId(fp.getId());
 		fFp.setNome(fp.getNome());
 

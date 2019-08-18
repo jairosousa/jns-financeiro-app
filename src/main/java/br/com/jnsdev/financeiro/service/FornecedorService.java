@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.jnsdev.financeiro.datatables.Datatables;
 import br.com.jnsdev.financeiro.datatables.DatatablesColunas;
 import br.com.jnsdev.financeiro.domain.Fornecedor;
-import br.com.jnsdev.financeiro.domain.Usuario;
 import br.com.jnsdev.financeiro.domain.constante.Constante;
 import br.com.jnsdev.financeiro.repository.FornecedoresRepository;
 
@@ -29,15 +28,12 @@ public class FornecedorService {
 	@Autowired
 	private AtividadeService atividadeService;
 	
-	@Autowired
-	private ClienteService clienteService;
-
 	@Transactional(readOnly = false)
-	public void salvar(Fornecedor fornecedor, Usuario usuario) {
+	public void salvar(Fornecedor fornecedor) {
 		fornecedor.getTelefones().forEach(phone -> phone.setFornecedor(fornecedor));
-		repository.save(fornecedor);
 		String acao = fornecedor.hasId() ? Constante.ATUALIZAR_FORNECEDOR : Constante.CADASTRO_FORNECEDOR;
 		String titulo = fornecedor.hasId() ? ", atualizou o fornecedor: " : ", cadastrou o fornecedor: ";
+		repository.save(fornecedor);
 		atividadeService.salvarAtividade(acao, 
 				", " + titulo + fornecedor.getNome());
 	}
