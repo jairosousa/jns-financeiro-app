@@ -3,6 +3,7 @@ package br.com.jnsdev.financeiro.service;
 import br.com.jnsdev.financeiro.datatables.Datatables;
 import br.com.jnsdev.financeiro.datatables.DatatablesColunas;
 import br.com.jnsdev.financeiro.domain.Categoria;
+import br.com.jnsdev.financeiro.domain.constante.Constante;
 import br.com.jnsdev.financeiro.repository.CategoriaRepository;
 import br.com.jnsdev.financeiro.repository.LancamentoDespesaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +26,15 @@ public class CategoriaService {
 
 	@Autowired
 	private Datatables datatables;
+	
+	@Autowired
+	private AtividadeService atividadeService;
 
 	@Transactional(readOnly = false)
 	public void salvar(Categoria categoria) {
+		String titulo = categoria.hasId() ? ", atualizou uma categoria" : ", cadastrou uma categoria";
 		repository.save(categoria);
-
+		atividadeService.salvarAtividade(Constante.CADASTRO_CATEGORIA, titulo);
 	}
 
 	@Transactional(readOnly = true)
@@ -61,6 +66,9 @@ public class CategoriaService {
 	@Transactional(readOnly = false)
     public void delete(Long id) {
 		repository.deleteById(id);
+		
+		atividadeService.salvarAtividade(Constante.EXCLUIR_CATEGORIA, 
+				", excluio uma categoria");
 	}
 
 	@Transactional(readOnly = true)

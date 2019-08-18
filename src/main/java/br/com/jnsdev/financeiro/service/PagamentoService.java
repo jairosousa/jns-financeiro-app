@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.jnsdev.financeiro.domain.LancamentoDespesa;
+import br.com.jnsdev.financeiro.domain.constante.Constante;
 import br.com.jnsdev.financeiro.repository.LancamentoDespesaRepository;
 
 /**
@@ -18,6 +19,9 @@ public class PagamentoService {
 
 	@Autowired
 	private LancamentoDespesaRepository despesaRepository;
+	
+	@Autowired
+	private AtividadeService atividadeService;
 
 	@Transactional(readOnly = true)
 	public List<LancamentoDespesa> buscarDespesasNãoPagasNoMes(Long id, int mes, int ano) {
@@ -34,6 +38,8 @@ public class PagamentoService {
 		LancamentoDespesa despesa = despesaRepository.findById(deps.getId()).get();
 		despesa.setDtPagamento(deps.getDtPagamento());
 		despesa.setValorParcela(deps.getValorParcela());
+		atividadeService.salvarAtividade(Constante.PAGAMENTO_DESPESA, 
+				", realizou pagamento despesa");
 	}
 
 }

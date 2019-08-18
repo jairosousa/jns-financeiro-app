@@ -55,7 +55,7 @@ public class LancamentoController {
 	@GetMapping("cadastrar/receita")
 	public String abriCadastroReceita(LancamentoReceita lancamento, ModelMap model, RedirectAttributes attr,
 			@AuthenticationPrincipal User user) {
-		Cliente cliente = clienteService.buscarPorUsuarioEmail(user.getUsername());
+		Cliente cliente = clienteService.buscarPorClienteEmail(user.getUsername());
 		if (cliente.hasNotId()) {
 			attr.addFlashAttribute("falha", "Cliente: " + user.getUsername()
 					+ ", Você deve concluir seu cadastro antes realizar uma operação.");
@@ -93,7 +93,7 @@ public class LancamentoController {
 	@GetMapping("receita/datatables/server/{mes}/{ano}")
 	public ResponseEntity<?> getLancamentoReceita(HttpServletRequest request, @PathVariable int mes,
 			@PathVariable int ano, @AuthenticationPrincipal User user) {
-		Cliente cliente = clienteService.buscarPorUsuarioEmail(user.getUsername());
+		Cliente cliente = clienteService.buscarPorClienteEmail(user.getUsername());
 		return ResponseEntity.ok(service.buscarLancamentoReceita(request, mes, ano, cliente.getId()));
 	}
 
@@ -113,7 +113,7 @@ public class LancamentoController {
 	public String abriCadastroDespesa(LancamentoDespesa lancamento, ModelMap model, RedirectAttributes attr,
 			@AuthenticationPrincipal User user) {
 
-		Cliente cliente = clienteService.buscarPorUsuarioEmail(user.getUsername());
+		Cliente cliente = clienteService.buscarPorClienteEmail(user.getUsername());
 		if (cliente.hasNotId()) {
 			attr.addFlashAttribute("falha", "Cliente: " + user.getUsername()
 					+ ", Você deve concluir seu cadastro antes realizar uma operação.");
@@ -162,7 +162,7 @@ public class LancamentoController {
 			@PathVariable("mes") int mes,
 			@PathVariable("ano") int ano, 
 			@AuthenticationPrincipal User user) {
-		Cliente cliente = clienteService.buscarPorUsuarioEmail(user.getUsername());
+		Cliente cliente = clienteService.buscarPorClienteEmail(user.getUsername());
 		return ResponseEntity.ok(service.buscarLancamentoDespesas(request, mes, ano, cliente.getId()));
 	}
 
@@ -210,7 +210,7 @@ public class LancamentoController {
 
 	@ModelAttribute("formasPagamentos")
 	public List<FormaPagamento> getFormasPagamentos() {
-		Cliente cliente = clienteService.getUsuarioLogado();
+		Cliente cliente = clienteService.getClienteLogado();
 		return formaPagamentoService.buscarTodosPorUsuario(cliente.getId());
 	}
 

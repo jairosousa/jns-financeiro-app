@@ -1,17 +1,21 @@
 package br.com.jnsdev.financeiro.service;
 
-import br.com.jnsdev.financeiro.datatables.Datatables;
-import br.com.jnsdev.financeiro.datatables.DatatablesColunas;
-import br.com.jnsdev.financeiro.domain.Fornecedor;
-import br.com.jnsdev.financeiro.repository.FornecedoresRepository;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
-import java.util.Map;
+import br.com.jnsdev.financeiro.datatables.Datatables;
+import br.com.jnsdev.financeiro.datatables.DatatablesColunas;
+import br.com.jnsdev.financeiro.domain.Fornecedor;
+import br.com.jnsdev.financeiro.domain.Usuario;
+import br.com.jnsdev.financeiro.domain.constante.Constante;
+import br.com.jnsdev.financeiro.repository.FornecedoresRepository;
 
 @Service
 public class FornecedorService {
@@ -22,10 +26,20 @@ public class FornecedorService {
 	@Autowired
 	private Datatables datatables;
 
+	@Autowired
+	private AtividadeService atividadeService;
+	
+	@Autowired
+	private ClienteService clienteService;
+
 	@Transactional(readOnly = false)
-	public void salvar(Fornecedor fornecedor) {
+	public void salvar(Fornecedor fornecedor, Usuario usuario) {
 		fornecedor.getTelefones().forEach(phone -> phone.setFornecedor(fornecedor));
 		repository.save(fornecedor);
+		String acao = fornecedor.hasId() ? Constante.ATUALIZAR_FORNECEDOR : Constante.CADASTRO_FORNECEDOR;
+		String titulo = fornecedor.hasId() ? ", atualizou o fornecedor: " : ", cadastrou o fornecedor: ";
+		atividadeService.salvarAtividade(acao, 
+				", " + titulo + fornecedor.getNome());
 	}
 
 	@Transactional(readOnly = true)
@@ -46,13 +60,15 @@ public class FornecedorService {
 
 	@Transactional(readOnly = false)
 	public void deletar(Long id) {
+		atividadeService.salvarAtividade(Constante.EXCLUSAO_FORNECEDOR, 
+				", excluio o fornecedor com id: " + id);
 		repository.deleteById(id);
 	}
 
 	@Transactional(readOnly = true)
-    public List<Fornecedor> buscarTodos() {
+	public List<Fornecedor> buscarTodos() {
 		return repository.findAll();
-    }
+	}
 
 	@Transactional(readOnly = true)
 	public List<Fornecedor> buscarTodosOrderByNome() {
@@ -60,8 +76,8 @@ public class FornecedorService {
 	}
 
 	@Transactional(readOnly = true)
-    public Fornecedor buscarPorId(Long id) {
+	public Fornecedor buscarPorId(Long id) {
 		return repository.getOne(id);
-    }
+	}
 
 }

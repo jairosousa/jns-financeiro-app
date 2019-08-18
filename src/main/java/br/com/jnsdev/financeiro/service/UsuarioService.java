@@ -1,16 +1,17 @@
 package br.com.jnsdev.financeiro.service;
 
-import br.com.jnsdev.financeiro.datatables.Datatables;
-import br.com.jnsdev.financeiro.datatables.DatatablesColunas;
-import br.com.jnsdev.financeiro.domain.Perfil;
-import br.com.jnsdev.financeiro.domain.enuns.PerfilTipo;
-import br.com.jnsdev.financeiro.domain.Usuario;
-import br.com.jnsdev.financeiro.exception.AcessoNegadoException;
-import br.com.jnsdev.financeiro.repository.UsuarioRepository;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,11 +21,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Base64Utils;
 
-import javax.mail.MessagingException;
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import br.com.jnsdev.financeiro.datatables.Datatables;
+import br.com.jnsdev.financeiro.datatables.DatatablesColunas;
+import br.com.jnsdev.financeiro.domain.Cliente;
+import br.com.jnsdev.financeiro.domain.Perfil;
+import br.com.jnsdev.financeiro.domain.Usuario;
+import br.com.jnsdev.financeiro.domain.constante.Constante;
+import br.com.jnsdev.financeiro.domain.enuns.PerfilTipo;
+import br.com.jnsdev.financeiro.exception.AcessoNegadoException;
+import br.com.jnsdev.financeiro.repository.UsuarioRepository;
 
 @Service
 public class UsuarioService implements UserDetailsService {
@@ -37,6 +42,9 @@ public class UsuarioService implements UserDetailsService {
 
 	@Autowired
 	private EmailService emailService;
+
+	@Autowired
+	private AtividadeService atividadeService;
 
 	public static boolean isSenhaCorreta(String senhaDigitada, String senhaArmazenada) {
 		return new BCryptPasswordEncoder().matches(senhaDigitada, senhaArmazenada);
@@ -92,6 +100,9 @@ public class UsuarioService implements UserDetailsService {
 		repository.save(usuario);
 
 		emailDeConfirmacaoDeCadastro(usuario.getEmail());
+
+		atividadeService.salvarAtividade(Constante.CADASTRO_NOVO_USUARIO, ", cadastrou-se no sistema");
+
 	}
 
 	private void emailDeConfirmacaoDeCadastro(String email) throws MessagingException {
@@ -126,6 +137,8 @@ public class UsuarioService implements UserDetailsService {
 	public void alterarSenha(Usuario usuario, String senha) {
 		usuario.setSenha(new BCryptPasswordEncoder().encode(senha));
 		repository.save(usuario);
+
+		atividadeService.salvarAtividade(Constante.USUARIO_ATUALIZOU_SENHA, ", alterou a sua senha");
 	}
 
 	@Transactional(readOnly = false)
@@ -134,9 +147,11 @@ public class UsuarioService implements UserDetailsService {
 		Usuario usuario = buscarPorEmail(email);
 		if (usuario.hasNotId()) {
 			throw new AcessoNegadoException(
-					"Não foi possível ativar seu cadastro. Entre em " + "contato com o suporte.");
+					"Não foi possível ativar seu cadastro. Entre em contato com o suporte.");
 		}
 		usuario.setAtivo(true);
+		atividadeService.salvarAtividade(Constante.USUARIO_ATIVADO, ", foi ativado");
+
 	}
 
 	@Transactional(readOnly = false)
@@ -150,10 +165,24 @@ public class UsuarioService implements UserDetailsService {
 		usuario.setCodigoVerificador(verificador);
 
 		emailService.enviarPedidoRedefinicaoSenha(email, verificador);
+
+		atividadeService.salvarAtividade(Constante.USUARIO_PEDIDO_REDEFIR_SENHA, ", solicitou a redefinição de senha.");
 	}
 
 	@Transactional(readOnly = true)
 	public Optional<Usuario> buscarPorEmailEAtivo(String email) {
 		return repository.findByEmailAndAtivo(email);
+	}
+	
+	public Usuario getUsuarioLogado() {
+		String username = "";
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails) principal).getUsername();
+		} else {
+			username = principal.toString();
+		}
+
+		return buscarPorEmail(username);
 	}
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.jnsdev.financeiro.domain.LancamentoDespesa;
+import br.com.jnsdev.financeiro.domain.constante.Constante;
 import br.com.jnsdev.financeiro.repository.LancamentoDespesaRepository;
 
 @Service
@@ -17,6 +18,9 @@ public class LancamentoDespesaService {
 
 	@Autowired
 	private LancamentoDespesaRepository repository;
+	
+	@Autowired
+	private AtividadeService atividadeService;
 
 	@Transactional(readOnly = false)
 	public void gerarLancamentoParcelado(LancamentoDespesa lancamento) {
@@ -31,6 +35,8 @@ public class LancamentoDespesaService {
 		}
 
 		repository.saveAll(despesas);
+		atividadeService.salvarAtividade(Constante.CADASTRO_DESPESA, 
+				", Cadastrou despesa parcelada");
 	}
 
 	private BigDecimal gerarValorParcela(BigDecimal valor, Integer qtdParcelas) {
@@ -46,6 +52,8 @@ public class LancamentoDespesaService {
 		lancamento.setValorParcela(lancamento.getValor());
 		lancamento.setNumParcela(0);
 		repository.save(lancamento);
+		atividadeService.salvarAtividade(Constante.CADASTRO_DESPESA, 
+				", Cadastrou despesa avista");
 	}
 
 }

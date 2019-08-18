@@ -27,7 +27,7 @@ public class ClienteController {
 	// abrir pagina de dados pessoais do cliente
 	@GetMapping("dados")
 	public String cadastrar(Cliente cliente, ModelMap model, @AuthenticationPrincipal User user) {
-		cliente = service.buscarPorUsuarioEmail(user.getUsername());
+		cliente = service.buscarPorClienteEmail(user.getUsername());
 		if (cliente.hasNotId()) {
 			cliente.setEndereco(new Endereco());
 			cliente.setUsuario(new Usuario(user.getUsername()));

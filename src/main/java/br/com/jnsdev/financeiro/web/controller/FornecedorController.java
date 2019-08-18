@@ -17,8 +17,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.com.jnsdev.financeiro.domain.Cliente;
 import br.com.jnsdev.financeiro.domain.Fornecedor;
 import br.com.jnsdev.financeiro.domain.Telefone;
+import br.com.jnsdev.financeiro.domain.Usuario;
 import br.com.jnsdev.financeiro.service.ClienteService;
 import br.com.jnsdev.financeiro.service.FornecedorService;
+import br.com.jnsdev.financeiro.service.UsuarioService;
 
 @Controller
 @RequestMapping("fornecedores")
@@ -30,13 +32,15 @@ public class FornecedorController {
 	@Autowired
 	private ClienteService clienteService;
 	
+	private UsuarioService usuarioService;
+	
 	@GetMapping
 	public String abrir(Fornecedor fornecedor, RedirectAttributes attr, @AuthenticationPrincipal User user) {
 		fornecedor.getTelefones().add(new Telefone(fornecedor));
 		if (clienteService.userHasAdmin(user)) {
 			return "fornecedor/cadastro";
 		} else {
-			Cliente cliente = clienteService.buscarPorUsuarioEmail(user.getUsername());
+			Cliente cliente = clienteService.buscarPorClienteEmail(user.getUsername());
 			if (cliente.hasNotId()) {
 				attr.addFlashAttribute("falha", "Cliente: " + user.getUsername() + ", Você deve concluir seu cadastro antes realizar uma operação.");
 				return "redirect:/clientes/dados";
@@ -46,8 +50,9 @@ public class FornecedorController {
 	}
 	
 	@PostMapping("salvar")
-	public String salvar(Fornecedor fornecedor, RedirectAttributes attr) {
-		service.salvar(fornecedor);
+	public String salvar(Fornecedor fornecedor, RedirectAttributes attr, @AuthenticationPrincipal User user) {
+		Usuario usuario = usuarioService.buscarPorEmail(user.getUsername());
+		service.salvar(fornecedor, usuario);
 		attr.addFlashAttribute("sucesso", "Operação realizada com sucesso");
 		
 		return  "redirect:/fornecedores";

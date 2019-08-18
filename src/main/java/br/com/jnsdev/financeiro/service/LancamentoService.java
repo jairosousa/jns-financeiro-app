@@ -15,6 +15,7 @@ import br.com.jnsdev.financeiro.datatables.Datatables;
 import br.com.jnsdev.financeiro.datatables.DatatablesColunas;
 import br.com.jnsdev.financeiro.domain.LancamentoDespesa;
 import br.com.jnsdev.financeiro.domain.LancamentoReceita;
+import br.com.jnsdev.financeiro.domain.constante.Constante;
 import br.com.jnsdev.financeiro.domain.enuns.Pagamento;
 import br.com.jnsdev.financeiro.repository.LancamentoDespesaRepository;
 import br.com.jnsdev.financeiro.repository.LancamentoReceitaRepository;
@@ -35,6 +36,9 @@ public class LancamentoService {
 
 	@Autowired
 	private Datatables datatables;
+	
+	@Autowired
+	private AtividadeService atividadeService;
 
 	@Transactional(readOnly = true)
 	public Map<String, Object> buscarLancamentoReceita(HttpServletRequest request, int mes, int ano, Long id) {
@@ -55,6 +59,8 @@ public class LancamentoService {
 	@Transactional(readOnly = false)
 	public void salvarReceita(LancamentoReceita lancamento) {
 		receitaRepository.save(lancamento);
+		atividadeService.salvarAtividade(Constante.ATUALIZACAO_RECEITA,
+				", cadastrou uma receita");
 	}
 
 	@Transactional(readOnly = false)
@@ -68,6 +74,9 @@ public class LancamentoService {
 		lr.setDtLancamento(lancamento.getDtLancamento());
 		lr.setDtRecebimento(lancamento.getDtRecebimento());
 		lr.setValor(lancamento.getValor());
+		
+		atividadeService.salvarAtividade(Constante.ATUALIZACAO_RECEITA,
+				", atualizou uma receita");
 	}
 
 	@Transactional(readOnly = true)
@@ -78,6 +87,8 @@ public class LancamentoService {
 	@Transactional(readOnly = false)
 	public void deleteReceita(Long id) {
 		receitaRepository.deleteById(id);
+		atividadeService.salvarAtividade(Constante.EXCLUSAO_RECEITA,
+				", excluio uma receita com id: " + id);
 	}
 
 	@Transactional(readOnly = true)
@@ -123,6 +134,8 @@ public class LancamentoService {
 		ld.setFormaPagamento(lancamento.getFormaPagamento());
 		ld.setValorParcela(lancamento.getValorParcela());
 
+		atividadeService.salvarAtividade(Constante.ATUALIZACAO_DESPESA,
+				", atualizou uma despesa");
 	}
 
 	@Transactional(readOnly = true)
@@ -133,6 +146,8 @@ public class LancamentoService {
 	@Transactional(readOnly = false)
 	public void deleteDespesa(Long id) {
 		despesaRepository.deleteById(id);
+		atividadeService.salvarAtividade(Constante.ATUALIZACAO_DESPESA,
+				", excluio uma despesa com id: " + id);
 	}
 
 	@Transactional(readOnly = true)

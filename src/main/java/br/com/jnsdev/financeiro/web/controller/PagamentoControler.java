@@ -40,7 +40,7 @@ public class PagamentoControler {
         int mes = LocalDate.now().getMonthValue();
         int ano = LocalDate.now().getYear();
 
-        Cliente cliente = clienteService.buscarPorUsuarioEmail(user.getUsername());
+        Cliente cliente = clienteService.buscarPorClienteEmail(user.getUsername());
         model.addAttribute("mes", mes);
         model.addAttribute("ano", ano);
         model.addAttribute("despesas", service.buscarDespesasNãoPagasNoMes(cliente.getId(), mes, ano));
@@ -57,7 +57,7 @@ public class PagamentoControler {
         mes = (mes == 0) ? LocalDate.now().getMonthValue() : mes;
         ano = (ano == 0) ? LocalDate.now().getYear() : ano;
 
-        Cliente cliente = clienteService.buscarPorUsuarioEmail(user.getUsername());
+        Cliente cliente = clienteService.buscarPorClienteEmail(user.getUsername());
         model.addAttribute("mes", mes);
         model.addAttribute("ano", ano);
         model.addAttribute("despesas", service.buscarDespesasNãoPagasNoMes(cliente.getId(), mes, ano));

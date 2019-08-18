@@ -1,8 +1,10 @@
 package br.com.jnsdev.financeiro.web.controller;
 
-import br.com.jnsdev.financeiro.domain.Perfil;
-import br.com.jnsdev.financeiro.domain.Usuario;
-import br.com.jnsdev.financeiro.service.UsuarioService;
+import java.util.List;
+
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
@@ -11,13 +13,17 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.mail.MessagingException;
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
+import br.com.jnsdev.financeiro.domain.Perfil;
+import br.com.jnsdev.financeiro.domain.Usuario;
+import br.com.jnsdev.financeiro.service.UsuarioService;
 
 @Controller
 @RequestMapping("/u")
@@ -157,36 +163,35 @@ public class UsuarioController {
 		model.addAttribute("texto", "Você já pode logar no sistema.");
 		return "login";
 	}
-	
-	
+
 	/**
 	 * Abrir o formulario de troca de senha pelo Usuário
+	 * 
 	 * @return
 	 */
 	@GetMapping("editar/senha")
-    public String abrirEditarSenha() {
-    	return "usuario/editar-senha";
-    }
-	
+	public String abrirEditarSenha() {
+		return "usuario/editar-senha";
+	}
+
 	@PostMapping("/confirmar/senha")
-    public String editarSenha(@RequestParam("senha1") String s1, @RequestParam("senha2") String s2, 
-    						  @RequestParam("senha3") String s3, @AuthenticationPrincipal User user,
-    						  RedirectAttributes attr) {
-    	
-    	if (!s1.equals(s2)) {
-    		attr.addFlashAttribute("falha", "Senhas não conferem, tente novamente");
-    		return "redirect:/u/editar/senha";
-    	}
-    	
-    	Usuario u = service.buscarPorEmail(user.getUsername());
-    	if(!UsuarioService.isSenhaCorreta(s3, u.getSenha())) {
-    		attr.addFlashAttribute("falha", "Senha atual não confere, tente novamente");
-    		return "redirect:/u/editar/senha";
-    	}
-    		
-    	service.alterarSenha(u, s1);
-    	attr.addFlashAttribute("sucesso", "Senha alterada com sucesso.");
-    	return "redirect:/u/editar/senha";
-    }
+	public String editarSenha(@RequestParam("senha1") String s1, @RequestParam("senha2") String s2,
+			@RequestParam("senha3") String s3, @AuthenticationPrincipal User user, RedirectAttributes attr) {
+
+		if (!s1.equals(s2)) {
+			attr.addFlashAttribute("falha", "Senhas não conferem, tente novamente");
+			return "redirect:/u/editar/senha";
+		}
+
+		Usuario u = service.buscarPorEmail(user.getUsername());
+		if (!UsuarioService.isSenhaCorreta(s3, u.getSenha())) {
+			attr.addFlashAttribute("falha", "Senha atual não confere, tente novamente");
+			return "redirect:/u/editar/senha";
+		}
+
+		service.alterarSenha(u, s1);
+		attr.addFlashAttribute("sucesso", "Senha alterada com sucesso.");
+		return "redirect:/u/editar/senha";
+	}
 
 }

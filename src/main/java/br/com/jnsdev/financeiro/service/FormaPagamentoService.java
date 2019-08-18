@@ -3,6 +3,7 @@ package br.com.jnsdev.financeiro.service;
 import br.com.jnsdev.financeiro.datatables.Datatables;
 import br.com.jnsdev.financeiro.datatables.DatatablesColunas;
 import br.com.jnsdev.financeiro.domain.FormaPagamento;
+import br.com.jnsdev.financeiro.domain.constante.Constante;
 import br.com.jnsdev.financeiro.repository.FormaPagamentoRepository;
 
 import java.util.List;
@@ -29,9 +30,13 @@ public class FormaPagamentoService {
 	@Autowired
 	private LancamentoDespesaRepository despesaRepository;
 
+	@Autowired
+	private AtividadeService atividadeService;
+
 	@Transactional(readOnly = false)
-	public void salvar(FormaPagamento fp) {
+	public void salvar(FormaPagamento fp, String email) {
 		repository.save(fp);
+		atividadeService.salvarAtividade(Constante.CADASTRO_FORMA_PAGAMENTO, ", cadastrou uma forma de pagamento");
 	}
 
 	@Transactional(readOnly = true)
@@ -50,15 +55,18 @@ public class FormaPagamentoService {
 	}
 
 	@Transactional(readOnly = false)
-	public void editar(FormaPagamento fp) {
+	public void editar(FormaPagamento fp, String email) {
 		FormaPagamento fFp = buscaPorId(fp.getId());
 		fFp.setNome(fp.getNome());
+
+		atividadeService.salvarAtividade(Constante.ATUALIZAR_FORMA_PAGAMENTO, ", atualizou uma forma de pagamento");
 	}
 
 	@Transactional(readOnly = false)
-	public void delete(Long id) {
+	public void delete(Long id, String email) {
 		try {
 			repository.deleteById(id);
+			atividadeService.salvarAtividade(Constante.EXCLUSAO_FORMA_PAGAMENTO, ", excluiu uma forma de pagamento");
 		} catch (DataIntegrityViolationException e) {
 			throw new DataIntegrityViolationException("Não é possivel excluir forma ce pagamento");
 		}
@@ -68,7 +76,7 @@ public class FormaPagamentoService {
 	public boolean naoExisteFormaPagamentoEmLancamentoDespesa(Long id) {
 		return despesaRepository.hasFormaPagamentoDepesasCadastrada(id).isEmpty();
 	}
-	
+
 	@Transactional(readOnly = true)
 	public List<FormaPagamento> buscarTodosPorUsuario(Long idCliente) {
 		return repository.findAllByIdCliente(idCliente);
@@ -78,4 +86,5 @@ public class FormaPagamentoService {
 	public boolean naoTemFormaDePagamentoCadastrada(Long id) {
 		return buscarTodosPorUsuario(id).isEmpty();
 	}
+
 }

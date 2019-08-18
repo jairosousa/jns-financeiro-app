@@ -29,7 +29,7 @@ public class FormaPagamentoControler {
     @GetMapping
     public String abrir(FormaPagamento fp, ModelMap model,
                         RedirectAttributes attr, @AuthenticationPrincipal User user) {
-        Cliente cliente = clienteService.buscarPorUsuarioEmail(user.getUsername());
+        Cliente cliente = clienteService.buscarPorClienteEmail(user.getUsername());
         fp.setCliente(cliente);
         model.addAttribute("fp", fp);
 
@@ -42,8 +42,8 @@ public class FormaPagamentoControler {
     }
 
     @PostMapping("salvar")
-    public String salvar(FormaPagamento fp, RedirectAttributes attr) {
-        service.salvar(fp);
+    public String salvar(FormaPagamento fp, RedirectAttributes attr, @AuthenticationPrincipal User user) {
+        service.salvar(fp, user.getUsername());
         attr.addFlashAttribute("sucesso", "Operação realizada com sucesso");
 
         return "redirect:/fp";
@@ -51,8 +51,8 @@ public class FormaPagamentoControler {
     }
 
     @PostMapping("editar")
-    public String editar(FormaPagamento fp, RedirectAttributes attr) {
-        service.editar(fp);
+    public String editar(FormaPagamento fp, RedirectAttributes attr, @AuthenticationPrincipal User user) {
+        service.editar(fp, user.getUsername()  );
         attr.addFlashAttribute("sucesso", "Operação realizada com sucesso");
 
         return "redirect:/fp";
@@ -61,14 +61,14 @@ public class FormaPagamentoControler {
 
     @GetMapping("datatables/server")
     public ResponseEntity<?> getEspecialidade(HttpServletRequest request, @AuthenticationPrincipal User user) {
-        Cliente cliente = clienteService.buscarPorUsuarioEmail(user.getUsername());
+        Cliente cliente = clienteService.buscarPorClienteEmail(user.getUsername());
         return ResponseEntity.ok(service.buscarFormasPagamento(request, cliente.getId()));
     }
 
     @GetMapping("/editar/{id}")
     public String preEditar(@PathVariable("id") Long id, ModelMap model,
                             RedirectAttributes attr, @AuthenticationPrincipal User user) {
-        Cliente cliente = clienteService.buscarPorUsuarioEmail(user.getUsername());
+        Cliente cliente = clienteService.buscarPorClienteEmail(user.getUsername());
         FormaPagamento fp = service.buscaPorId(id);
         fp.setCliente(cliente);
         model.addAttribute("fp", fp);
@@ -76,10 +76,10 @@ public class FormaPagamentoControler {
     }
 
     @GetMapping("/excluir/{id}")
-    public String excluir(@PathVariable("id") Long id, RedirectAttributes attr) {
+    public String excluir(@PathVariable("id") Long id, RedirectAttributes attr, @AuthenticationPrincipal User user) {
 
         if (service.naoExisteFormaPagamentoEmLancamentoDespesa(id)) {
-            service.delete(id);
+            service.delete(id, user.getUsername());
             attr.addFlashAttribute("sucesso", "Operação realizada com sucesso");
         } else {
             attr.addFlashAttribute("falha", "Operação não realizada, existe despesa relacionadas a forma de pagamento");

@@ -32,7 +32,7 @@ public class DashboardController {
 	@GetMapping
 	public String Dashboard(Cliente cliente, ModelMap model, RedirectAttributes attr,
 			@AuthenticationPrincipal User user) {
-		cliente = clienteService.buscarPorUsuarioEmail(user.getUsername());
+		cliente = clienteService.buscarPorClienteEmail(user.getUsername());
 
 		int mes = LocalDate.now().getMonthValue();
 		int ano = LocalDate.now().getYear();
@@ -65,7 +65,7 @@ public class DashboardController {
 	@GetMapping("filter")
 	public ModelAndView pesquisar(DclienteFilter filter, @AuthenticationPrincipal User user) {
 		ModelAndView mv = new ModelAndView("/dashboard/dashboard");
-		Cliente cliente = clienteService.buscarPorUsuarioEmail(user.getUsername());
+		Cliente cliente = clienteService.buscarPorClienteEmail(user.getUsername());
 		mv.addObject("filter", filter);
 		mv.addObject("cliente", cliente);
 		mv.addObject("valores", service.getValoresMesUsuario(cliente.getId(), filter.getMes(), filter.getAno()));

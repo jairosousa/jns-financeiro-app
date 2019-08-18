@@ -4,14 +4,30 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import br.com.jnsdev.financeiro.domain.Cliente;
+import br.com.jnsdev.financeiro.domain.constante.Constante;
+import br.com.jnsdev.financeiro.service.AtividadeService;
+import br.com.jnsdev.financeiro.service.ClienteService;
 
 @Controller
 public class HomeController {
+
+	@Autowired
+	private AtividadeService atividadeService;
+
+	@Autowired
+	private ClienteService clienteService;
 
 	@GetMapping({ "/", "/home" })
 	public String home() {
@@ -22,6 +38,42 @@ public class HomeController {
 	@GetMapping("login")
 	public String login() {
 		return "login";
+	}
+
+	@GetMapping("principal")
+	public String salvaAtividadeLogin(@AuthenticationPrincipal User user) {
+		Cliente cliente = clienteService.buscarPorClienteEmail(user.getUsername());
+
+		if (clienteService.userHasAdmin(user)) {
+			atividadeService.salvarAtividade(Constante.USUARIO_ADMIN_ENTROU_SISTEMA, ", entrou no sistema como ADMIN");
+			return "redirect:/dashboard";
+		}
+		;
+
+		String acao = cliente.hasId() ? Constante.USUARIO_ENTROU_SISTEMA
+				: Constante.USUARIO_ENTROU_SISTEMA_PRIMEIRA_VEZ;
+
+		String titulo = cliente.hasId() ? ", entrou no sistema" : ", entrou no sistema pela primeira vez";
+
+		atividadeService.salvarAtividade(acao, titulo);
+
+		return "redirect:/dashboard";
+	}
+
+	@PostMapping("logout-out")
+	public String logout(HttpSession session, @AuthenticationPrincipal User user) {
+
+		Cliente cliente = clienteService.buscarPorClienteEmail(user.getUsername());
+
+		if (clienteService.userHasAdmin(user)) {
+			atividadeService.salvarAtividade(Constante.USUARIO_ADMIN_SAIU_SISTEMA, ", saiu do sistema");
+		} else {
+			atividadeService.salvarAtividade(Constante.USUARIO_SAIU_SISTEMA, ", saiu do sistema");
+		}
+
+		session.invalidate();
+
+		return "redirect:/";
 	}
 
 	// Login invalido
