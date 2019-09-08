@@ -182,8 +182,6 @@ public class LancamentoController {
 	 * Lista utilizada na exclusão de despesa para retornas para mesma pagina
 	 * 
 	 * @param model
-	 * @param mes
-	 * @param ano
 	 * @return
 	 */
 	@GetMapping("lista")

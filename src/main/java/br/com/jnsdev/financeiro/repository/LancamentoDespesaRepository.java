@@ -18,7 +18,7 @@ import br.com.jnsdev.financeiro.repository.projection.LancamentoDespesaDTO;
 public interface LancamentoDespesaRepository extends JpaRepository<LancamentoDespesa, Long>{
 
         @Query("select ld.id as id, ld.nome as nome, ld.descricao as descricao,"
-                        + " ld.valor as valor, ld.dtLancamento as dtLacamento,"
+                        + " ld.valor as valor, ld.dtLancamento as dtLancamento,"
                         + " ld.fornecedor as fornecedor, ld.categoria as categoria,"
                         + " ld.dtPagamento as dtPagamento, ld.dtVencimento as dtVencimento,"
                         + " ld.gastoFixo as gastoFixo, ld.pagamento as pagamento, ld.qtdParcelas as qtdParcelas,"
@@ -30,7 +30,7 @@ public interface LancamentoDespesaRepository extends JpaRepository<LancamentoDes
         Page<LancamentoDespesaDTO> findAllByIdClienteByMonth(Long id, int mes, int ano, Pageable pageable);
         
         @Query("select ld.id as id, ld.nome as nome, ld.descricao as descricao,"
-                + " ld.valor as valor, ld.dtLancamento as dtLacamento,"
+                + " ld.valor as valor, ld.dtLancamento as dtLancamento,"
                 + " ld.fornecedor as fornecedor, ld.categoria as categoria,"
                 + " ld.dtPagamento as dtPagamento, ld.dtVencimento as dtVencimento,"
                 + " ld.gastoFixo as gastoFixo, ld.pagamento as pagamento, ld.qtdParcelas as qtdParcelas,"

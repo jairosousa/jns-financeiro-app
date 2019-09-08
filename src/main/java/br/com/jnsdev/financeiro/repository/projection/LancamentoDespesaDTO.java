@@ -17,7 +17,7 @@ public interface LancamentoDespesaDTO {
 
 	BigDecimal getValor();
 
-	LocalDate getDtLacamento();
+	LocalDate getDtLancamento();
 
 	Fornecedor getFornecedor();
 

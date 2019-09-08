@@ -49,6 +49,7 @@ public class LancamentoDespesaService {
 
 	@Transactional(readOnly = false)
 	public void gerarLancamentoAvista(LancamentoDespesa lancamento) {
+		System.out.println("Lancamento: " + lancamento.toString());
 		lancamento.setValorParcela(lancamento.getValor());
 		lancamento.setNumParcela(0);
 		repository.save(lancamento);

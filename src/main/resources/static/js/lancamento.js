@@ -6,7 +6,6 @@ $(document).ready(function() {
     $('#anoAtual').text(ano);
 
     var tabler = criarTabelaReceita(mes, ano);
-
     var tabled = criarTabelaDespesas(mes, ano);
 
     $("#proximo").on("click", function() {
@@ -108,7 +107,7 @@ $(document).ready(function() {
                 },
                 searching: true,
                 order: [
-                    [0, "asc"]
+                    [3, "asc"]
                 ],
                 lengthMenu: [5, 10, 15],
                 responsive: true,

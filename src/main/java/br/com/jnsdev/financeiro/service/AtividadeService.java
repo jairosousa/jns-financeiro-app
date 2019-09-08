@@ -4,6 +4,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,8 @@ import br.com.jnsdev.financeiro.repository.AtividadeRepository;
 @Service
 public class AtividadeService {
 
+	private final Logger LOG = LoggerFactory.getLogger(AtividadeService.class);
+
 	@Autowired
 	private AtividadeRepository repository;
 
@@ -32,32 +36,29 @@ public class AtividadeService {
 	private Datatables datatables;
 	
 	public void salvarAtividade(String acao, String titulo) {
-		
+		Long id = null;
 		Usuario usuario = usuarioService.getUsuarioLogado();
 		Cliente cliente = clienteService.getClienteLogado();
-		
-		if (usuario.hasId() && cliente.hasId()) {
-			salvarAtividadeComSessao(acao, titulo, cliente, usuario);
-		} else {
-			salvarAtividadesSemSession(acao, titulo, usuario);
+		try {
+			if (usuario.hasId() && cliente.hasId()) {
+				id = salvarAtividadeComSessao(acao, titulo, cliente, usuario).getId();
+			} else {
+				id = salvarAtividadesSemSession(acao, titulo, usuario).getId();
+			}
+			LOG.info("SALVO UMA ATIVIDADE ID: {}", id);
+		}catch (Exception e){
+			LOG.error("ERRO! EM SALVAR ATIVIDADE", e);
 		}
 	}
 
 	@Transactional(readOnly = false)
-	private void salvarAtividadeComSessao(String acao, String titulo, Cliente cliente, Usuario usuario) {
-
-		Atividade atividade = new Atividade(acao, cliente.getNome() + titulo, usuario);
-		
-		repository.save(atividade);
+	private Atividade salvarAtividadeComSessao(String acao, String titulo, Cliente cliente, Usuario usuario) {
+		return repository.save(new Atividade(acao, cliente.getNome() + titulo, usuario));
 	}
 
 	@Transactional(readOnly = false)
-	private void salvarAtividadesSemSession(String acao, String titulo, Usuario usuario) {
-		
-		Atividade atividade = new Atividade(acao, usuario.getEmail() + titulo,usuario);
-		
-		repository.save(atividade);
-		
+	private Atividade salvarAtividadesSemSession(String acao, String titulo, Usuario usuario) {
+		return repository.save(new Atividade(acao, usuario.getEmail() + titulo,usuario));
 	}
 	
 	@Transactional(readOnly = true)
