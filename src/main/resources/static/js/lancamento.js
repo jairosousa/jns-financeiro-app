@@ -92,6 +92,12 @@ $(document).ready(function() {
                         }
                     }
                 ],
+                "createdRow": function(row, data, index) {
+                	$('td', row).eq(2).addClass('text-info');
+                	$('td', row).eq(2).addClass('font-weight-bold');
+                    $('td', row).eq(3).addClass('text-success');
+                    $('td', row).eq(3).addClass('font-weight-bold');
+                },
                 processing: true,
                 serverSide: true,
                 "language": {
@@ -120,24 +126,9 @@ $(document).ready(function() {
                         data: 'id'
                     },
                     {
-                        data: 'nome'
-                    },
-                    {
-                        data: 'valor',
-                        render: $.fn.dataTable.render.number('.', ',', 2, 'R$ '),
-                        className: "text-right"
-                    },
-                    {
                         data: 'dtLancamento',
                         render: function(dtLancamento) {
                             return moment(dtLancamento).format('L');
-                        },
-                        className: "text-center"
-                    },
-                    {
-                        data: 'dtPagamento',
-                        render: function(dtPagamento) {
-                            return (dtPagamento != null) ? moment(dtPagamento).format('L') : '';
                         },
                         className: "text-center"
                     }, {
@@ -146,23 +137,39 @@ $(document).ready(function() {
                             return moment(dtVencimento).format('L');
                         },
                         className: "text-center"
+                    }, 
+                    {
+                        data: 'dtPagamento',
+                        render: function(dtPagamento) {
+                            return (dtPagamento != null) ? moment(dtPagamento).format('L') : '';
+                        },
+                        className: "text-center"
+                    },
+                    {
+                        data: 'nome'
+                    },
+                    {
+                        data: 'valor',
+                        render: $.fn.dataTable.render.number('.', ',', 2, 'R$ '),
+                        className: "text-right"
+                    },
+                    {
+                        data: 'valorParcela',
+                        render: $.fn.dataTable.render.number('.', ',', 2, 'R$ '),
+                        className: "text-right"
                     },
                     {
                         data: 'pagamento',
                         render: function(pagamento) {
                             return (pagamento == 'APRAZO') ? 'À prazo' : 'A vista';
-                        }
+                        },
+                        className: "text-center"
                     },
                     {
                         data: 'qtdParcelas'
                     },
                     {
                         data: 'numParcela'
-                    },
-                    {
-                        data: 'valorParcela',
-                        render: $.fn.dataTable.render.number('.', ',', 2, 'R$ '),
-                        className: "text-right"
                     },
                     {
                         data: 'gastoFixo',
@@ -248,7 +255,9 @@ $(document).ready(function() {
                     }
                 ],
                 "createdRow": function(row, data, index) {
-                    $('td', row).eq(3).addClass('text-success');
+                    $('td', row).eq(1).addClass('text-dark');
+                    $('td', row).eq(2).addClass('text-success');
+                    $('td', row).eq(2).addClass('font-weight-bold');
                 },
                 "language": {
                     "url": "/datatables/translationBR"
@@ -262,12 +271,11 @@ $(document).ready(function() {
                         data: 'id'
                     },
                     {
-                        data: 'nome'
-                    },
-                    {
-                        data: 'valor',
-                        render: $.fn.dataTable.render.number('.', ',', 2, 'R$ '),
-                        className: "text-right"
+                        data: 'dtLancamento',
+                        render: function(dtLancamento) {
+                            return moment(dtLancamento).format('L');
+                        },
+                        className: "text-center"
                     },
                     {
                         data: 'dtRecebimento',
@@ -277,14 +285,15 @@ $(document).ready(function() {
                         className: "text-center"
                     },
                     {
-                        data: 'fornecedor.nome'
+                        data: 'nome'
                     },
                     {
-                        data: 'dtLancamento',
-                        render: function(dtLancamento) {
-                            return moment(dtLancamento).format('L');
-                        },
-                        className: "text-center"
+                        data: 'valor',
+                        render: $.fn.dataTable.render.number('.', ',', 2, 'R$ '),
+                        className: "text-right"
+                    },
+                    {
+                        data: 'fornecedor.nome'
                     },
                     {
                         data: 'descricao'
